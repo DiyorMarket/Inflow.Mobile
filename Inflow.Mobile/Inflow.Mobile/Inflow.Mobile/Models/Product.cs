@@ -4,12 +4,13 @@ namespace Inflow.Mobile.Models
 {
     public class Product
     {
-        public int Id { get; private set; }
-        public string Name { get; private set; }
-        public string Description { get; private set; }
-        public decimal SalePrice { get; private set; }
-        public DateTime ExpireDate { get; private set; }
-        public int QuantityInStock { get; private set; }
-        public Category Category { get; private set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public decimal SalePrice { get; set; }
+        public DateTime ExpireDate { get; set; }
+        public int QuantityInStock { get; set; }
+        public string ImageUrl { get; set; }
+        public Category Category { get; set; }
     }
 }
