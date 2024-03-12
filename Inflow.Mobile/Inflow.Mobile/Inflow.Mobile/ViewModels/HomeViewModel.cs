@@ -1,8 +1,18 @@
+<<<<<<< Updated upstream
 ﻿using FFImageLoading.Forms.Args;
 using Inflow.Mobile.Models;
 using Inflow.Mobile.Services;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+=======
+﻿using Inflow.Mobile.Models;
+using Inflow.Mobile.Services;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Reflection;
+using System.Text;
+>>>>>>> Stashed changes
 using System.Threading.Tasks;
 
 namespace Inflow.Mobile.ViewModels
@@ -36,7 +46,11 @@ namespace Inflow.Mobile.ViewModels
         {
             var products = await _dataStore.GetItemsAsync();
 
+<<<<<<< Updated upstream
             foreach(var product in products)
+=======
+            foreach (var product in products)
+>>>>>>> Stashed changes
             {
                 Products.Add(product);
             }

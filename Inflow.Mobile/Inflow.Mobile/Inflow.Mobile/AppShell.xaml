@@ -79,7 +79,11 @@
             </Style>
         </ResourceDictionary>
     </Shell.Resources>
+<<<<<<< Updated upstream
 
+=======
+    
+>>>>>>> Stashed changes
     <TabBar>
         <ShellContent
             Title="Home"
@@ -107,6 +111,7 @@
             Route="LoginPage" />
     </TabBar>
 
+<<<<<<< Updated upstream
     <!-- Optional Templates
     // These may be provided inline as below or as separate classes.
 
@@ -140,4 +145,6 @@
 
     -->
 
+=======
+>>>>>>> Stashed changes
 </Shell>
