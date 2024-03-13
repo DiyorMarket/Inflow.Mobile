@@ -8,10 +8,118 @@
     </ContentPage.BindingContext>
 
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid
+                Grid.Row="0"
+                Margin="15"
+                HeightRequest="55">
+                <md:MaterialSearch
+                    Margin="0,0,75,0"
+                    BackgroundColor="#D9D9D9"
+                    BorderWidth="0"
+                    CornerRadius="50"
+                    HasBorder="True"
+                    HorizontalOptions="Start"
+                    LeadingIcon="icon_search.png"
+                    Placeholder="Search products..." />
+                <md:MaterialCard
+                    Margin="15,0,0,0"
+                    Background="#D9D9D9"
+                    CornerRadius="50"
+                    HasBorder="True"
+                    HorizontalOptions="End">
+                    <ImageButton
+                        Background="#ebe9ea"
+                        BackgroundColor="#ebe9ea"
+                        Source="icon_filter.png" />
+                </md:MaterialCard>
+            </Grid>
+
+            <CarouselView
+                Grid.Row="1"
+                Margin="15,0,0,0"
+                EmptyView="No data."
+                HeightRequest="55"
+                ItemsSource="{Binding TopFilters}"
+                PeekAreaInsets="110">
+                <CarouselView.ItemsLayout>
+                    <LinearItemsLayout ItemSpacing="10" Orientation="Horizontal" />
+                </CarouselView.ItemsLayout>
+                <CarouselView.ItemTemplate>
+                    <DataTemplate>
+                        <md:MaterialCard BorderColor="#333333" CornerRadius="50" BackgroundColor="#DFE1E8">
+                            <Label
+                                FontSize="Medium"
+                                HorizontalOptions="CenterAndExpand"
+                                Text="{Binding Name}"
+                                TextColor="#333333" />
+                        </md:MaterialCard>
+                    </DataTemplate>
+                </CarouselView.ItemTemplate>
+            </CarouselView>
+
+            <CollectionView
+                Grid.Row="2"
+                Margin="15,15,15,0"
+                ItemsSource="{Binding Products}">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout
+                        HorizontalItemSpacing="10"
+                        Orientation="Vertical"
+                        Span="2"
+                        VerticalItemSpacing="10" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <md:MaterialCard
+                            Padding="0"
+                            BackgroundColor="#ebe9ea"
+                            BorderColor="#333333"
+                            CornerRadius="15">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="100" />
+                                    <RowDefinition Height="25" />
+                                    <RowDefinition Height="25" />
+                                    <RowDefinition Height="30" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Image
+                                    Grid.Row="0"
+                                    Grid.ColumnSpan="2"
+                                    Aspect="Fill"
+                                    HorizontalOptions="FillAndExpand"
+                                    Source="{Binding ImageUrl}" />
+                                <Label
+                                    Grid.Row="1"
+                                    Grid.Column="0"
+                                    Margin="10,5,0,0"
+                                    FontAttributes="Bold"
+                                    Text="{Binding Name}" />
+                                <Label
+                                    Grid.Row="2"
+                                    Grid.Column="0"
+                                    Margin="10,5,0,0"
+                                    Text="{Binding Category.Name}" />
+                                <Label
+                                    Grid.Row="3"
+                                    Grid.Column="0"
+                                    Margin="10,5,0,0"
+                                    FontAttributes="Bold"
+                                    Text="{Binding SalePrice, StringFormat='{0:c}'}" />
+                            </Grid>
+                        </md:MaterialCard>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

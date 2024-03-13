@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Common;
 
 namespace Inflow.Mobile.Models
 {
@@ -6,6 +7,7 @@ namespace Inflow.Mobile.Models
     {
         public int Id { get; private set; }
         public string Name { get; private set; }
+        public string ImageUrl { get; private set; }
         public string Description { get; private set; }
         public decimal SalePrice { get; private set; }
         public DateTime ExpireDate { get; private set; }
