@@ -83,7 +83,7 @@
                             CornerRadius="15"
                             effect:ShadowEffect.Color="#001534"
                             effect:ShadowEffect.OffsetX="5"
-                            effect:ShadowEffect.OffsetY="0"
+                            effect:ShadowEffect.OffsetY="5"
                             effect:ShadowEffect.Radius="16"
                             effect:ShadowEffect.Opacity="0.9"
                             >
