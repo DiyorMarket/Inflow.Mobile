@@ -12,7 +12,6 @@ namespace Inflow.Mobile.Views
         {
             InitializeComponent();
             BindingContext = new HomeViewModel();
-
         }
     }
 }

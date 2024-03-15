@@ -2,6 +2,7 @@
     x:Class="Inflow.Mobile.Views.HomePage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:effect="http://xamarin.com/schemas/2020/toolkit"
     xmlns:ffi="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:md="clr-namespace:Plugin.MaterialDesignControls.Material3;assembly=Plugin.MaterialDesignControls"
     xmlns:vm="clr-namespace:Inflow.Mobile.ViewModels">
@@ -19,17 +20,17 @@
                 HeightRequest="55">
                 <md:MaterialSearch
                     Margin="0,0,75,0"
-                    BackgroundColor="#ebe9ea"
+                    BackgroundColor="#D9D9D9"
                     BorderWidth="0"
-                    CornerRadius="15"
+                    CornerRadius="50"
                     HasBorder="True"
                     HorizontalOptions="Start"
                     LeadingIcon="icon_search.png"
                     Placeholder="Search products..." />
                 <md:MaterialCard
                     Margin="15,0,0,0"
-                    Background="#ebe9ea"
-                    CornerRadius="15"
+                    Background="#D9D9D9"
+                    CornerRadius="50"
                     HasBorder="True"
                     HorizontalOptions="End">
                     <ImageButton
@@ -41,6 +42,7 @@
 
             <CarouselView
                 Grid.Row="1"
+                Margin="15,0,0,0"
                 EmptyView="No data."
                 HeightRequest="55"
                 ItemsSource="{Binding TopFilters}"
@@ -50,12 +52,12 @@
                 </CarouselView.ItemsLayout>
                 <CarouselView.ItemTemplate>
                     <DataTemplate>
-                        <md:MaterialCard BorderColor="Black">
+                        <md:MaterialCard BorderColor="#333333" CornerRadius="50" BackgroundColor="#DFE1E8">
                             <Label
                                 FontSize="Medium"
                                 HorizontalOptions="CenterAndExpand"
                                 Text="{Binding Name}"
-                                TextColor="Black" />
+                                TextColor="#333333" />
                         </md:MaterialCard>
                     </DataTemplate>
                 </CarouselView.ItemTemplate>
@@ -63,7 +65,7 @@
 
             <CollectionView
                 Grid.Row="2"
-                Margin="15,25,15,0"
+                Margin="15,15,15,0"
                 ItemsSource="{Binding Products}">
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout
@@ -76,11 +78,17 @@
                     <DataTemplate>
                         <md:MaterialCard
                             Padding="0"
-                            BackgroundColor="#ebe9ea"
-                            CornerRadius="15">
+                            BackgroundColor="White"
+                            CornerRadius="15"
+                            effect:ShadowEffect.Color="Black"
+                            effect:ShadowEffect.OffsetX="0"
+                            effect:ShadowEffect.OffsetY="5"
+                            effect:ShadowEffect.Radius="10"
+                            effect:ShadowEffect.Opacity="0.5"
+                            >
                             <Grid>
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="80" />
+                                    <RowDefinition Height="100" />
                                     <RowDefinition Height="25" />
                                     <RowDefinition Height="25" />
                                     <RowDefinition Height="30" />
