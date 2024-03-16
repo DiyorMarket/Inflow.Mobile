@@ -8,7 +8,7 @@
     xmlns:vm="clr-namespace:Inflow.Mobile.ViewModels">
 
     <ContentPage.Content>
-        <Grid>
+        <Grid BackgroundColor="LightBlue">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -20,7 +20,7 @@
                 HeightRequest="55">
                 <md:MaterialSearch
                     Margin="0,0,75,0"
-                    BackgroundColor="#D9D9D9"
+                    BackgroundColor="White"
                     BorderWidth="0"
                     CornerRadius="50"
                     HasBorder="True"
@@ -29,22 +29,21 @@
                     Placeholder="Search products..." />
                 <md:MaterialCard
                     Margin="15,0,0,0"
-                    Background="#D9D9D9"
+                    Background="white"
                     CornerRadius="50"
                     HasBorder="True"
                     HorizontalOptions="End">
                     <ImageButton
-                        Background="#ebe9ea"
-                        BackgroundColor="#ebe9ea"
+                        Background="White"
+                        BackgroundColor="White"
                         Source="icon_filter.png" />
                 </md:MaterialCard>
             </Grid>
 
             <CarouselView
                 Grid.Row="1"
-                Margin="15,0,0,0"
                 EmptyView="No data."
-                HeightRequest="55"
+                HeightRequest="45"
                 ItemsSource="{Binding TopFilters}"
                 PeekAreaInsets="110">
                 <CarouselView.ItemsLayout>
@@ -52,9 +51,9 @@
                 </CarouselView.ItemsLayout>
                 <CarouselView.ItemTemplate>
                     <DataTemplate>
-                        <md:MaterialCard BorderColor="#333333" CornerRadius="50" BackgroundColor="#DFE1E8">
+                        <md:MaterialCard BorderColor="#333333" CornerRadius="50" BackgroundColor="White">
                             <Label
-                                FontSize="Medium"
+                                FontSize="Caption"
                                 HorizontalOptions="CenterAndExpand"
                                 Text="{Binding Name}"
                                 TextColor="#333333" />
@@ -88,10 +87,10 @@
                             >
                             <Grid>
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="100" />
+                                    <RowDefinition Height="120" />
+                                    <RowDefinition Height="20" />
                                     <RowDefinition Height="25" />
                                     <RowDefinition Height="25" />
-                                    <RowDefinition Height="30" />
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
@@ -102,6 +101,7 @@
                                     Grid.ColumnSpan="2"
                                     Aspect="Fill"
                                     HorizontalOptions="FillAndExpand"
+                                    effect:CornerRadiusEffect.CornerRadius="15"
                                     Source="{Binding ImageUrl}" />
                                 <Label
                                     Grid.Row="1"

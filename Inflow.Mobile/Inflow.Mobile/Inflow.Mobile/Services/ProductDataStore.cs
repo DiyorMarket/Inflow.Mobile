@@ -20,8 +20,8 @@ namespace Inflow.Mobile.Services
             new Product()
             {
                 Id = 1,
-                Name = "Product 1",
-                ImageUrl = "coca_cola.png",
+                Name = "Coca Cola",
+                ImageUrl = "Coca_Colas.png",
                 Description = "Product 1 Description",
                 ExpireDate = DateTime.Now.AddMonths(2),
                 QuantityInStock = 5,
@@ -31,8 +31,8 @@ namespace Inflow.Mobile.Services
             new Product()
             {
                 Id = 2,
-                Name = "Product 2",
-                ImageUrl = "croissant.png",
+                Name = "Bun",
+                ImageUrl = "roll_bun.png",
                 Description = "Product 2 Description",
                 ExpireDate = DateTime.Now.AddMonths(2),
                 QuantityInStock = 5,
@@ -42,8 +42,8 @@ namespace Inflow.Mobile.Services
             new Product()
             {
                 Id = 3,
-                Name = "Product 3",
-                ImageUrl = "baseball.png",
+                Name = "Baseball",
+                ImageUrl = "baseball_new.png",
                 Description = "Product 3 Description",
                 ExpireDate = DateTime.Now.AddMonths(2),
                 QuantityInStock = 5,
