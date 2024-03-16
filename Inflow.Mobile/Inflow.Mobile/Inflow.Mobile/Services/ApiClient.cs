@@ -1,34 +1,45 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Inflow.Mobile.Services
 {
     public class ApiClient
     {
-        private const string baseUrl = "https://localhost:7258/api";
-        private readonly HttpClient _client = new HttpClient();
+        private const string BaseUrl = "https://localhost:7258/api";
+        private readonly HttpClient _client;
 
         public ApiClient()
         {
-            _client.BaseAddress = new Uri(baseUrl);
+            _client = new HttpClient();
+            _client.BaseAddress = new Uri(BaseUrl);
             _client.DefaultRequestHeaders.Add("Accept", "application/json");
         }
 
         public async Task<HttpResponseMessage> GetAsync(string url)
         {
-            var request = new HttpRequestMessage(HttpMethod.Get, _client.BaseAddress?.AbsolutePath + "/" + url);
-
-            var response = await _client.SendAsync(request);
-
-            if (!response.IsSuccessStatusCode)
+            try
             {
-                throw new Exception($"Error fetching url: {url}");
-            }
+                HttpResponseMessage response = await _client.GetAsync(BaseUrl + "/" + url);
 
-            return response;
+                if (!response.IsSuccessStatusCode)
+                {
+                    throw new HttpRequestException($"Failed to get data from {url}. Status code: {response.StatusCode}");
+                }
+
+                return response;
+            }
+            catch (HttpRequestException ex)
+            {
+                Console.WriteLine($"HTTP request failed: {ex.Message}");
+                throw;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+                throw;
+            }
         }
     }
 }
