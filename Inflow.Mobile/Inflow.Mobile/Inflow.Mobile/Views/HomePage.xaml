@@ -2,6 +2,7 @@
     x:Class="Inflow.Mobile.Views.HomePage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     xmlns:ffi="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:md="clr-namespace:Plugin.MaterialDesignControls.Material3;assembly=Plugin.MaterialDesignControls"
     xmlns:vm="clr-namespace:Inflow.Mobile.ViewModels">
@@ -19,17 +20,17 @@
                 HeightRequest="55">
                 <md:MaterialSearch
                     Margin="0,0,75,0"
-                    BackgroundColor="#ebe9ea"
+                    BackgroundColor="#D9D9D9"
                     BorderWidth="0"
-                    CornerRadius="15"
+                    CornerRadius="50"
                     HasBorder="True"
                     HorizontalOptions="Start"
                     LeadingIcon="icon_search.png"
                     Placeholder="Search products..." />
                 <md:MaterialCard
                     Margin="15,0,0,0"
-                    Background="#ebe9ea"
-                    CornerRadius="15"
+                    Background="#D9D9D9"
+                    CornerRadius="50"
                     HasBorder="True"
                     HorizontalOptions="End">
                     <ImageButton
@@ -41,21 +42,22 @@
 
             <CarouselView
                 Grid.Row="1"
+                Margin="15,0,0,0"
                 EmptyView="No data."
-                HeightRequest="55"
+                HeightRequest="50"
                 ItemsSource="{Binding TopFilters}"
-                PeekAreaInsets="110">
+                PeekAreaInsets="120">
                 <CarouselView.ItemsLayout>
                     <LinearItemsLayout ItemSpacing="10" Orientation="Horizontal" />
                 </CarouselView.ItemsLayout>
                 <CarouselView.ItemTemplate>
                     <DataTemplate>
-                        <md:MaterialCard BorderColor="Black">
+                        <md:MaterialCard BorderColor="#333333" CornerRadius="50" BackgroundColor="#DFE1E8">
                             <Label
-                                FontSize="Medium"
+                                FontSize="Default"
                                 HorizontalOptions="CenterAndExpand"
                                 Text="{Binding Name}"
-                                TextColor="Black" />
+                                TextColor="#333333" />
                         </md:MaterialCard>
                     </DataTemplate>
                 </CarouselView.ItemTemplate>
@@ -63,7 +65,7 @@
 
             <CollectionView
                 Grid.Row="2"
-                Margin="15,25,15,0"
+                Margin="15,15,15,0"
                 ItemsSource="{Binding Products}">
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout
@@ -76,11 +78,19 @@
                     <DataTemplate>
                         <md:MaterialCard
                             Padding="0"
-                            BackgroundColor="#ebe9ea"
-                            CornerRadius="15">
+                            BackgroundColor="White"
+                            CornerRadius="16">
+                            <!--
+                            IsClippedToBounds="True"
+                            xct:ShadowEffect.OffsetX="0"
+                            xct:ShadowEffect.OffsetY="4"
+                            xct:ShadowEffect.Color="#001534"
+                            xct:ShadowEffect.Radius="16"
+                            xct:ShadowEffect.Opacity="0.6"
+                            -->
                             <Grid>
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="80" />
+                                    <RowDefinition Height="150" />
                                     <RowDefinition Height="25" />
                                     <RowDefinition Height="25" />
                                     <RowDefinition Height="30" />
@@ -89,12 +99,25 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
-                                <Image
+                                <Frame
                                     Grid.Row="0"
                                     Grid.ColumnSpan="2"
-                                    Aspect="Fill"
+                                    BackgroundColor="#DFE1E8" 
+                                    CornerRadius="15"
                                     HorizontalOptions="FillAndExpand"
-                                    Source="{Binding ImageUrl}" />
+                                    Padding="0">
+                                    <Grid>
+                                        <Image Aspect="Fill"
+                                            Source="{Binding ImageUrl}"/>
+                                        <Image Aspect="Fill"
+                                            WidthRequest="20"
+                                            HeightRequest="20"
+                                            Margin="0,6,6,0"
+                                            Source="love.png"
+                                            HorizontalOptions="End"
+                                            VerticalOptions="Start"/>
+                                    </Grid>
+                                </Frame>
                                 <Label
                                     Grid.Row="1"
                                     Grid.Column="0"
@@ -106,12 +129,26 @@
                                     Grid.Column="0"
                                     Margin="10,5,0,0"
                                     Text="{Binding Category.Name}" />
-                                <Label
-                                    Grid.Row="3"
-                                    Grid.Column="0"
-                                    Margin="10,5,0,0"
-                                    FontAttributes="Bold"
-                                    Text="{Binding SalePrice, StringFormat='{0:c}'}" />
+                                <Grid Grid.Row="3"
+                                        Grid.Column="0"
+                                        Margin="10,0,0,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label Grid.Column="0"
+                                            Margin="0,0,0,0"
+                                            FontAttributes="Bold"
+                                            Text="{Binding SalePrice, StringFormat='{0:c}'}" />
+                                    <Image Grid.Column="1"
+                                            WidthRequest="20"
+                                            HeightRequest="20"
+                                            Margin="0,0,0,0"
+                                            Source="shopping.png"
+                                            HorizontalOptions="End"
+                                            VerticalOptions="End"/>
+                                </Grid>
                             </Grid>
                         </md:MaterialCard>
                     </DataTemplate>
