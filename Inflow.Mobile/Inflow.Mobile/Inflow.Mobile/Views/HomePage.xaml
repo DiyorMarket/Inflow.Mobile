@@ -78,12 +78,13 @@
                         <md:MaterialCard
                             Padding="0"
                             BackgroundColor="White"
+                            BorderColor="Gray"
                             CornerRadius="15"
-                            effect:ShadowEffect.Color="Black"
-                            effect:ShadowEffect.OffsetX="0"
+                            effect:ShadowEffect.Color="#001534"
+                            effect:ShadowEffect.OffsetX="5"
                             effect:ShadowEffect.OffsetY="5"
-                            effect:ShadowEffect.Radius="10"
-                            effect:ShadowEffect.Opacity="0.5"
+                            effect:ShadowEffect.Radius="16"
+                            effect:ShadowEffect.Opacity="0.9"
                             >
                             <Grid>
                                 <Grid.RowDefinitions>
