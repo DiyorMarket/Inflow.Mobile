@@ -10,7 +10,9 @@ namespace Inflow.Mobile.DataStores.Products
 {
     public interface IProductDataStore
     {
-        Task<GetProductsResponse> GetProductsAsync();
+        Task<IEnumerable<Product>> GetProductsAsync();
+        Task<IEnumerable<Product>> GetNextPageAsync();
+        Task<IEnumerable<Product>> FilterProducts(ProductFilters filters);
         Task<Product> GetProduct(int id);
     }
 }

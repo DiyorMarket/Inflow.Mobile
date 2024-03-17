@@ -25,7 +25,8 @@
                     HasBorder="True"
                     HorizontalOptions="Start"
                     LeadingIcon="icon_search.png"
-                    Placeholder="Search products..." />
+                    Placeholder="Search products..."
+                    Text="{Binding SearchString}" />
                 <md:MaterialCard
                     Margin="15,0,0,0"
                     Background="#ebe9ea"
@@ -35,6 +36,7 @@
                     <ImageButton
                         Background="#ebe9ea"
                         BackgroundColor="#ebe9ea"
+                        Clicked="ImageButton_OnClicked"
                         Source="icon_filter.png" />
                 </md:MaterialCard>
             </Grid>
@@ -63,8 +65,10 @@
 
             <CollectionView
                 Grid.Row="2"
-                Margin="15,25,15,0"
-                ItemsSource="{Binding Products}">
+                Margin="15,25,15,15"
+                ItemsSource="{Binding Products}"
+                RemainingItemsThreshold="3"
+                RemainingItemsThresholdReached="ItemsView_OnRemainingItemsThresholdReached">
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout
                         HorizontalItemSpacing="10"
@@ -117,6 +121,12 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
+
+            <md:MaterialProgressIndicator
+                Grid.Row="2"
+                IsEnabled="{Binding IsBusy}"
+                IsVisible="{Binding IsBusy}"
+                VerticalOptions="CenterAndExpand" />
         </Grid>
     </ContentPage.Content>
 </ContentPage>
