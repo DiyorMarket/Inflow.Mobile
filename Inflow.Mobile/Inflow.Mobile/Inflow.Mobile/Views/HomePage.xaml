@@ -31,12 +31,14 @@
                     Margin="15,0,0,0"
                     Background="#D9D9D9"
                     CornerRadius="50"
+                    WidthRequest="30"
+                    HeightRequest="30"
                     HasBorder="True"
                     HorizontalOptions="End">
                     <ImageButton
-                        Background="#ebe9ea"
-                        BackgroundColor="#ebe9ea"
-                        Source="icon_filter.png" />
+                        WidthRequest="20"
+                        HeightRequest="20"
+                        Source="bullets.png" />
                 </md:MaterialCard>
             </Grid>
 
