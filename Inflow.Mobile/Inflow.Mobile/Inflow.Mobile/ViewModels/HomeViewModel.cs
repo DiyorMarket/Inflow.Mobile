@@ -1,4 +1,5 @@
-﻿using Inflow.Mobile.Models;
+﻿using Inflow.Mobile.DataStores.Products;
+using Inflow.Mobile.Models;
 using Inflow.Mobile.Services;
 using System;
 using System.Collections.Generic;
@@ -10,13 +11,14 @@ namespace Inflow.Mobile.ViewModels
 {
     internal class HomeViewModel : BaseViewModel
     {
-        private IDataStore<Product> _dataStore;
+        private IProductDataStore _ProductDataStore;
         public ObservableCollection<TopFilter> TopFilters { get; set; }
 
         public ObservableCollection<Product> Products { get; set; }
 
-        public HomeViewModel()
+        public HomeViewModel(IProductDataStore productDataStore)
         {
+            _ProductDataStore = productDataStore;
             Title = "Home";
             TopFilters = new ObservableCollection<TopFilter>()
             {
@@ -28,18 +30,24 @@ namespace Inflow.Mobile.ViewModels
 
             Products = new ObservableCollection<Product>();
 
-            _dataStore = new ProductDataStore();
-
             LoadData();
         }
 
         public async Task LoadData()
         {
-            var products = await _dataStore.GetItemsAsync();
-
-            foreach (var product in products)
+            Products.Clear();
+            try
             {
-                Products.Add(product);
+                Products.Clear();
+                var products = await _ProductDataStore.GetProductsAsync();
+                //foreach (var product in products)
+                //{
+                //    Products.Add(product);
+                //}
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error loading products: {ex.Message}");
             }
         }
     }
