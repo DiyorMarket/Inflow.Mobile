@@ -4,7 +4,8 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:views="clr-namespace:Inflow.Mobile.Views"
-    Title="Inflow.Mobile">
+    Title="Inflow.Mobile"
+    NavBarIsVisible="False">
 
     <!--
         The overall app visual hierarchy is defined here, along with navigation.
@@ -79,6 +80,7 @@
             </Style>
         </ResourceDictionary>
     </Shell.Resources>
+
     <TabBar>
         <ShellContent
             Title="Home"
