@@ -22,6 +22,13 @@ namespace Inflow.Mobile.ViewModels
             set => SetProperty(ref _username, value);
         }
 
+        private string _email;
+        public string Email
+        {
+            get => _email;
+            set => SetProperty(ref _email, value);
+        }
+
         private string _phoneNumber;
         public string PhoneNumber
         {
@@ -65,7 +72,7 @@ namespace Inflow.Mobile.ViewModels
 
         private async void OnLogin()
         {
-            if (string.IsNullOrWhiteSpace(Username))
+            if (string.IsNullOrWhiteSpace(Email))
             {
                 return;
             }
@@ -82,7 +89,26 @@ namespace Inflow.Mobile.ViewModels
 
         private async void OnRegister()
         {
+            if (string.IsNullOrWhiteSpace(Email))
+            {
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(Username))
+            {
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(PhoneNumber))
+            {
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(Password))
+            {
+                return;
+            }
 
+            var result = _loginService.RegisterUser(Email, Password, Username, PhoneNumber);
+
+            Application.Current.MainPage= new AppShell();
         }
     }
 }
