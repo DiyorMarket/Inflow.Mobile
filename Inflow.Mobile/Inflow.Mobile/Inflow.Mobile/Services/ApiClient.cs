@@ -2,13 +2,14 @@
 using Newtonsoft.Json;
 using System;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Inflow.Mobile.Services
 {
     public class ApiClient
     {
-        private const string BaseUrl = "https://vw2plztl-7258.asse.devtunnels.ms/api";
+        private const string BaseUrl = "https://33cv276t-7258.asse.devtunnels.ms/api";
         private readonly HttpClient _client;
 
         public ApiClient()
@@ -43,6 +44,27 @@ namespace Inflow.Mobile.Services
                 Console.WriteLine($"Error: {ex.Message}");
                 throw;
             }
+        }
+
+        public async Task<HttpResponseMessage> PostAsync<T>(string resource, string body)
+        {
+            try
+            {
+                var request = new HttpRequestMessage(HttpMethod.Post, BaseUrl + "/" + resource);
+                request.Content = new StringContent(body, Encoding.UTF8, "application/json");
+                var response = await _client.SendAsync(request);
+
+                return response;
+            }
+            catch(HttpRequestException ex)
+            {
+                throw;
+            }
+            catch(Exception ex)
+            {
+                throw;
+            }
+
         }
     }
 }
