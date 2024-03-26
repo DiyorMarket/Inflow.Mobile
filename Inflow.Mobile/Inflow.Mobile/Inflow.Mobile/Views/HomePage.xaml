@@ -93,12 +93,14 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
-                                <Image
+                                <ffi:CachedImage
                                     Grid.Row="0"
                                     Grid.ColumnSpan="2"
                                     Aspect="Fill"
                                     HorizontalOptions="FillAndExpand"
-                                    Source="{Binding ImageUrl}" />
+                                    Source="{Binding ImageUrl}"
+                                    LoadingPlaceholder="placeholder_image.png"
+                                    ErrorPlaceholder="error_image.png" />
                                 <Label
                                     Grid.Row="1"
                                     Grid.Column="0"
