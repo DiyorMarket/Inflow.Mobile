@@ -27,11 +27,12 @@
            WidthRequest="100" />
 
             <Label Grid.Row="1" 
-           Text="LOGIN" 
-           FontSize="Large" 
-           TextColor="#00A3FF"
-           HorizontalOptions="Center" 
-           VerticalOptions="Center" />
+                Text="Welcome Back" 
+                FontSize="Title" 
+                TextColor="#00A3FF"
+                Margin="10"
+                HorizontalOptions="Start" 
+                VerticalOptions="Center" />
 
             <StackLayout Grid.Row="2" 
                  VerticalOptions="EndAndExpand" 
@@ -39,22 +40,27 @@
                  Spacing="15">
                 <StackLayout HorizontalOptions="Center" 
                      Spacing="5">
-
                 </StackLayout>
 
                 <StackLayout HorizontalOptions="Center" 
                      Spacing="5">
-                    <md:MaterialEntry  Placeholder="Enter login" LeadingIcon="icon_phone.png"
-              MaxLength="300" Margin="10" HasBorder="True"
-              Text="{Binding Email}" CornerRadius="10" BorderColor="#00A3FF" 
-                               BackgroundColor="#f7f7f7"
-                               FocusedBackgroundColor="#f7f7f7"
-              AnimateError="True" AnimatePlaceholder="True"
-              TabIndex="1" Keyboard="Text"
-              ReturnType="Next"/>
+                    <md:MaterialEntry  Placeholder="Enter login" LeadingIcon="email.png" 
+                            MaxLength="300" Margin="10" HasBorder="True" TextColor="#00A3FF"
+                            Text="{Binding Email}" CornerRadius="10" BorderColor="#00A3FF"  LabelTextColor="#00A3FF" 
+                            PlaceholderColor="#00A3FF"
+                            FocusedBorderColor="#00A3FF"
+                            FocusedTextColor="#00A3FF"
+                            BackgroundColor="#f7f7f7"
+                            FocusedBackgroundColor="#f7f7f7"
+                            AnimateError="True" AnimatePlaceholder="True"
+                            TabIndex="1" Keyboard="Text"
+                            ReturnType="Next"/>
                     <md:MaterialEntry TabIndex="2" Margin="10"
-                              Placeholder="Enter your password" LeadingIcon="icon_lock.png"
-                              MaxLength="300" BorderColor="#00A3FF"
+                              Placeholder="Enter your password" LeadingIcon="padlock.png"
+                              MaxLength="300" BorderColor="#00A3FF" LabelTextColor="#00A3FF"
+                              PlaceholderColor="#00A3FF"
+                              FocusedBorderColor="#00A3FF"
+                              FocusedTextColor="#00A3FF"
                               IsPassword="True" HasBorder="True" CornerRadius="10" FocusedBackgroundColor="#f7f7f7"
                               Text="{Binding Password}"  BackgroundColor="#f7f7f7"
                               AnimateError="True"
@@ -146,9 +152,11 @@
                 WidthRequest="100" />
 
             <Label Grid.Row="1" 
-                Text="Register" 
-                FontSize="Large" 
-                HorizontalOptions="Center" 
+                Text="Create Account" 
+                FontSize="Title" 
+                Margin="10"
+                TextColor="#00A3FF"
+                HorizontalOptions="Start" 
                 VerticalOptions="Center" />
 
             <StackLayout Grid.Row="2" 
@@ -162,49 +170,64 @@
 
                 <StackLayout HorizontalOptions="Center" 
              Spacing="5">
-                    <md:MaterialEntry  Placeholder="Enter your Email" LeadingIcon="icon_phone.png"
+                    <md:MaterialEntry  Placeholder="Enter your Email" LeadingIcon="email.png"
                             MaxLength="300" Margin="10" HasBorder="True"
-                            Text="{Binding Email}" CornerRadius="10" BorderColor="DarkSlateBlue" 
+                            Text="{Binding Email}" CornerRadius="10" BorderColor="#00A3FF" 
+                            LabelTextColor="#00A3FF" 
+                            PlaceholderColor="#00A3FF"
+                            FocusedBorderColor="#00A3FF"
+                            FocusedTextColor="#00A3FF"
                             BackgroundColor="#f7f7f7"
                             FocusedBackgroundColor="#f7f7f7"
                             AnimateError="True" AnimatePlaceholder="True"
                             TabIndex="1" Keyboard="Text"
                             ReturnType="Next"/>
-                    <md:MaterialEntry  Placeholder="Enter your phone" LeadingIcon="icon_phone.png"
+                    <md:MaterialEntry  Placeholder="Enter your phone" LeadingIcon="telephone.png"
                             MaxLength="300" Margin="10" HasBorder="True"
-                            Text="{Binding PhoneNumber}" CornerRadius="10" BorderColor="DarkSlateBlue" 
+                            Text="{Binding PhoneNumber}" CornerRadius="10" BorderColor="#00A3FF" 
+                            LabelTextColor="#00A3FF" 
+                            PlaceholderColor="#00A3FF"
+                            FocusedBorderColor="#00A3FF"
+                            FocusedTextColor="#00A3FF"
                             BackgroundColor="#f7f7f7"
                             FocusedBackgroundColor="#f7f7f7"
                             AnimateError="True" AnimatePlaceholder="True"
                             TabIndex="1" Keyboard="Telephone"
                             ReturnType="Next"/>
                     <md:MaterialEntry TabIndex="2" Margin="10"
-                            Placeholder="Enter your Name" LeadingIcon="icon_lock.png"
-                            MaxLength="300" BorderColor="DarkSlateBlue"
+                            Placeholder="Enter your Name" LeadingIcon="user.png"
+                            MaxLength="300" BorderColor="#00A3FF"
+                            LabelTextColor="#00A3FF" 
+                            PlaceholderColor="#00A3FF"
+                            FocusedBorderColor="#00A3FF"
+                            FocusedTextColor="#00A3FF"
                             HasBorder="True" CornerRadius="10" FocusedBackgroundColor="#f7f7f7"
                             Text="{Binding Username}"  BackgroundColor="#f7f7f7"
                             AnimateError="True"
                             AnimatePlaceholder="True" />
                     <md:MaterialEntry TabIndex="2" Margin="10"
-                            Placeholder="Enter your password" LeadingIcon="icon_lock.png"
-                            MaxLength="300" BorderColor="DarkSlateBlue"
+                            Placeholder="Enter your password" LeadingIcon="padlock.png"
+                            MaxLength="300" BorderColor="#00A3FF"
+                            LabelTextColor="#00A3FF" 
+                            PlaceholderColor="#00A3FF"
+                            FocusedBorderColor="#00A3FF"
+                            FocusedTextColor="#00A3FF"
                             IsPassword="True" HasBorder="True" CornerRadius="10" FocusedBackgroundColor="#f7f7f7"
                             Text="{Binding Password}"  BackgroundColor="#f7f7f7"
                             AnimateError="True"
                             AnimatePlaceholder="True" />
-
                     <md:MaterialButton Margin="10" Command="{Binding RegisterCommand}"
                             Text="Register" TabIndex="3"
                             TextColor="White"
-                            BackgroundColor="DarkSlateBlue" 
+                            BackgroundColor="#00A3FF" 
                             CornerRadius="10"  Clicked="Register_Clicked"
                             HeightRequest="50" 
                             FontSize="18"/>
                     <md:MaterialDivider Margin="10"/>
                     <md:MaterialButton Margin="10" 
                             Text="Login" Clicked="Login_Clicked" TabIndex="3" Command="{Binding LoginCommand}"
-                            TextColor="DarkSlateBlue" ButtonType="Outlined"
-                            BackgroundColor="Transparent"  BorderColor="DarkSlateBlue"
+                            TextColor="#00A3FF" ButtonType="Outlined"
+                            BackgroundColor="Transparent"  BorderColor="#00A3FF"
                             CornerRadius="10" 
                             HeightRequest="50" 
                             FontSize="18"/>
@@ -235,22 +258,22 @@
 
             <!-- CANCEL BUTTON (appears after X seconds after login) -->
             <StackLayout Grid.Row="0" 
-         Grid.RowSpan="3" 
-         VerticalOptions="Center" 
-         TranslationY="100"
-         Margin="50,0" 
-         IsVisible="false">
+                    Grid.RowSpan="3" 
+                    VerticalOptions="Center" 
+                    TranslationY="100"
+                    Margin="50,0" 
+                    IsVisible="false">
                 <Label 
-    Text="This is taking a little longer than expected, please hang in there..." 
-    FontSize="Small" 
-    TextColor="White"
-    LineBreakMode="WordWrap"
-    HorizontalOptions="Center" 
-    HorizontalTextAlignment="Center" />
+                    Text="This is taking a little longer than expected, please hang in there..." 
+                    FontSize="Small" 
+                    TextColor="White"
+                    LineBreakMode="WordWrap"
+                    HorizontalOptions="Center" 
+                    HorizontalTextAlignment="Center" />
                 <Button 
-    Text="Cancel"
-    Command="{Binding CancelLoginCommand}" 
-    HorizontalOptions="Center" />
+                    Text="Cancel"
+                    Command="{Binding CancelLoginCommand}" 
+                    HorizontalOptions="Center" />
             </StackLayout>
         </Grid>
     </ContentPage>
