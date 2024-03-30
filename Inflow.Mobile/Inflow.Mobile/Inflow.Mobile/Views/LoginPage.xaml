@@ -209,21 +209,20 @@
             <Image Grid.RowSpan="3"
                 Source="register.png"
                 Aspect="AspectFill"/>
-            
-            <Image Grid.Row="0" 
-                Source="xamarin_logo.png" 
-                VerticalOptions="Center" 
-                HorizontalOptions="Center" 
-                HeightRequest="80" 
-                WidthRequest="100" />
 
-            <Label Grid.Row="1" 
-                Text="Create Account" 
-                FontSize="Title" 
-                Margin="10"
-                TextColor="#00A3FF"
+            <StackLayout Grid.Row="0" Orientation="Horizontal" HorizontalOptions="Start" VerticalOptions="Center">
+                <Image Source="logowhite.png" 
+                VerticalOptions="Center" 
                 HorizontalOptions="Start" 
-                VerticalOptions="Center" />
+                Margin="10,0,0,0"
+                HeightRequest="75" 
+                WidthRequest="75"/>
+                <Label Text="Create Account" 
+                FontSize="Title" 
+                TextColor="#FFFFFF"
+                HorizontalOptions="Center" 
+                VerticalOptions="Center"/>
+            </StackLayout>
 
             <StackLayout Grid.Row="2" 
                 VerticalOptions="EndAndExpand" 
@@ -299,7 +298,6 @@
                             FontSize="18"/>
                 </StackLayout>
             </StackLayout>
-
         </Grid>
     </ContentPage>
 </CarouselPage>
