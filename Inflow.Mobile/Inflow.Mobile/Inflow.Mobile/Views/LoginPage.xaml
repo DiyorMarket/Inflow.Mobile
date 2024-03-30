@@ -21,7 +21,7 @@
                 Aspect="AspectFill"/>
 
             <StackLayout Grid.Row="0" Orientation="Horizontal" HorizontalOptions="Start" VerticalOptions="Center">
-                <Image Source="logo.png" 
+                <Image Source="logowhite.png" 
                     VerticalOptions="Center" 
                     HorizontalOptions="Start" 
                     Margin="10,0,0,0"
@@ -85,20 +85,19 @@
                    Source="login.png"
                    Aspect="AspectFill"/>
 
-            <Image Grid.Row="0" 
-           Source="xamarin_logo.png" 
-           VerticalOptions="Center" 
-           HorizontalOptions="Center" 
-           HeightRequest="100" 
-           WidthRequest="100" />
-
-            <Label Grid.Row="0" 
-                Text="Welcome Back" 
+            <StackLayout Grid.Row="0" Orientation="Horizontal" HorizontalOptions="Start" VerticalOptions="Center">
+                <Image Source="logowhite.png" 
+                VerticalOptions="Center" 
+                HorizontalOptions="Start" 
+                Margin="10,0,0,0"
+                HeightRequest="75" 
+                WidthRequest="75"/>
+                <Label Text="Welcome Back" 
                 FontSize="Title" 
                 TextColor="#FFFFFF"
-                Margin="10"
-                HorizontalOptions="Start" 
-                VerticalOptions="Center" />
+                HorizontalOptions="Center" 
+                VerticalOptions="Center"/>
+            </StackLayout>
 
             <StackLayout Grid.Row="2" 
                  VerticalOptions="EndAndExpand" 
@@ -147,12 +146,12 @@
                                FontSize="18"/>
                     <md:MaterialDivider Margin="10"/>
                     <md:MaterialButton Margin="10" 
-               Text="Sing up" TabIndex="3" Command="{Binding RegisterCommand}"
-               TextColor="#00A3FF" ButtonType="Outlined"
-               BackgroundColor="Transparent"  BorderColor="#00A3FF"
-               CornerRadius="10" Clicked="Register_Clicked"
-               HeightRequest="50" 
-               FontSize="18"/>
+                               Text="Sing up" TabIndex="3" Command="{Binding RegisterCommand}"
+                               TextColor="#00A3FF" ButtonType="Outlined"
+                               BackgroundColor="Transparent"  BorderColor="#00A3FF"
+                               CornerRadius="10" Clicked="Register_Clicked"
+                               HeightRequest="50" 
+                               FontSize="18"/>
                 </StackLayout>  
             </StackLayout>
 
