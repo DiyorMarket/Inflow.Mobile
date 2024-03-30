@@ -20,12 +20,12 @@ namespace Inflow.Mobile.Views
 
         private void Register_Clicked(object sender, EventArgs e)
         {
-            CurrentPage = Children[2];
+            CurrentPage = Children[1];
         }
 
         private void Login_Clicked(object sender, EventArgs e)
         {
-            CurrentPage = Children[1];
+            CurrentPage = Children[0];
         }
     }
 }
