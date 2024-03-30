@@ -13,6 +13,11 @@
             SearchString = searchString;
             Sort = sort;
         }
+        public ProductFilters(decimal? lowestPrice, decimal? highestPrice)
+        {
+            LowestPrice = lowestPrice;
+            HighestPrice = highestPrice;
+        }
 
         public ProductFilters(string searchString, string sort, decimal? lowestPrice, decimal? highestPrice, int? categoryId)
             : this(searchString, sort)

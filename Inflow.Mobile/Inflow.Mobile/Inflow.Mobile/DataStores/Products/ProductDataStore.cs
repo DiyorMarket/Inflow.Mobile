@@ -67,12 +67,12 @@ namespace Inflow.Mobile.DataStores.Products
 
             if (filters.LowestPrice != null)
             {
-                queryParams.Append($"lowestPrice={filters.LowestPrice}&");
+                queryParams.Append($"PriceLessThan={filters.HighestPrice}&");
             }
 
             if (filters.HighestPrice != null)
             {
-                queryParams.Append($"highestPrice={filters.HighestPrice}");
+                queryParams.Append($"PriceGreaterThan={filters.LowestPrice}");
             }
 
             return queryParams.ToString().TrimEnd('&');

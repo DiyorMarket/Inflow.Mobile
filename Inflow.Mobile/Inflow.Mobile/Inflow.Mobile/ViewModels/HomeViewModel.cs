@@ -1,14 +1,9 @@
 ﻿using Inflow.Mobile.DataStores.Products;
 using Inflow.Mobile.Models;
-using Inflow.Mobile.Services;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Input;
-using Inflow.Mobile.Views.Popups;
-using Xamarin.Forms;
+using Xamarin.Essentials;
 
 namespace Inflow.Mobile.ViewModels
 {
@@ -30,7 +25,6 @@ namespace Inflow.Mobile.ViewModels
                 ApplyFilters();
             }
         }
-
         public ProductFilters Filters
         {
             get
@@ -104,7 +98,6 @@ namespace Inflow.Mobile.ViewModels
         {
             IsBusy = true;
             Products.Clear();
-
             try
             {
                 var filteredProducts = await _productDataStore.FilterProducts(Filters);
