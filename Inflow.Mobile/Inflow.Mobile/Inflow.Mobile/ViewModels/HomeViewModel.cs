@@ -1,13 +1,14 @@
 ﻿using Inflow.Mobile.DataStores.Products;
 using Inflow.Mobile.Models;
+using MvvmHelpers.Commands;
 using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using Xamarin.Essentials;
+using System.Windows.Input;
 
 namespace Inflow.Mobile.ViewModels
 {
-    internal class HomeViewModel : BaseViewModel
+    public class HomeViewModel : BaseViewModel
     {
         private IProductDataStore _productDataStore;
 
@@ -22,16 +23,31 @@ namespace Inflow.Mobile.ViewModels
             set
             {
                 SetProperty(ref _searchString, value);
-                ApplyFilters();
+                OnApplyFilters();
             }
+        }
+        private decimal _lowestPrice;
+        public decimal LowestPrice
+        {
+            get => _lowestPrice;
+            set => SetProperty(ref _lowestPrice, value);
+        }
+
+        private decimal _highestPrice;
+        public decimal HighestPrice
+        {
+            get => _highestPrice;
+            set => SetProperty(ref _highestPrice, value);
         }
         public ProductFilters Filters
         {
             get
             {
-                return new ProductFilters(_searchString, "");
+                return new ProductFilters(_searchString, "",_lowestPrice,_highestPrice,null);
             }
         }
+
+        public ICommand ApplyFiltersCommand { get; }
 
         public HomeViewModel(IProductDataStore productDataStore)
         {
@@ -46,6 +62,8 @@ namespace Inflow.Mobile.ViewModels
                 new TopFilter(4, "Recommended"),
             };
             Products = new ObservableCollection<Product>();
+
+            ApplyFiltersCommand = new AsyncCommand(OnApplyFilters);
         }
 
         public async Task LoadData()
@@ -94,7 +112,7 @@ namespace Inflow.Mobile.ViewModels
             }
         }
 
-        public async Task ApplyFilters()
+        public async Task OnApplyFilters()
         {
             IsBusy = true;
             Products.Clear();

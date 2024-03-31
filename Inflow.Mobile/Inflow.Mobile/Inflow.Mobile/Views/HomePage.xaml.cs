@@ -36,8 +36,13 @@ namespace Inflow.Mobile.Views
 
         private async void ImageButton_OnClicked(object sender, EventArgs e)
         {
-            var popup = new FiltersPopupPage(); ;
+            var popup = new FiltersPopupPage()
+            {
+                BindingContext = BindingContext
+            };
+
             await Navigation.PushModalAsync(popup);
+    
         }
     }
 }

@@ -10,12 +10,10 @@ namespace Inflow.Mobile.Views.Popups
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class FiltersPopupPage : PopupPage
-    {
-        private readonly IProductDataStore _productDataStore;
+    { 
         public FiltersPopupPage()
         {
             InitializeComponent();
-            BindingContext = new FilterViewModel(_productDataStore);   
         }
 
         protected override void OnAppearing()
@@ -32,9 +30,8 @@ namespace Inflow.Mobile.Views.Popups
 
         private async void Button_Clicked(object sender, EventArgs e)
         {
-            var vm=BindingContext as FilterViewModel;
-            vm?.OnFilter();
-
+            var vm = BindingContext as HomeViewModel;
+            vm?.OnApplyFilters();
             await Navigation.PopModalAsync();
         }
     }

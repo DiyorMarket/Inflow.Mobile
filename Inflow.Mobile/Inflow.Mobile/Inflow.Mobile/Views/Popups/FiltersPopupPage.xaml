@@ -29,32 +29,38 @@
         WidthRequest="300">
 
         <StackLayout>
-            <Label Text="Categories" TextColor="Black"/>
-            <Picker Background="lightblue" Title="All" TitleColor="Blue"
-                        ItemsSource="{Binding  Categories}"
-                        SelectedItem="{Binding SelectedItem}">
+            <Label Text="Categories" TextColor="Black" />
+            <Picker
+                Title="All"
+                Background="lightblue"
+                ItemsSource="{Binding Categories}"
+                SelectedItem="{Binding SelectedItem}"
+                TitleColor="Blue">
                 <Picker.ItemDisplayBinding>
                     <Binding Path="Name" />
                 </Picker.ItemDisplayBinding>
             </Picker>
         </StackLayout>
-        
 
-        <Label Text="Property" TextColor="Black"/>
+
+        <Label Text="Property" TextColor="Black" />
         <StackLayout Orientation="Horizontal">
-            <Picker Title="Select property" 
-                    HorizontalTextAlignment="Center" 
-                    TitleColor="Blue" Margin="0,0,20,0"
-                    WidthRequest="140">
+            <Picker
+                Title="Select property"
+                Margin="0,0,20,0"
+                HorizontalTextAlignment="Center"
+                TitleColor="Blue"
+                WidthRequest="140">
                 <Picker.ItemDisplayBinding>
                     <Binding Path="Name" />
                 </Picker.ItemDisplayBinding>
             </Picker>
-            
-            <Picker Title="Select option"
-                    HorizontalTextAlignment="Center" 
-                    TitleColor="Blue"
-                    WidthRequest="140">
+
+            <Picker
+                Title="Select option"
+                HorizontalTextAlignment="Center"
+                TitleColor="Blue"
+                WidthRequest="140">
                 <Picker.ItemDisplayBinding>
                     <Binding Path="Name" />
                 </Picker.ItemDisplayBinding>
@@ -63,18 +69,31 @@
 
         <Label Text="Price" TextColor="Black" />
         <StackLayout Orientation="Horizontal">
-            <Entry Text="{Binding LowestPrice}" 
-                   Placeholder="Lowest price" TextColor="Blue" Keyboard="Numeric" />
-            <Entry Text="{Binding HighestPrice}" 
-                   Margin="60,0,0,0" TextColor="Blue" 
-                   Placeholder="Highest price" 
-                   Keyboard="Numeric" />
+            <Entry
+                Keyboard="Numeric"
+                Placeholder="Lowest price"
+                Text="{Binding LowestPrice}"
+                TextColor="Blue" />
+            <Entry
+                Margin="60,0,0,0"
+                Keyboard="Numeric"
+                Placeholder="Highest price"
+                Text="{Binding HighestPrice}"
+                TextColor="Blue" />
         </StackLayout>
 
-        <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
-            <Button  WidthRequest="150" BorderColor="AliceBlue" Text="Cansel" BackgroundColor="Red" />
-            <Button  Clicked="Button_Clicked" WidthRequest="150" Text="Ok" BackgroundColor="Green" />
+        <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
+            <Button
+                BackgroundColor="Red"
+                BorderColor="AliceBlue"
+                Text="Cancel"
+                WidthRequest="150" />
+            <Button
+                BackgroundColor="Green"
+                Clicked="Button_Clicked"
+                Text="Ok"
+                WidthRequest="150" />
         </StackLayout>
-        
+
     </StackLayout>
 </pages:PopupPage>

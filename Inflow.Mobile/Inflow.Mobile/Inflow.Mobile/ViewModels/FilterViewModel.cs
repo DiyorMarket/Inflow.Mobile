@@ -24,37 +24,6 @@ namespace Inflow.Mobile.ViewModels
             Categories = new ObservableCollection<Category>();
             Products = new ObservableCollection<Product>();
         }
-        private decimal _lowestPrice;
-        public decimal LowestPrice
-        {
-            get => _lowestPrice;
-            set => SetProperty(ref _lowestPrice, value);
-        }
-
-        private decimal _highestPrice;
-        public decimal HighestPrice
-        {
-            get => _highestPrice;
-            set => SetProperty(ref _highestPrice, value);
-        }
-
-        public async void OnFilter()
-        {
-            try
-            {
-                var filteredProducts = await _productDataStore.FilterProducts(new ProductFilters("","",_lowestPrice,_highestPrice,null));
-
-                foreach (var product in filteredProducts)
-                {
-                    Products.Add(product);
-                }
-
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-        }
 
         private Category _selectedCategory;
         public Category SelectedCategory

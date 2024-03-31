@@ -18,7 +18,7 @@ namespace Inflow.Mobile.Services
             _client.DefaultRequestHeaders.Add("Accept", "application/json");
         }
 
-        public async Task<GetBaseReponse<T>> GetAsync<T>(string resource)
+        public async Task<ApiResponse<T>> GetAsync<T>(string resource)
         {
             try
             {
@@ -30,7 +30,7 @@ namespace Inflow.Mobile.Services
                 }
 
                 var json = await response.Content.ReadAsStringAsync();
-                return JsonConvert.DeserializeObject<GetBaseReponse<T>>(json) 
+                return JsonConvert.DeserializeObject<ApiResponse<T>>(json) 
                        ?? throw new JsonSerializationException();
             }
             catch (HttpRequestException ex)
