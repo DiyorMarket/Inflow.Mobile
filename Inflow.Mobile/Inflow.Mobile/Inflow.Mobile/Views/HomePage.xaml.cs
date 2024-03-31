@@ -11,6 +11,8 @@ namespace Inflow.Mobile.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class HomePage : ContentPage
     {
+        private bool isYellow = false;
+
         public HomePage()
         {
             InitializeComponent(); 
@@ -38,6 +40,25 @@ namespace Inflow.Mobile.Views
         {
             var popup = new FiltersPopupPage();
             await Navigation.PushModalAsync(popup);
+        }
+
+        public async void Add_To_Cart(object sender, EventArgs e)
+        {
+            var button = (ImageButton)sender;
+
+            if(isYellow)
+            {
+                button.Source = "grey_cart.png";
+                isYellow = false;
+            }
+            else
+            {
+                button.Source = "blue_cart.png";
+                isYellow = true;
+            }
+
+            await button.ScaleTo(1.2, 100, Easing.Linear);
+            await button.ScaleTo(1, 100, Easing.Linear);
         }
     }
 }
