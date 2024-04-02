@@ -34,7 +34,7 @@
                 Title="All"
                 Background="lightblue"
                 ItemsSource="{Binding Categories}"
-                SelectedItem="{Binding SelectedItem}"
+                SelectedItem="{Binding SelectedCategory , Mode=TwoWay}"
                 TitleColor="Blue">
                 <Picker.ItemDisplayBinding>
                     <Binding Path="Name" />

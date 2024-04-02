@@ -54,7 +54,7 @@ namespace Inflow.Mobile.ViewModels
         {
             get
             {
-                return new ProductFilters(_searchString, "", _lowestPrice, _highestPrice, null);
+                return new ProductFilters(_searchString, "", _lowestPrice, _highestPrice, _selectedCategory.Id);
             }
         }
 

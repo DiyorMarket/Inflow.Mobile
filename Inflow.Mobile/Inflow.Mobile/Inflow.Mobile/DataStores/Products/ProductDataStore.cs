@@ -13,7 +13,6 @@ namespace Inflow.Mobile.DataStores.Products
     {
         private readonly ApiClient _api;
         private ApiResponse<Product> currentReponse;
-        private ProductFilters currentFilters;
         private bool check = true;
 
         public ProductDataStore(ApiClient api)
@@ -44,7 +43,6 @@ namespace Inflow.Mobile.DataStores.Products
 
             if (check == false)
             {
-                //    Enumerable.Empty<Product>();
                 return currentReponse.Data;
             }
             check = false;
@@ -74,9 +72,9 @@ namespace Inflow.Mobile.DataStores.Products
         {
             StringBuilder queryParams = new StringBuilder();
 
-            if (filters.CategoryId != null)
+            if (filters.CategoryId != 0)
             {
-                queryParams.Append($"categoryId={filters.CategoryId}&");
+                queryParams.Append($"CategoryId={filters.CategoryId}&");
             }
 
             if (filters.SearchString != null)
@@ -84,12 +82,12 @@ namespace Inflow.Mobile.DataStores.Products
                 queryParams.Append($"SearchString={filters.SearchString}&");
             }
 
-            if (filters.LowestPrice != null)
+            if (filters.LowestPrice != 0)
             {
                 queryParams.Append($"PriceLessThan={filters.HighestPrice}&");
             }
 
-            if (filters.HighestPrice != null)
+            if (filters.HighestPrice != 0)
             {
                 queryParams.Append($"PriceGreaterThan={filters.LowestPrice}");
             }
