@@ -15,6 +15,7 @@ namespace Inflow.Mobile.DataStores.Products
         private ApiResponse<Product> currentReponse;
         private ProductFilters currentFilters;
         private bool check = true;
+        private bool checkForLoadData = true;
 
         public ProductDataStore(ApiClient api)
         {
@@ -23,12 +24,13 @@ namespace Inflow.Mobile.DataStores.Products
 
         public async Task<IEnumerable<Product>> GetProductsAsync()
         {
-            if (!check)
+            if (check || checkForLoadData)
             {
-                return currentReponse.Data;
-            }
+                check = false;
+                checkForLoadData = false;
             currentReponse = await _api.GetAsync<Product>("products");
-
+            }
+            check = true;
             return currentReponse.Data;
         }
 
@@ -38,18 +40,19 @@ namespace Inflow.Mobile.DataStores.Products
                 .FirstOrDefault(x => x.Rel.Equals("next", StringComparison.InvariantCultureIgnoreCase));
 
             string queryParams = GetQueryParams(filters);
-            string resource = string.IsNullOrEmpty(queryParams)
-                ? $"products?pageNumber=${currentReponse.Metadata.PageNumber}"
-                : $"products?{queryParams}";
-
-            if (check == false)
+            string resource = $"products?{queryParams}";
+            if (next is null)
             {
-                //    Enumerable.Empty<Product>();
-                return currentReponse.Data;
+                Enumerable.Empty<Product>();
             }
-            check = false;
-            currentReponse = await _api.GetAsync<Product>(next.Href + resource);
 
+            if (check)
+            {
+                check = false;
+
+                currentReponse = await _api.GetAsync<Product>(next.Href + resource);
+            }
+            check = true;
             return currentReponse.Data;
         }
 
@@ -59,9 +62,12 @@ namespace Inflow.Mobile.DataStores.Products
             string resource = string.IsNullOrEmpty(queryParams)
                 ? $"products?pageNumber=${currentReponse.Metadata.PageNumber}"
                 : $"products?{queryParams}";
-
+            if (check)
+            {
+                check = false;
             currentReponse = await _api.GetAsync<Product>(resource);
-
+            }
+            check = true;
             return currentReponse.Data;
         }
 
@@ -86,12 +92,12 @@ namespace Inflow.Mobile.DataStores.Products
 
             if (filters.LowestPrice != null)
             {
-                queryParams.Append($"PriceLessThan={filters.HighestPrice}&");
+                queryParams.Append($"PriceLessThan={filters.HighestPrice / (decimal)1.5}&");
             }
 
             if (filters.HighestPrice != null)
             {
-                queryParams.Append($"PriceGreaterThan={filters.LowestPrice}");
+                queryParams.Append($"PriceGreaterThan={filters.LowestPrice / (decimal)1.5}");
             }
 
             return queryParams.ToString().TrimEnd('&');
