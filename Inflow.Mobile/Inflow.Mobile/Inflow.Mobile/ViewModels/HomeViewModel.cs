@@ -108,7 +108,7 @@ namespace Inflow.Mobile.ViewModels
 
             try
             {
-                var products = await _productDataStore.GetNextPageAsync();
+                var products = await _productDataStore.GetNextPageAsync(Filters);
                 foreach (var product in products)
                 {
                     Products.Add(product);

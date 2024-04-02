@@ -1,7 +1,6 @@
 ﻿using Inflow.Mobile.Models;
 using Inflow.Mobile.Responses;
 using Inflow.Mobile.Services;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +13,8 @@ namespace Inflow.Mobile.DataStores.Products
     {
         private readonly ApiClient _api;
         private ApiResponse<Product> currentReponse;
+        private ProductFilters currentFilters;
+        private bool check = true;
 
         public ProductDataStore(ApiClient api)
         {
@@ -22,22 +23,32 @@ namespace Inflow.Mobile.DataStores.Products
 
         public async Task<IEnumerable<Product>> GetProductsAsync()
         {
+            if (!check)
+            {
+                return currentReponse.Data;
+            }
             currentReponse = await _api.GetAsync<Product>("products");
 
             return currentReponse.Data;
         }
 
-        public async Task<IEnumerable<Product>> GetNextPageAsync()
+        public async Task<IEnumerable<Product>> GetNextPageAsync(ProductFilters filters)
         {
             var next = currentReponse.Links
                 .FirstOrDefault(x => x.Rel.Equals("next", StringComparison.InvariantCultureIgnoreCase));
 
-            if (next is null)
-            {
-                Enumerable.Empty<Product>();
-            }
+            string queryParams = GetQueryParams(filters);
+            string resource = string.IsNullOrEmpty(queryParams)
+                ? $"products?pageNumber=${currentReponse.Metadata.PageNumber}"
+                : $"products?{queryParams}";
 
-            currentReponse = await _api.GetAsync<Product>(next.Href);
+            if (check == false)
+            {
+                //    Enumerable.Empty<Product>();
+                return currentReponse.Data;
+            }
+            check = false;
+            currentReponse = await _api.GetAsync<Product>(next.Href + resource);
 
             return currentReponse.Data;
         }
