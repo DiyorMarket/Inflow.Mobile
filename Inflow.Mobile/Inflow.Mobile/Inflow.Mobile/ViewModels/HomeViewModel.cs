@@ -61,10 +61,12 @@ namespace Inflow.Mobile.ViewModels
             if (ProductsInCart.Contains(product))
             {
                 ProductsInCart.Remove(product);
+                product.IsInCart = false;
             }
             else
             {
                 ProductsInCart.Add(product);
+                product.IsInCart = true;
             }
         }
 
