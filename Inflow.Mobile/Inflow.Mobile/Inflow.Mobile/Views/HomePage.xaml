@@ -10,6 +10,7 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <local:IconConverter x:Key="iconConverter" />
+            <local:HeartIconConverter x:Key="heartIconConverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
     
@@ -113,12 +114,15 @@
                                     HorizontalOptions="FillAndExpand">
                                     <Grid>
                                         <Image Aspect="Fill" Source="{Binding ImageUrl}" />
-                                        <Image
+                                        <ImageButton
                                             Margin="0,10,10,0"
                                             Aspect="Fill"
                                             HeightRequest="20"
                                             HorizontalOptions="End"
-                                            Source="love.png"
+                                            BackgroundColor="Transparent"
+                                            Source="{Binding IsSaved, Converter={StaticResource heartIconConverter}}"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type vm:HomeViewModel}}, Path=AddToSavedCommand}"
+                                            CommandParameter="{Binding}"
                                             VerticalOptions="Start"
                                             WidthRequest="20" />
                                     </Grid>
@@ -145,13 +149,13 @@
                                     Grid.Column="1"
                                     Margin="0,0,10,10"
                                     BackgroundColor="Transparent"
-                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:HomeViewModel}}, Path=AddToSavedCommand}"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:HomeViewModel}}, Path=AddToCartCommand}"
                                     CommandParameter="{Binding}"
-                                    HeightRequest="40"
+                                    HeightRequest="30"
                                     HorizontalOptions="End"
                                     Source="{Binding IsInCart, Converter={StaticResource iconConverter}}"
                                     VerticalOptions="End"
-                                    WidthRequest="40" />
+                                    WidthRequest="30" />
                             </Grid>
                         </md:MaterialCard>
                     </DataTemplate>

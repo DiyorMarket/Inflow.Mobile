@@ -1,7 +1,9 @@
 ﻿using Inflow.Mobile.DataStores.Products;
 using Inflow.Mobile.Models;
+using Inflow.Mobile.Services;
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -15,6 +17,7 @@ namespace Inflow.Mobile.ViewModels
         public ObservableCollection<TopFilter> TopFilters { get; set; }
         public ObservableCollection<Product> Products { get; set; }
         public ObservableCollection<Product> ProductsInCart { get; set; }
+        public ObservableCollection<Product> SavedProducts { get; set; }
 
         private string _searchString = string.Empty;
 
@@ -36,6 +39,7 @@ namespace Inflow.Mobile.ViewModels
             }
         }
 
+        public ICommand AddToCartCommand { get; }
         public ICommand AddToSavedCommand { get; }
 
         public HomeViewModel(IProductDataStore productDataStore)
@@ -52,21 +56,43 @@ namespace Inflow.Mobile.ViewModels
             };
             Products = new ObservableCollection<Product>();
             ProductsInCart = new ObservableCollection<Product>();
+            SavedProducts = new ObservableCollection<Product>();
 
+            AddToCartCommand = new Command<Product>(OnAddToCart);
             AddToSavedCommand = new Command<Product>(OnAddToSaved);
         }
 
-        private void OnAddToSaved(Product product)
+        private void OnAddToCart(Product product)
         {
-            if (ProductsInCart.Contains(product))
+            var dataService = new DataService();
+            var productsInCart = dataService.GetProducts("ProductsInCart");
+
+            var existingProduct = ProductsInCart.FirstOrDefault(p => p.Id == product.Id);
+
+            if (existingProduct != null)
             {
-                ProductsInCart.Remove(product);
-                product.IsInCart = false;
+                ProductsInCart.Remove(existingProduct);
+                existingProduct.IsInCart = false;
             }
             else
             {
                 ProductsInCart.Add(product);
                 product.IsInCart = true;
+            }
+            dataService.SaveProductsAsync(ProductsInCart, "ProductsInCart");
+        }
+
+        private void OnAddToSaved(Product product)
+        {
+            if (SavedProducts.Contains(product))
+            {
+                SavedProducts.Remove(product);
+                product.IsSaved = false;
+            }
+            else
+            {
+                SavedProducts.Add(product);
+                product.IsSaved = true;
             }
         }
 

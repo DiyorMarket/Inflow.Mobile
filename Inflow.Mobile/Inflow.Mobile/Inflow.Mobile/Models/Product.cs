@@ -24,5 +24,17 @@ namespace Inflow.Mobile.Models
                 OnPropertyChanged(nameof(IsInCart));
             }
         }
+
+        private bool _isSaved;
+
+        public bool IsSaved
+        {
+            get { return _isSaved; }
+            set
+            {
+                SetProperty(ref _isSaved, value);
+                OnPropertyChanged(nameof(IsSaved));
+            }
+        }
     }
 }
