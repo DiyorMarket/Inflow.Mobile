@@ -1,8 +1,10 @@
 ﻿using Inflow.Mobile.DataStores.Products;
 using Inflow.Mobile.Models;
+using Inflow.Mobile.Services;
 using MvvmHelpers.Commands;
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -14,9 +16,9 @@ namespace Inflow.Mobile.ViewModels
 
         public ObservableCollection<TopFilter> TopFilters { get; set; }
         public ObservableCollection<Product> Products { get; set; }
+        public ObservableCollection<Category> Categories { get; private set; }
 
         private string _searchString = string.Empty;
-
         public string SearchString
         {
             get => _searchString;
@@ -26,6 +28,7 @@ namespace Inflow.Mobile.ViewModels
                 OnApplyFilters();
             }
         }
+
         private decimal _lowestPrice;
         public decimal LowestPrice
         {
@@ -39,11 +42,19 @@ namespace Inflow.Mobile.ViewModels
             get => _highestPrice;
             set => SetProperty(ref _highestPrice, value);
         }
+
+        private Category _selectedCategory;
+        public Category SelectedCategory
+        {
+            get => _selectedCategory;
+            set => SetProperty(ref _selectedCategory, value);
+        }
+
         public ProductFilters Filters
         {
             get
             {
-                return new ProductFilters(_searchString, "",_lowestPrice,_highestPrice,null);
+                return new ProductFilters(_searchString, "", _lowestPrice, _highestPrice, null);
             }
         }
 
@@ -62,6 +73,7 @@ namespace Inflow.Mobile.ViewModels
                 new TopFilter(4, "Recommended"),
             };
             Products = new ObservableCollection<Product>();
+            Categories = new ObservableCollection<Category>();
 
             ApplyFiltersCommand = new AsyncCommand(OnApplyFilters);
         }
@@ -133,6 +145,21 @@ namespace Inflow.Mobile.ViewModels
             {
                 IsBusy = false;
             }
+        }
+
+        public async Task LoadElements()
+        {
+            ApiClient apiService = new ApiClient();
+            var categories = await apiService.GetAsync<Category>("categories");
+
+            if (categories.Data.Any())
+            {
+                foreach (var category in categories.Data)
+                {
+                    Categories.Add(category);
+                }
+            }
+            return;
         }
     }
 }

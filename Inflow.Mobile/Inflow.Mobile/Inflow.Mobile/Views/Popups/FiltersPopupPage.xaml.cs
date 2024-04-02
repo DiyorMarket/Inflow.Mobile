@@ -1,7 +1,4 @@
-﻿using Inflow.Mobile.DataStores.Products;
-using Inflow.Mobile.Models;
-using Inflow.Mobile.Services;
-using Inflow.Mobile.ViewModels;
+﻿using Inflow.Mobile.ViewModels;
 using Rg.Plugins.Popup.Pages;
 using System;
 using Xamarin.Forms.Xaml;
@@ -10,7 +7,7 @@ namespace Inflow.Mobile.Views.Popups
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class FiltersPopupPage : PopupPage
-    { 
+    {
         public FiltersPopupPage()
         {
             InitializeComponent();
@@ -18,7 +15,7 @@ namespace Inflow.Mobile.Views.Popups
 
         protected override void OnAppearing()
         {
-            var vm = BindingContext as FilterViewModel;
+            var vm = BindingContext as HomeViewModel;
             vm?.LoadElements();
             base.OnAppearing();
         }

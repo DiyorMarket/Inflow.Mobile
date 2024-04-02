@@ -14,7 +14,6 @@ namespace Inflow.Mobile.DataStores.Products
     {
         private readonly ApiClient _api;
         private ApiResponse<Product> currentReponse;
-        private ProductFilters currentFilters;
 
         public ProductDataStore(ApiClient api)
         {
