@@ -1,13 +1,9 @@
 ﻿using Inflow.Mobile.DataStores.Products;
 using Inflow.Mobile.Models;
-using Inflow.Mobile.Services;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Inflow.Mobile.Views.Popups;
 using Xamarin.Forms;
 
 namespace Inflow.Mobile.ViewModels
@@ -18,6 +14,7 @@ namespace Inflow.Mobile.ViewModels
 
         public ObservableCollection<TopFilter> TopFilters { get; set; }
         public ObservableCollection<Product> Products { get; set; }
+        public ObservableCollection<Product> ProductsInCart { get; set; }
 
         private string _searchString = string.Empty;
 
@@ -39,6 +36,8 @@ namespace Inflow.Mobile.ViewModels
             }
         }
 
+        public ICommand AddToSavedCommand { get; }
+
         public HomeViewModel(IProductDataStore productDataStore)
         {
             _productDataStore = productDataStore;
@@ -52,6 +51,23 @@ namespace Inflow.Mobile.ViewModels
                 new TopFilter(4, "Recommended"),
             };
             Products = new ObservableCollection<Product>();
+            ProductsInCart = new ObservableCollection<Product>();
+
+            AddToSavedCommand = new Command<Product>(OnAddToSaved);
+        }
+
+        private void OnAddToSaved(Product product)
+        {
+            if (ProductsInCart.Contains(product))
+            {
+                ProductsInCart.Remove(product);
+                product.IsInCart = false;
+            }
+            else
+            {
+                ProductsInCart.Add(product);
+                product.IsInCart = true;
+            }
         }
 
         public async Task LoadData()
