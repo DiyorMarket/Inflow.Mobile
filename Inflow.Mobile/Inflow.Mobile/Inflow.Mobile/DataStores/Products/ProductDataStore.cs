@@ -1,7 +1,6 @@
 ﻿using Inflow.Mobile.Models;
 using Inflow.Mobile.Responses;
 using Inflow.Mobile.Services;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Text;

@@ -3,15 +3,13 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xamarin.Essentials;
 
 namespace Inflow.Mobile.Services
 {
-    public class DataService
+    public static class DataService
     {
-        public void SaveProductsAsync(IEnumerable<Product> products, string key)
+        public static void SaveProductsAsync(IEnumerable<Product> products, string key)
         {
             try
             {
@@ -24,7 +22,7 @@ namespace Inflow.Mobile.Services
             }
         }
 
-        public IEnumerable<Product> GetProducts(string key)
+        public static IEnumerable<Product> GetProducts(string key)
         {
             try
             {

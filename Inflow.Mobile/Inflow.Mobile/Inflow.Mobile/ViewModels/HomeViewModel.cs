@@ -2,6 +2,7 @@
 using Inflow.Mobile.Models;
 using Inflow.Mobile.Services;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,6 +20,8 @@ namespace Inflow.Mobile.ViewModels
         public ObservableCollection<Product> ProductsInCart { get; set; }
         public ObservableCollection<Product> SavedProducts { get; set; }
 
+        public ICommand AddToCartCommand { get; }
+        public ICommand AddToSavedCommand { get; }
         private string _searchString = string.Empty;
 
         public string SearchString
@@ -38,9 +41,6 @@ namespace Inflow.Mobile.ViewModels
                 return new ProductFilters(_searchString, "");
             }
         }
-
-        public ICommand AddToCartCommand { get; }
-        public ICommand AddToSavedCommand { get; }
 
         public HomeViewModel(IProductDataStore productDataStore)
         {
@@ -62,40 +62,6 @@ namespace Inflow.Mobile.ViewModels
             AddToSavedCommand = new Command<Product>(OnAddToSaved);
         }
 
-        private void OnAddToCart(Product product)
-        {
-            var dataService = new DataService();
-            var productsInCart = dataService.GetProducts("ProductsInCart");
-
-            var existingProduct = ProductsInCart.FirstOrDefault(p => p.Id == product.Id);
-
-            if (existingProduct != null)
-            {
-                ProductsInCart.Remove(existingProduct);
-                existingProduct.IsInCart = false;
-            }
-            else
-            {
-                ProductsInCart.Add(product);
-                product.IsInCart = true;
-            }
-            dataService.SaveProductsAsync(ProductsInCart, "ProductsInCart");
-        }
-
-        private void OnAddToSaved(Product product)
-        {
-            if (SavedProducts.Contains(product))
-            {
-                SavedProducts.Remove(product);
-                product.IsSaved = false;
-            }
-            else
-            {
-                SavedProducts.Add(product);
-                product.IsSaved = true;
-            }
-        }
-
         public async Task LoadData()
         {
             Products.Clear();
@@ -103,12 +69,16 @@ namespace Inflow.Mobile.ViewModels
 
             try
             {
-                Products.Clear();
                 var products = await _productDataStore.GetProductsAsync();
+                Products.Clear();
                 foreach (var product in products)
                 {
                     Products.Add(product);
                 }
+
+                AddProductsInCart();
+                AddProductsInSaved();
+                UpdateProductParam();
             }
             catch (Exception ex)
             {
@@ -163,6 +133,87 @@ namespace Inflow.Mobile.ViewModels
             finally
             {
                 IsBusy = false;
+            }
+        }
+
+        private async void OnAddToCart(Product product)
+        {
+            AddProductsInCart();
+
+            var existingProduct = ProductsInCart.FirstOrDefault(p => p.Id == product.Id);
+
+            if (existingProduct != null)
+            {
+                ProductsInCart.Remove(existingProduct);
+                product.IsInCart = false;
+            }
+            else
+            {
+                ProductsInCart.Add(product);
+                product.IsInCart = true;
+            }
+            DataService.SaveProductsAsync(ProductsInCart, "ProductsInCart");
+        }
+
+        private void OnAddToSaved(Product product)
+        {
+            AddProductsInSaved();
+
+            var existingProduct = SavedProducts.FirstOrDefault(p => p.Id == product.Id);
+
+            if (existingProduct != null)
+            {
+                SavedProducts.Remove(existingProduct);
+                product.IsSaved = false;
+            }
+            else
+            {
+                SavedProducts.Add(product);
+                product.IsSaved = true;
+            }
+
+            DataService.SaveProductsAsync(SavedProducts, "ProductsInSaved");
+        }
+
+        private void AddProductsInCart()
+        {
+            var productsInCart = DataService.GetProducts("ProductsInCart");
+            ProductsInCart.Clear();
+
+            foreach(var product in productsInCart)
+            {
+                ProductsInCart.Add(product);
+            }
+        }
+
+        private void AddProductsInSaved()
+        {
+            var productsInSaved = DataService.GetProducts("ProductsInSaved");
+            SavedProducts.Clear();
+
+            foreach(var product in productsInSaved)
+            {
+                SavedProducts.Add(product);
+            }
+        }
+
+        private void UpdateProductParam()
+        {
+            foreach(var product in Products)
+            {
+                var changeProductInCart = ProductsInCart.FirstOrDefault(x => x.Id == product.Id);
+                var changeProductInSaved = SavedProducts.FirstOrDefault(x => x.Id == product.Id);
+
+                if (ProductsInCart != null &&
+                     changeProductInCart != null)
+                {
+                    product.IsInCart = changeProductInCart.IsInCart;
+                }
+                if(SavedProducts != null &&
+                     changeProductInSaved != null)
+                {
+                    product.IsSaved = changeProductInSaved.IsInCart;
+                }
             }
         }
     }
