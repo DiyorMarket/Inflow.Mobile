@@ -226,7 +226,7 @@
                         Placeholder="Enter your phone"
                         PlaceholderColor="#00A3FF"
                         ReturnType="Next"
-                        TabIndex="1"
+                        TabIndex="2"
                         Text="{Binding PhoneNumber}"
                         TextColor="#00A3FF" />
                     <md:MaterialEntry
@@ -245,7 +245,7 @@
                         MaxLength="300"
                         Placeholder="Enter your Name"
                         PlaceholderColor="#00A3FF"
-                        TabIndex="2"
+                        TabIndex="3"
                         Text="{Binding Username}"
                         TextColor="#00A3FF" />
                     <md:MaterialEntry
@@ -265,7 +265,7 @@
                         MaxLength="300"
                         Placeholder="Enter your password"
                         PlaceholderColor="#00A3FF"
-                        TabIndex="2"
+                        TabIndex="4"
                         Text="{Binding Password}"
                         TextColor="#00A3FF" />
                     <md:MaterialButton
@@ -276,7 +276,7 @@
                         CornerRadius="10"
                         FontSize="18"
                         HeightRequest="50"
-                        TabIndex="3"
+                        TabIndex="5"
                         Text="Sing up"
                         TextColor="White" />
                     <md:MaterialDivider Margin="10" />
@@ -290,7 +290,7 @@
                         CornerRadius="10"
                         FontSize="18"
                         HeightRequest="50"
-                        TabIndex="3"
+                        TabIndex="5"
                         Text="Log in"
                         TextColor="#00A3FF" />
                 </StackLayout>
