@@ -66,8 +66,14 @@ namespace Inflow.Mobile.ViewModels
         {
             LoginCommand = new Command(OnLogin);
             RegisterCommand = new Command(OnRegister);
-
+            ForgotPasswordCommand = new Command(OnResetPassword);
             _loginService = new LoginService();
+        }
+        private void OnResetPassword(object obj)
+        {
+            var resetPasswordPage = new PasswordResetPage();
+
+            Application.Current.MainPage = resetPasswordPage;
         }
 
         private async void OnLogin()

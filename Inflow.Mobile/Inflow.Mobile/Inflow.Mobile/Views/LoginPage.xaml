@@ -206,7 +206,8 @@
                         PlaceholderColor="#00A3FF"
                         ReturnType="Next"
                         TabIndex="1"
-                        Text="{Binding Email}" />
+                        Text="{Binding Email}"
+                        TextColor="#00A3FF" />
                     <md:MaterialEntry
                         Margin="10"
                         AnimateError="True"
@@ -225,8 +226,9 @@
                         Placeholder="Enter your phone"
                         PlaceholderColor="#00A3FF"
                         ReturnType="Next"
-                        TabIndex="1"
-                        Text="{Binding PhoneNumber}" />
+                        TabIndex="2"
+                        Text="{Binding PhoneNumber}"
+                        TextColor="#00A3FF" />
                     <md:MaterialEntry
                         Margin="10"
                         AnimateError="True"
@@ -243,8 +245,9 @@
                         MaxLength="300"
                         Placeholder="Enter your Name"
                         PlaceholderColor="#00A3FF"
-                        TabIndex="2"
-                        Text="{Binding Username}" />
+                        TabIndex="3"
+                        Text="{Binding Username}"
+                        TextColor="#00A3FF" />
                     <md:MaterialEntry
                         Margin="10"
                         AnimateError="True"
@@ -262,8 +265,9 @@
                         MaxLength="300"
                         Placeholder="Enter your password"
                         PlaceholderColor="#00A3FF"
-                        TabIndex="2"
-                        Text="{Binding Password}" />
+                        TabIndex="4"
+                        Text="{Binding Password}"
+                        TextColor="#00A3FF" />
                     <md:MaterialButton
                         Margin="10"
                         BackgroundColor="#00A3FF"
@@ -272,7 +276,7 @@
                         CornerRadius="10"
                         FontSize="18"
                         HeightRequest="50"
-                        TabIndex="3"
+                        TabIndex="5"
                         Text="Sing up"
                         TextColor="White" />
                     <md:MaterialDivider Margin="10" />
@@ -286,7 +290,7 @@
                         CornerRadius="10"
                         FontSize="18"
                         HeightRequest="50"
-                        TabIndex="3"
+                        TabIndex="5"
                         Text="Log in"
                         TextColor="#00A3FF" />
                 </StackLayout>
