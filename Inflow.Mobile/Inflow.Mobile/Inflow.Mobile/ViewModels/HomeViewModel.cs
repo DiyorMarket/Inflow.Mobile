@@ -78,7 +78,7 @@ namespace Inflow.Mobile.ViewModels
 
                 AddProductsInCart();
                 AddProductsInSaved();
-                UpdateProductParam();
+                UpdateProductListParam();
             }
             catch (Exception ex)
             {
@@ -197,22 +197,27 @@ namespace Inflow.Mobile.ViewModels
             }
         }
 
-        private void UpdateProductParam()
+        private void UpdateProductListParam()
         {
             foreach(var product in Products)
             {
-                var changeProductInCart = ProductsInCart.FirstOrDefault(x => x.Id == product.Id);
-                var changeProductInSaved = SavedProducts.FirstOrDefault(x => x.Id == product.Id);
-
-                if (ProductsInCart != null &&
-                     changeProductInCart != null)
+                if (ProductsInCart != null)
                 {
-                    product.IsInCart = changeProductInCart.IsInCart;
+                    var changeProductInCart = ProductsInCart.FirstOrDefault(x => x.Id == product.Id);
+                    
+                    if(changeProductInCart != null)
+                    {
+                        product.IsInCart = changeProductInCart.IsInCart;
+                    }
                 }
-                if(SavedProducts != null &&
-                     changeProductInSaved != null)
+                if(SavedProducts != null)
                 {
-                    product.IsSaved = changeProductInSaved.IsInCart;
+                    var changeProductInSaved = SavedProducts.FirstOrDefault(x => x.Id == product.Id);
+
+                    if (changeProductInSaved != null)
+                    {
+                        product.IsSaved = changeProductInSaved.IsSaved;
+                    }
                 }
             }
         }
