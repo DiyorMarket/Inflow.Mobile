@@ -21,13 +21,16 @@
             ScaleOut="0.8" />
     </pages:PopupPage.Animation>
     <!--  You can use any elements here which are extended from Xamarin.Forms.View  -->
-    <Frame CornerRadius="50"
+    
+    <StackLayout 
         Padding="20,20,20,20"
         BackgroundColor="AliceBlue"
         HeightRequest="300"
         HorizontalOptions="Center"
         VerticalOptions="Center"
-        WidthRequest="300">
+        WidthRequest="300"
+        >
+
         <StackLayout>
             <Label Text="Categories" TextColor="Black" />
             <Picker
@@ -95,5 +98,6 @@
                 WidthRequest="150"
                 CornerRadius="100"/>
         </StackLayout>
-    </Frame>
+
+    </StackLayout>
 </pages:PopupPage>
