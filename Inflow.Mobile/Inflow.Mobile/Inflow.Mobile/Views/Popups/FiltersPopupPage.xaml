@@ -10,6 +10,7 @@
     <pages:PopupPage.Animation>
         <animations:ScaleAnimation
             DurationIn="400"
+           
             DurationOut="300"
             EasingIn="SinOut"
             EasingOut="SinIn"
@@ -20,22 +21,21 @@
             ScaleOut="0.8" />
     </pages:PopupPage.Animation>
     <!--  You can use any elements here which are extended from Xamarin.Forms.View  -->
-    <StackLayout
+    <Frame CornerRadius="50"
         Padding="20,20,20,20"
         BackgroundColor="AliceBlue"
-        HeightRequest="400"
+        HeightRequest="300"
         HorizontalOptions="Center"
         VerticalOptions="Center"
         WidthRequest="300">
-
         <StackLayout>
             <Label Text="Categories" TextColor="Black" />
             <Picker
                 Title="All"
-                Background="lightblue"
+                TitleColor="Blue"
+                TextColor="Blue"
                 ItemsSource="{Binding Categories}"
-                SelectedItem="{Binding SelectedCategory , Mode=TwoWay}"
-                TitleColor="Blue">
+                SelectedItem="{Binding SelectedCategory , Mode=TwoWay}">
                 <Picker.ItemDisplayBinding>
                     <Binding Path="Name" />
                 </Picker.ItemDisplayBinding>
@@ -47,10 +47,8 @@
         <StackLayout Orientation="Horizontal">
             <Picker
                 Title="Select property"
-                Margin="0,0,20,0"
                 HorizontalTextAlignment="Center"
-                TitleColor="Blue"
-                WidthRequest="140">
+                TitleColor="Blue">
                 <Picker.ItemDisplayBinding>
                     <Binding Path="Name" />
                 </Picker.ItemDisplayBinding>
@@ -60,40 +58,42 @@
                 Title="Select option"
                 HorizontalTextAlignment="Center"
                 TitleColor="Blue"
-                WidthRequest="140">
+                Margin="50,0,0,0">
                 <Picker.ItemDisplayBinding>
                     <Binding Path="Name" />
                 </Picker.ItemDisplayBinding>
             </Picker>
         </StackLayout>
 
-        <Label Text="Price" TextColor="Black" />
+        <Label Margin="3,0,0,0"  Text="Price" TextColor="Black" />
         <StackLayout Orientation="Horizontal">
             <Entry
+                Margin="3,0,0,0"
                 Keyboard="Numeric"
                 Placeholder="Lowest price"
                 Text="{Binding LowestPrice}"
                 TextColor="Blue" />
             <Entry
-                Margin="60,0,0,0"
+                Margin="70,0,0,0"
                 Keyboard="Numeric"
                 Placeholder="Highest price"
                 Text="{Binding HighestPrice}"
                 TextColor="Blue" />
         </StackLayout>
 
-        <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
+        <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Horizontal" Padding="0,30,0,0">
             <Button
-                BackgroundColor="Red"
+                BackgroundColor="#85929E"
                 BorderColor="AliceBlue"
                 Text="Cancel"
-                WidthRequest="150" />
+                WidthRequest="150" 
+                CornerRadius="100"/>
             <Button
-                BackgroundColor="Green"
+                BackgroundColor="#2A7BEF"
                 Clicked="Button_Clicked"
                 Text="Ok"
-                WidthRequest="150" />
+                WidthRequest="150"
+                CornerRadius="100"/>
         </StackLayout>
-
-    </StackLayout>
+    </Frame>
 </pages:PopupPage>

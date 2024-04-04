@@ -80,7 +80,7 @@ namespace Inflow.Mobile.DataStores.Products
         {
             StringBuilder queryParams = new StringBuilder();
 
-            if (filters.CategoryId != null)
+            if (filters.CategoryId != 0)
             {
                 queryParams.Append($"categoryId={filters.CategoryId}&");
             }
@@ -90,12 +90,12 @@ namespace Inflow.Mobile.DataStores.Products
                 queryParams.Append($"SearchString={filters.SearchString}&");
             }
 
-            if (filters.LowestPrice != null)
+            if (filters.LowestPrice != 0)
             {
                 queryParams.Append($"PriceLessThan={filters.HighestPrice / (decimal)1.5}&");
             }
 
-            if (filters.HighestPrice != null)
+            if (filters.HighestPrice != 0)
             {
                 queryParams.Append($"PriceGreaterThan={filters.LowestPrice / (decimal)1.5}");
             }
