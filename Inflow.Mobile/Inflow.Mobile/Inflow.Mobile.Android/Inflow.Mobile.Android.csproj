@@ -120,9 +120,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\baseball.png" />
-    <AndroidResource Include="Resources\drawable\coca_cola.png" />
-    <AndroidResource Include="Resources\drawable\croissant.png" />
     <AndroidResource Include="Resources\drawable\icon_account.png" />
     <AndroidResource Include="Resources\drawable\icon_basket.png" />
     <AndroidResource Include="Resources\drawable\icon_category.png" />
@@ -133,7 +130,6 @@
     <AndroidResource Include="Resources\drawable\icon_search.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\bullets.png" />
     <AndroidResource Include="Resources\drawable\grey_heart.png" />
     <AndroidResource Include="Resources\drawable\shopping.png" />
   </ItemGroup>

@@ -14,7 +14,7 @@ namespace Inflow.Mobile
             InitializeComponent();
 
             DependencyService.Register<MockDataStore>();
-            MainPage = new HomePage();
+            MainPage = new LoginPage();
         }
 
         protected override void OnStart()

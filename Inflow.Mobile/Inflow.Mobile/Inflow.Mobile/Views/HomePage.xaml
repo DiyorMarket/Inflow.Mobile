@@ -3,17 +3,17 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:ffi="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
-    xmlns:md="clr-namespace:Plugin.MaterialDesignControls.Material3;assembly=Plugin.MaterialDesignControls"
     xmlns:local="clr-namespace:Inflow.Mobile.Converter"
+    xmlns:md="clr-namespace:Plugin.MaterialDesignControls.Material3;assembly=Plugin.MaterialDesignControls"
     xmlns:vm="clr-namespace:Inflow.Mobile.ViewModels">
 
     <ContentPage.Resources>
         <ResourceDictionary>
             <local:IconConverter x:Key="iconConverter" />
-            <local:HeartIconConverter x:Key="heartIconConverter"/>
+            <local:HeartIconConverter x:Key="heartIconConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
-    
+
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>
@@ -99,7 +99,7 @@
                                     <RowDefinition Height="150" />
                                     <RowDefinition Height="25" />
                                     <RowDefinition Height="25" />
-                                    <RowDefinition Height="40" />
+                                    <RowDefinition Height="35" />
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
@@ -117,12 +117,12 @@
                                         <ImageButton
                                             Margin="0,10,10,0"
                                             Aspect="Fill"
-                                            HeightRequest="20"
-                                            HorizontalOptions="End"
                                             BackgroundColor="Transparent"
-                                            Source="{Binding IsSaved, Converter={StaticResource heartIconConverter}}"
                                             Command="{Binding Source={RelativeSource AncestorType={x:Type vm:HomeViewModel}}, Path=AddToSavedCommand}"
                                             CommandParameter="{Binding}"
+                                            HeightRequest="20"
+                                            HorizontalOptions="End"
+                                            Source="{Binding IsSaved, Converter={StaticResource heartIconConverter}}"
                                             VerticalOptions="Start"
                                             WidthRequest="20" />
                                     </Grid>

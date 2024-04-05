@@ -1,4 +1,5 @@
-﻿using Inflow.Mobile.ViewModels;
+﻿
+using Inflow.Mobile.ViewModels;
 using Inflow.Mobile.Views;
 using System;
 using System.Collections.Generic;
