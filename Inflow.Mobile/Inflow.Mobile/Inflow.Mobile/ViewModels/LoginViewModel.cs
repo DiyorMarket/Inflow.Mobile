@@ -88,7 +88,7 @@ namespace Inflow.Mobile.ViewModels
                 return;
             }
 
-            var result = _loginService.LoginUser(Username, Password);
+            var result = _loginService.LoginUser(Email, Password);
 
             Application.Current.MainPage = new AppShell();
         }
@@ -112,7 +112,7 @@ namespace Inflow.Mobile.ViewModels
                 return;
             }
 
-            var result = _loginService.RegisterUser(Email, Password, Username, PhoneNumber);
+            var result = _loginService.RegisterUser(Email, Username, PhoneNumber, Password);
 
             Application.Current.MainPage= new AppShell();
         }
