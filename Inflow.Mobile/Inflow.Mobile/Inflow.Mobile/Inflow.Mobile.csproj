@@ -40,6 +40,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Views\SavedPage.xaml.cs">
+      <DependentUpon>SavedPage.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
     <EmbeddedResource Update="Views\HomePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
