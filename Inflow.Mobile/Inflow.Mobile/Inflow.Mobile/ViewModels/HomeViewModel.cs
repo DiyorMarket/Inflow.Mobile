@@ -4,7 +4,6 @@ using Inflow.Mobile.Services;
 using MvvmHelpers.Commands;
 using System;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -17,6 +16,7 @@ namespace Inflow.Mobile.ViewModels
         public ObservableCollection<TopFilter> TopFilters { get; set; }
         public ObservableCollection<Product> Products { get; set; }
         public ObservableCollection<Category> Categories { get; private set; }
+        public ObservableCollection<string> Properties { get; private set; }
 
         private string _searchString = string.Empty;
         public string SearchString
@@ -50,15 +50,21 @@ namespace Inflow.Mobile.ViewModels
             set => SetProperty(ref _selectedCategory, value);
         }
 
+        private string _selectedProperty = string.Empty;
+        public string SelectedProperty
+        {
+            get => _selectedProperty;
+            set=>SetProperty(ref _selectedProperty, value);
+        }
+
         public ProductFilters Filters
         {
             get
             {
-                return new ProductFilters(_searchString, "", _lowestPrice, _highestPrice, _selectedCategory.Id);
+                return new ProductFilters(_searchString, _selectedProperty, _lowestPrice, _highestPrice,
+                    SelectedCategory != null ? SelectedCategory.Id : 0);
             }
         }
-
-        public ICommand ApplyFiltersCommand { get; }
 
         public HomeViewModel(IProductDataStore productDataStore)
         {
@@ -74,8 +80,13 @@ namespace Inflow.Mobile.ViewModels
             };
             Products = new ObservableCollection<Product>();
             Categories = new ObservableCollection<Category>();
-
-            ApplyFiltersCommand = new AsyncCommand(OnApplyFilters);
+            Properties = new ObservableCollection<string>
+            {
+                "Id",
+                "Name",
+                "Price",
+                "Description"
+            };
         }
 
         public async Task LoadData()
@@ -147,17 +158,14 @@ namespace Inflow.Mobile.ViewModels
             }
         }
 
-        public async Task LoadElements()
+        public async Task LoadCategories()
         {
             ApiClient apiService = new ApiClient();
             var categories = await apiService.GetAsync<Category>("categories");
 
-            if (categories.Data.Any())
+            foreach (var category in categories.Data)
             {
-                foreach (var category in categories.Data)
-                {
-                    Categories.Add(category);
-                }
+                Categories.Add(category);
             }
             return;
         }

@@ -13,7 +13,6 @@ namespace Inflow.Mobile.DataStores.Products
     {
         private readonly ApiClient _api;
         private ApiResponse<Product> currentReponse;
-        private ProductFilters currentFilters;
         private bool check = true;
         private bool checkForLoadData = true;
 
@@ -24,11 +23,11 @@ namespace Inflow.Mobile.DataStores.Products
 
         public async Task<IEnumerable<Product>> GetProductsAsync()
         {
-            if (check || checkForLoadData)
+            if (check && checkForLoadData)
             {
                 check = false;
                 checkForLoadData = false;
-            currentReponse = await _api.GetAsync<Product>("products");
+                currentReponse = await _api.GetAsync<Product>("products");
             }
             check = true;
             return currentReponse.Data;
@@ -65,7 +64,7 @@ namespace Inflow.Mobile.DataStores.Products
             if (check)
             {
                 check = false;
-            currentReponse = await _api.GetAsync<Product>(resource);
+                currentReponse = await _api.GetAsync<Product>(resource);
             }
             check = true;
             return currentReponse.Data;
@@ -79,13 +78,17 @@ namespace Inflow.Mobile.DataStores.Products
         private static string GetQueryParams(ProductFilters filters)
         {
             StringBuilder queryParams = new StringBuilder();
+            if (!string.IsNullOrEmpty(filters.Sort))
+            {
+                queryParams.Append($"OrderBy={filters.Sort}");
+            }
 
             if (filters.CategoryId != 0)
             {
-                queryParams.Append($"categoryId={filters.CategoryId}&");
+                queryParams.Append($"CategoryId={filters.CategoryId}&");
             }
 
-            if (filters.SearchString != null)
+            if (!string.IsNullOrEmpty(filters.SearchString))
             {
                 queryParams.Append($"SearchString={filters.SearchString}&");
             }

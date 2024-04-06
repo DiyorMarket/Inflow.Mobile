@@ -13,10 +13,10 @@ namespace Inflow.Mobile.Views.Popups
             InitializeComponent();
         }
 
-        protected override void OnAppearing()
+        protected override async void OnAppearing()
         {
             var vm = BindingContext as HomeViewModel;
-            vm?.LoadElements();
+            await vm?.LoadCategories();
             base.OnAppearing();
         }
 
@@ -28,7 +28,7 @@ namespace Inflow.Mobile.Views.Popups
         private async void Button_Clicked(object sender, EventArgs e)
         {
             var vm = BindingContext as HomeViewModel;
-            vm?.OnApplyFilters();
+            await vm?.OnApplyFilters();
             await Navigation.PopModalAsync();
         }
     }
