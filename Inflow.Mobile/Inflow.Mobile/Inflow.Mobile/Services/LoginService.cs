@@ -35,7 +35,7 @@ namespace Inflow.Mobile.Services
 
                 return string.IsNullOrEmpty(token);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw;
             }
@@ -87,6 +87,33 @@ namespace Inflow.Mobile.Services
             catch (Exception ex)
             {
 
+                throw;
+            }
+        }
+
+        public async Task<bool> ResetPassword(string email, string resetCode, string newPassword)
+        {
+            try
+            {
+                var body = new
+                {
+                    Login = email,
+                    ResetCode = resetCode,
+                    newPassword = newPassword
+                };
+                var jsonBody = JsonConvert.SerializeObject(body);
+
+                var result = await _client.PostAsync<bool>("auth/resetPassword", jsonBody);
+                result.EnsureSuccessStatusCode();
+
+                var resultJson = await result.Content?.ReadAsStringAsync();
+
+                var token = JsonConvert.DeserializeObject<string>(resultJson);
+
+                return string.IsNullOrEmpty(token);
+            }
+            catch (Exception ex)
+            {
                 throw;
             }
         }
