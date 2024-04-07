@@ -68,10 +68,12 @@ namespace Inflow.Mobile.ViewModels
         {
             get
             {
-                return new ProductFilters(_searchString, _selectedProperty, _lowestPrice, _highestPrice,
+                return new ProductFilters(_searchString, _selectedProperty+SelectedOrderby.ToLower(), _lowestPrice, _highestPrice,
                     SelectedCategory != null ? SelectedCategory.Id : 0);
             }
         }
+
+        public ICommand LoadMoreCommand { get; }
 
         public HomeViewModel(IProductDataStore productDataStore)
         {
@@ -96,13 +98,20 @@ namespace Inflow.Mobile.ViewModels
             };
             OrderBy = new ObservableCollection<string>
             {
-                "ASC",
-                "DESC"
+                "Asc",
+                "Desc"
             };
+
+            LoadMoreCommand = new AsyncCommand(OnLoadMore);
         }
 
         public async Task LoadData()
         {
+            if (IsBusy)
+            {
+                return;
+            }
+
             Products.Clear();
             IsBusy = true;
 
@@ -125,8 +134,13 @@ namespace Inflow.Mobile.ViewModels
             }
         }
 
-        public async Task LoadMoreData()
+        public async Task OnLoadMore()
         {
+            if (IsBusy)
+            {
+                return;
+            }
+
             IsBusy = true;
 
             try
@@ -149,6 +163,11 @@ namespace Inflow.Mobile.ViewModels
 
         public async Task OnApplyFilters()
         {
+            if (IsBusy)
+            {
+                return;
+            }
+
             IsBusy = true;
             Products.Clear();
             try

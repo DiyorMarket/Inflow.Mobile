@@ -30,8 +30,8 @@ namespace Inflow.Mobile.Views
 
         private async void ItemsView_OnRemainingItemsThresholdReached(object sender, EventArgs e)
         {
-            var vm = BindingContext as HomeViewModel;
-            await vm?.LoadMoreData();
+            //var vm = BindingContext as HomeViewModel;
+            //await vm?.OnLoadMore();
         }
 
         private async void ImageButton_OnClicked(object sender, EventArgs e)

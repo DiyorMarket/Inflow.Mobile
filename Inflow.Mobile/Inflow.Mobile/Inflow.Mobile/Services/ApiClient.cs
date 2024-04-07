@@ -8,7 +8,7 @@ namespace Inflow.Mobile.Services
 {
     public class ApiClient
     {
-        private const string BaseUrl = "https://xsx0lcnz-7258.asse.devtunnels.ms/api";
+        private const string BaseUrl = "https://0wn6qg77-7258.asse.devtunnels.ms/api";
         private readonly HttpClient _client;
 
         public ApiClient()
@@ -18,16 +18,15 @@ namespace Inflow.Mobile.Services
             _client.DefaultRequestHeaders.Add("Accept", "application/json");
         }
 
-        public async Task<ApiResponse<T>> GetAsync<T>(string resource)
+        public async Task<ApiResponse<T>> GetAsync<T>(string resource, bool isFullUrl = false)
         {
-            if (resource.Contains("https"))
-            {
-                var index = resource.IndexOf("api/");
-                resource = resource.Substring(index+4); 
-            }
+            string url = isFullUrl ?
+                resource :
+                BaseUrl + "/" + resource;
+
             try
             {
-                HttpResponseMessage response = await _client.GetAsync(BaseUrl + "/" + resource);
+                HttpResponseMessage response = await _client.GetAsync(url);
 
                 if (!response.IsSuccessStatusCode)
                 {

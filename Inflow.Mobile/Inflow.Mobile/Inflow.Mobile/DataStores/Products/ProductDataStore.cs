@@ -23,13 +23,8 @@ namespace Inflow.Mobile.DataStores.Products
 
         public async Task<IEnumerable<Product>> GetProductsAsync()
         {
-            if (check && checkForLoadData)
-            {
-                check = false;
-                checkForLoadData = false;
-                currentReponse = await _api.GetAsync<Product>("products");
-            }
-            check = true;
+            currentReponse = await _api.GetAsync<Product>("products");
+
             return currentReponse.Data;
         }
 
@@ -38,20 +33,13 @@ namespace Inflow.Mobile.DataStores.Products
             var next = currentReponse.Links
                 .FirstOrDefault(x => x.Rel.Equals("next", StringComparison.InvariantCultureIgnoreCase));
 
-            string queryParams = GetQueryParams(filters);
-            string resource = $"products?{queryParams}";
             if (next is null)
             {
-                Enumerable.Empty<Product>();
+                return Enumerable.Empty<Product>();
             }
 
-            if (check)
-            {
-                check = false;
+            currentReponse = await _api.GetAsync<Product>(next.Href, true);
 
-                currentReponse = await _api.GetAsync<Product>(next.Href + resource);
-            }
-            check = true;
             return currentReponse.Data;
         }
 
@@ -61,12 +49,9 @@ namespace Inflow.Mobile.DataStores.Products
             string resource = string.IsNullOrEmpty(queryParams)
                 ? $"products?pageNumber=${currentReponse.Metadata.PageNumber}"
                 : $"products?{queryParams}";
-            if (check)
-            {
-                check = false;
-                currentReponse = await _api.GetAsync<Product>(resource);
-            }
-            check = true;
+
+            currentReponse = await _api.GetAsync<Product>(resource);
+
             return currentReponse.Data;
         }
 
@@ -80,6 +65,10 @@ namespace Inflow.Mobile.DataStores.Products
             StringBuilder queryParams = new StringBuilder();
             if (!string.IsNullOrEmpty(filters.Sort))
             {
+                if (filters.Sort.Contains("asc"))
+                {
+                    filters.Sort = filters.Sort.TrimEnd("asc".ToCharArray());
+                }
                 queryParams.Append($"OrderBy={filters.Sort}");
             }
 
