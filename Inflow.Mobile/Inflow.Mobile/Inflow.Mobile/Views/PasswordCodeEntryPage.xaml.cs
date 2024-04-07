@@ -16,7 +16,7 @@ namespace Inflow.Mobile.Views
         public PasswordCodeEntryPage()
         {
             InitializeComponent();
-            this.BindingContext = new PasswordResetViewModel();
+            // this.BindingContext = new PasswordResetViewModel();
         }
     }
 }

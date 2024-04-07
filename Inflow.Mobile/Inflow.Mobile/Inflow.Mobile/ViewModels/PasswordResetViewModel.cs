@@ -77,7 +77,6 @@ namespace Inflow.Mobile.ViewModels
 
             var result = _loginService.ForgotPassword(Email);
 
-            // await AppShell.Current.Navigation.PushAsync(new PasswordCodeEntryPage());
             Application.Current.MainPage = new PasswordCodeEntryPage()
             {
                 BindingContext = this
