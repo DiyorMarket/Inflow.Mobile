@@ -1,4 +1,5 @@
-﻿using Inflow.Mobile.ViewModels;
+﻿
+using Inflow.Mobile.ViewModels;
 using Inflow.Mobile.Views;
 using System;
 using System.Collections.Generic;
@@ -11,8 +12,12 @@ namespace Inflow.Mobile
         public AppShell()
         {
             InitializeComponent();
-            Routing.RegisterRoute(nameof(ItemDetailPage), typeof(ItemDetailPage));
-            Routing.RegisterRoute(nameof(NewItemPage), typeof(NewItemPage));
+        }
+
+        protected override void OnAppearing()
+        {
+            Shell.Current.Navigation.PushAsync(new LoginPage());
+            base.OnAppearing();
         }
 
         private async void OnMenuItemClicked(object sender, EventArgs e)

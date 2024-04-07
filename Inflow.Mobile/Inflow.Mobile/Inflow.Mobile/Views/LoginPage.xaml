@@ -1,14 +1,300 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d"
-             x:Class="Inflow.Mobile.Views.LoginPage"
-             Shell.NavBarIsVisible="False">
-    <ContentPage.Content>
-        <StackLayout Padding="10,0,10,0" VerticalOptions="Center">
-            <Button VerticalOptions="Center" Text="Login" Command="{Binding LoginCommand}"/>
-        </StackLayout>
-    </ContentPage.Content>
-</ContentPage>
+<CarouselPage
+    x:Class="Inflow.Mobile.Views.LoginPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:md="clr-namespace:Plugin.MaterialDesignControls.Material3;assembly=Plugin.MaterialDesignControls"
+    FlowDirection="LeftToRight"
+    Shell.NavBarIsVisible="False"
+    mc:Ignorable="d">
+
+    <ContentPage>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*" />
+                <RowDefinition Height="4*" />
+                <RowDefinition Height="6*" />
+            </Grid.RowDefinitions>
+
+            <Image
+                Grid.RowSpan="3"
+                Aspect="AspectFill"
+                Source="login.png" />
+
+            <StackLayout
+                Grid.Row="0"
+                HorizontalOptions="Start"
+                Orientation="Horizontal"
+                VerticalOptions="Center">
+                <Image
+                    Margin="10,0,0,0"
+                    HeightRequest="75"
+                    HorizontalOptions="Start"
+                    Source="logowhite.png"
+                    VerticalOptions="Center"
+                    WidthRequest="75" />
+                <Label
+                    FontSize="Title"
+                    HorizontalOptions="Center"
+                    Text="Welcome Back"
+                    TextColor="#FFFFFF"
+                    VerticalOptions="Center" />
+            </StackLayout>
+
+            <StackLayout
+                Grid.Row="1"
+                Margin="10,30,10,0"
+                HorizontalOptions="Start"
+                VerticalOptions="EndAndExpand">
+
+                <Label
+                    FontSize="Title"
+                    Text="Welcome to Inflow Market!"
+                    TextColor="#00A3FF" />
+                <Label
+                    FontSize="Subtitle"
+                    Text=" We're thrilled to have you on board."
+                    TextColor="#00A3FF" />
+            </StackLayout>
+
+            <StackLayout
+                Grid.Row="2"
+                Margin="0,0,0,25"
+                HorizontalOptions="Center"
+                Spacing="15"
+                VerticalOptions="EndAndExpand">
+                <StackLayout HorizontalOptions="Center" Spacing="5" />
+
+                <StackLayout HorizontalOptions="Center" Spacing="5">
+                    <md:MaterialEntry
+                        Margin="10"
+                        AnimateError="True"
+                        AnimatePlaceholder="True"
+                        BackgroundColor="#f7f7f7"
+                        BorderColor="#00A3FF"
+                        CornerRadius="10"
+                        FocusedBackgroundColor="#f7f7f7"
+                        FocusedBorderColor="#00A3FF"
+                        FocusedTextColor="#00A3FF"
+                        HasBorder="True"
+                        Keyboard="Text"
+                        LabelTextColor="#00A3FF"
+                        LeadingIcon="email.png"
+                        MaxLength="300"
+                        Placeholder="Enter login"
+                        PlaceholderColor="#00A3FF"
+                        ReturnType="Next"
+                        TabIndex="1"
+                        Text="{Binding Email}"
+                        TextColor="#00A3FF" />
+                    <md:MaterialEntry
+                        Margin="10"
+                        AnimateError="True"
+                        AnimatePlaceholder="True"
+                        BackgroundColor="#f7f7f7"
+                        BorderColor="#00A3FF"
+                        CornerRadius="10"
+                        FocusedBackgroundColor="#f7f7f7"
+                        FocusedBorderColor="#00A3FF"
+                        FocusedTextColor="#00A3FF"
+                        HasBorder="True"
+                        IsPassword="True"
+                        LabelTextColor="#00A3FF"
+                        LeadingIcon="padlock.png"
+                        MaxLength="300"
+                        Placeholder="Enter your password"
+                        PlaceholderColor="#00A3FF"
+                        TabIndex="2"
+                        Text="{Binding Password}" />
+                    <md:MaterialLabel
+                        Margin="0,0,20,0"
+                        HorizontalTextAlignment="End"
+                        Text="Forgot Password?"
+                        TextColor="#00A3FF">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ForgotPasswordCommand}" NumberOfTapsRequired="1" />
+                        </Label.GestureRecognizers>
+                    </md:MaterialLabel>
+                    <md:MaterialButton
+                        Margin="10"
+                        BackgroundColor="#00A3FF"
+                        Command="{Binding LoginCommand}"
+                        CornerRadius="10"
+                        FontSize="18"
+                        HeightRequest="50"
+                        TabIndex="3"
+                        Text="Log in"
+                        TextColor="White" />
+                    <md:MaterialDivider Margin="10" />
+                    <md:MaterialButton
+                        Margin="10"
+                        BackgroundColor="Transparent"
+                        BorderColor="#00A3FF"
+                        ButtonType="Outlined"
+                        Clicked="Register_Clicked"
+                        Command="{Binding RegisterCommand}"
+                        CornerRadius="10"
+                        FontSize="18"
+                        HeightRequest="50"
+                        TabIndex="3"
+                        Text="Sing up"
+                        TextColor="#00A3FF" />
+                </StackLayout>
+            </StackLayout>
+        </Grid>
+    </ContentPage>
+    <ContentPage>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="9*" />
+            </Grid.RowDefinitions>
+
+            <Image
+                Grid.RowSpan="3"
+                Aspect="AspectFill"
+                Source="register.png" />
+
+            <StackLayout
+                Grid.Row="0"
+                HorizontalOptions="Start"
+                Orientation="Horizontal"
+                VerticalOptions="Center">
+                <Image
+                    Margin="10,0,0,0"
+                    HeightRequest="75"
+                    HorizontalOptions="Start"
+                    Source="logowhite.png"
+                    VerticalOptions="Center"
+                    WidthRequest="75" />
+                <Label
+                    FontSize="Title"
+                    HorizontalOptions="Center"
+                    Text="Create Account"
+                    TextColor="#FFFFFF"
+                    VerticalOptions="Center" />
+            </StackLayout>
+
+            <StackLayout
+                Grid.Row="2"
+                Margin="0,0,0,25"
+                HorizontalOptions="Center"
+                Spacing="15"
+                VerticalOptions="EndAndExpand">
+                <StackLayout HorizontalOptions="Center" Spacing="5" />
+
+                <StackLayout HorizontalOptions="Center" Spacing="5">
+                    <md:MaterialEntry
+                        Margin="10"
+                        AnimateError="True"
+                        AnimatePlaceholder="True"
+                        BackgroundColor="#f7f7f7"
+                        BorderColor="#00A3FF"
+                        CornerRadius="10"
+                        FocusedBackgroundColor="#f7f7f7"
+                        FocusedBorderColor="#00A3FF"
+                        FocusedTextColor="#00A3FF"
+                        HasBorder="True"
+                        Keyboard="Text"
+                        LabelTextColor="#00A3FF"
+                        LeadingIcon="email.png"
+                        MaxLength="300"
+                        Placeholder="Enter your Email"
+                        PlaceholderColor="#00A3FF"
+                        ReturnType="Next"
+                        TabIndex="1"
+                        Text="{Binding Email}"
+                        TextColor="#00A3FF" />
+                    <md:MaterialEntry
+                        Margin="10"
+                        AnimateError="True"
+                        AnimatePlaceholder="True"
+                        BackgroundColor="#f7f7f7"
+                        BorderColor="#00A3FF"
+                        CornerRadius="10"
+                        FocusedBackgroundColor="#f7f7f7"
+                        FocusedBorderColor="#00A3FF"
+                        FocusedTextColor="#00A3FF"
+                        HasBorder="True"
+                        Keyboard="Telephone"
+                        LabelTextColor="#00A3FF"
+                        LeadingIcon="telephone.png"
+                        MaxLength="300"
+                        Placeholder="Enter your phone"
+                        PlaceholderColor="#00A3FF"
+                        ReturnType="Next"
+                        TabIndex="2"
+                        Text="{Binding PhoneNumber}"
+                        TextColor="#00A3FF" />
+                    <md:MaterialEntry
+                        Margin="10"
+                        AnimateError="True"
+                        AnimatePlaceholder="True"
+                        BackgroundColor="#f7f7f7"
+                        BorderColor="#00A3FF"
+                        CornerRadius="10"
+                        FocusedBackgroundColor="#f7f7f7"
+                        FocusedBorderColor="#00A3FF"
+                        FocusedTextColor="#00A3FF"
+                        HasBorder="True"
+                        LabelTextColor="#00A3FF"
+                        LeadingIcon="user.png"
+                        MaxLength="300"
+                        Placeholder="Enter your Name"
+                        PlaceholderColor="#00A3FF"
+                        TabIndex="3"
+                        Text="{Binding Username}"
+                        TextColor="#00A3FF" />
+                    <md:MaterialEntry
+                        Margin="10"
+                        AnimateError="True"
+                        AnimatePlaceholder="True"
+                        BackgroundColor="#f7f7f7"
+                        BorderColor="#00A3FF"
+                        CornerRadius="10"
+                        FocusedBackgroundColor="#f7f7f7"
+                        FocusedBorderColor="#00A3FF"
+                        FocusedTextColor="#00A3FF"
+                        HasBorder="True"
+                        IsPassword="True"
+                        LabelTextColor="#00A3FF"
+                        LeadingIcon="padlock.png"
+                        MaxLength="300"
+                        Placeholder="Enter your password"
+                        PlaceholderColor="#00A3FF"
+                        TabIndex="4"
+                        Text="{Binding Password}"
+                        TextColor="#00A3FF" />
+                    <md:MaterialButton
+                        Margin="10"
+                        BackgroundColor="#00A3FF"
+                        Clicked="Register_Clicked"
+                        Command="{Binding RegisterCommand}"
+                        CornerRadius="10"
+                        FontSize="18"
+                        HeightRequest="50"
+                        TabIndex="5"
+                        Text="Sing up"
+                        TextColor="White" />
+                    <md:MaterialDivider Margin="10" />
+                    <md:MaterialButton
+                        Margin="10"
+                        BackgroundColor="Transparent"
+                        BorderColor="#00A3FF"
+                        ButtonType="Outlined"
+                        Clicked="Login_Clicked"
+                        Command="{Binding LoginCommand}"
+                        CornerRadius="10"
+                        FontSize="18"
+                        HeightRequest="50"
+                        TabIndex="5"
+                        Text="Log in"
+                        TextColor="#00A3FF" />
+                </StackLayout>
+            </StackLayout>
+        </Grid>
+    </ContentPage>
+</CarouselPage>
