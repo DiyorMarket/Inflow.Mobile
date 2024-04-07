@@ -1,8 +1,8 @@
-﻿using Inflow.Mobile.DataStores.Products;
+using Inflow.Mobile.DataStores.Products;
 using Inflow.Mobile.Models;
 using Inflow.Mobile.Services;
+using MvvmHelpers.Commands;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,36 +11,75 @@ using Xamarin.Forms;
 
 namespace Inflow.Mobile.ViewModels
 {
-    internal class HomeViewModel : BaseViewModel
+    public class HomeViewModel : BaseViewModel
     {
         private IProductDataStore _productDataStore;
 
         public ObservableCollection<TopFilter> TopFilters { get; set; }
         public ObservableCollection<Product> Products { get; set; }
+        public ObservableCollection<Category> Categories { get; private set; }
+        public ObservableCollection<string> Properties { get; private set; }
+        public ObservableCollection<string> OrderBy { get; private set;}
         public ObservableCollection<Product> ProductsInCart { get; set; }
         public ObservableCollection<Product> SavedProducts { get; set; }
 
         public ICommand AddToCartCommand { get; }
         public ICommand AddToSavedCommand { get; }
         private string _searchString = string.Empty;
-
         public string SearchString
         {
             get => _searchString;
             set
             {
                 SetProperty(ref _searchString, value);
-                ApplyFilters();
+                OnApplyFilters();
             }
+        }
+
+        private decimal _lowestPrice;
+        public decimal LowestPrice
+        {
+            get => _lowestPrice;
+            set => SetProperty(ref _lowestPrice, value);
+        }
+
+        private decimal _highestPrice;
+        public decimal HighestPrice
+        {
+            get => _highestPrice;
+            set => SetProperty(ref _highestPrice, value);
+        }
+
+        private Category _selectedCategory;
+        public Category SelectedCategory
+        {
+            get => _selectedCategory;
+            set => SetProperty(ref _selectedCategory, value);
+        }
+
+        private string _selectedProperty = string.Empty;
+        public string SelectedProperty
+        {
+            get => _selectedProperty;
+            set=>SetProperty(ref _selectedProperty, value);
+        }
+        private string _selectedOrderby= string.Empty;
+        public string SelectedOrderby
+        {
+            get=> _selectedOrderby;
+            set=>SetProperty(ref _selectedOrderby, value);
         }
 
         public ProductFilters Filters
         {
             get
             {
-                return new ProductFilters(_searchString, "");
+                return new ProductFilters(_searchString, _selectedProperty+SelectedOrderby.ToLower(), _lowestPrice, _highestPrice,
+                    SelectedCategory != null ? SelectedCategory.Id : 0);
             }
         }
+
+        public ICommand LoadMoreCommand { get; }
 
         public HomeViewModel(IProductDataStore productDataStore)
         {
@@ -55,15 +94,34 @@ namespace Inflow.Mobile.ViewModels
                 new TopFilter(4, "Recommended"),
             };
             Products = new ObservableCollection<Product>();
+            Categories = new ObservableCollection<Category>();
+            Properties = new ObservableCollection<string>
+            {
+                "Id",
+                "Name",
+                "Price",
+                "Description"
+            };
+            OrderBy = new ObservableCollection<string>
+            {
+                "Asc",
+                "Desc"
+            };
+
+            LoadMoreCommand = new AsyncCommand(OnLoadMore);
             ProductsInCart = new ObservableCollection<Product>();
             SavedProducts = new ObservableCollection<Product>();
-
             AddToCartCommand = new Command<Product>(OnAddToCart);
             AddToSavedCommand = new Command<Product>(OnAddToSaved);
         }
 
         public async Task LoadData()
         {
+            if (IsBusy)
+            {
+                return;
+            }
+
             Products.Clear();
             IsBusy = true;
 
@@ -90,13 +148,18 @@ namespace Inflow.Mobile.ViewModels
             }
         }
 
-        public async Task LoadMoreData()
+        public async Task OnLoadMore()
         {
+            if (IsBusy)
+            {
+                return;
+            }
+
             IsBusy = true;
 
             try
             {
-                var products = await _productDataStore.GetNextPageAsync();
+                var products = await _productDataStore.GetNextPageAsync(Filters);
                 foreach (var product in products)
                 {
                     Products.Add(product);
@@ -112,11 +175,15 @@ namespace Inflow.Mobile.ViewModels
             }
         }
 
-        public async Task ApplyFilters()
+        public async Task OnApplyFilters()
         {
+            if (IsBusy)
+            {
+                return;
+            }
+
             IsBusy = true;
             Products.Clear();
-
             try
             {
                 var filteredProducts = await _productDataStore.FilterProducts(Filters);
@@ -136,6 +203,18 @@ namespace Inflow.Mobile.ViewModels
             }
         }
 
+        public async Task LoadCategories()
+        {
+            ApiClient apiService = new ApiClient();
+            var categories = await apiService.GetAsync<Category>("categories");
+
+            foreach (var category in categories.Data)
+            {
+                Categories.Add(category);
+            }
+            return;
+        }
+        
         private async void OnAddToCart(Product product)
         {
             AddProductsInCart();

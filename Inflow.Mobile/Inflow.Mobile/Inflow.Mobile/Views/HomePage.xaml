@@ -76,11 +76,11 @@
             </CarouselView>
 
             <CollectionView
-                Grid.Row="2"
-                Margin="15,15,15,15"
-                ItemsSource="{Binding Products}"
-                RemainingItemsThreshold="3"
-                RemainingItemsThresholdReached="ItemsView_OnRemainingItemsThresholdReached">
+            Grid.Row="2"
+            Margin="15,15,15,15"
+            ItemsSource="{Binding Products}"
+            RemainingItemsThreshold="4"
+                RemainingItemsThresholdReachedCommand="{Binding LoadMoreCommand}">
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout
                         HorizontalItemSpacing="10"

@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Inflow.Mobile.ViewModels;
 using Rg.Plugins.Popup.Pages;
-using Xamarin.Forms;
+using System;
 using Xamarin.Forms.Xaml;
 
 namespace Inflow.Mobile.Views.Popups
@@ -17,9 +13,28 @@ namespace Inflow.Mobile.Views.Popups
             InitializeComponent();
         }
 
+        protected override async void OnAppearing()
+        {
+            var vm = BindingContext as HomeViewModel;
+            await vm?.LoadCategories();
+            base.OnAppearing();
+        }
+
         private async void Button_OnClicked(object sender, EventArgs e)
         {
             await Navigation.PopModalAsync();
+        }
+
+        private async void Button_Clicked(object sender, EventArgs e)
+        {
+            var vm = BindingContext as HomeViewModel;
+            await vm?.OnApplyFilters();
+            await Navigation.PopModalAsync();
+        }
+
+        private async void Button_Clicked_1(object sender, EventArgs e)
+        {
+            await Navigation?.PopModalAsync();
         }
     }
 }

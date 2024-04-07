@@ -3,6 +3,7 @@ using Inflow.Mobile.Responses;
 using Inflow.Mobile.Services;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,8 +12,9 @@ namespace Inflow.Mobile.DataStores.Products
     internal class ProductDataStore : IProductDataStore
     {
         private readonly ApiClient _api;
-        private GetBaseReponse<Product> currentReponse;
-        private ProductFilters currentFilters;
+        private ApiResponse<Product> currentReponse;
+        private bool check = true;
+        private bool checkForLoadData = true;
 
         public ProductDataStore(ApiClient api)
         {
@@ -26,9 +28,17 @@ namespace Inflow.Mobile.DataStores.Products
             return currentReponse.Data;
         }
 
-        public async Task<IEnumerable<Product>> GetNextPageAsync()
+        public async Task<IEnumerable<Product>> GetNextPageAsync(ProductFilters filters)
         {
-            currentReponse = await _api.GetAsync<Product>($"products?pageNumber={currentReponse.PageNumber + 1}");
+            var next = currentReponse.Links
+                .FirstOrDefault(x => x.Rel.Equals("next", StringComparison.InvariantCultureIgnoreCase));
+
+            if (next is null)
+            {
+                return Enumerable.Empty<Product>();
+            }
+
+            currentReponse = await _api.GetAsync<Product>(next.Href, true);
 
             return currentReponse.Data;
         }
@@ -37,7 +47,7 @@ namespace Inflow.Mobile.DataStores.Products
         {
             string queryParams = GetQueryParams(filters);
             string resource = string.IsNullOrEmpty(queryParams)
-                ? $"products?pageNumber=${currentReponse.PageNumber}"
+                ? $"products?pageNumber=${currentReponse.Metadata.PageNumber}"
                 : $"products?{queryParams}";
 
             currentReponse = await _api.GetAsync<Product>(resource);
@@ -53,25 +63,33 @@ namespace Inflow.Mobile.DataStores.Products
         private static string GetQueryParams(ProductFilters filters)
         {
             StringBuilder queryParams = new StringBuilder();
-
-            if (filters.CategoryId != null)
+            if (!string.IsNullOrEmpty(filters.Sort))
             {
-                queryParams.Append($"categoryId={filters.CategoryId}&");
+                if (filters.Sort.Contains("asc"))
+                {
+                    filters.Sort = filters.Sort.TrimEnd("asc".ToCharArray());
+                }
+                queryParams.Append($"OrderBy={filters.Sort}");
             }
 
-            if (filters.SearchString != null)
+            if (filters.CategoryId != 0)
+            {
+                queryParams.Append($"CategoryId={filters.CategoryId}&");
+            }
+
+            if (!string.IsNullOrEmpty(filters.SearchString))
             {
                 queryParams.Append($"SearchString={filters.SearchString}&");
             }
 
-            if (filters.LowestPrice != null)
+            if (filters.LowestPrice != 0)
             {
-                queryParams.Append($"lowestPrice={filters.LowestPrice}&");
+                queryParams.Append($"PriceLessThan={filters.HighestPrice / (decimal)1.5}&");
             }
 
-            if (filters.HighestPrice != null)
+            if (filters.HighestPrice != 0)
             {
-                queryParams.Append($"highestPrice={filters.HighestPrice}");
+                queryParams.Append($"PriceGreaterThan={filters.LowestPrice / (decimal)1.5}");
             }
 
             return queryParams.ToString().TrimEnd('&');
