@@ -15,6 +15,7 @@ namespace Inflow.Mobile.ViewModels
 
         public ICommand AddToCartCommand { get; }
         public ICommand AddToSavedCommand { get; }
+        public ICommand ClearAllSavedProducts { get; }
 
         public SavedViewModel()
         {
@@ -25,6 +26,18 @@ namespace Inflow.Mobile.ViewModels
 
             AddToCartCommand = new Command<Product>(OnAddToCart);
             AddToSavedCommand = new Command<Product>(OnAddToSaved);
+            ClearAllSavedProducts = new Command (RemoveSavedProducts);
+        }
+
+        public void AddProductsInSaved()
+        {
+            var productsInSaved = DataService.GetProducts("ProductsInSaved");
+            SavedProducts.Clear();
+
+            foreach (var product in productsInSaved)
+            {
+                SavedProducts.Add(product);
+            }
         }
 
         private void OnAddToCart(Product product)
@@ -78,15 +91,12 @@ namespace Inflow.Mobile.ViewModels
             }
         }
 
-        public void AddProductsInSaved()
+        private void RemoveSavedProducts()
         {
-            var productsInSaved = DataService.GetProducts("ProductsInSaved");
             SavedProducts.Clear();
 
-            foreach (var product in productsInSaved)
-            {
-                SavedProducts.Add(product);
-            }
+            DataService.SaveProductsAsync(SavedProducts, "ProductsInSaved");
+            SavedProducts.Clear();
         }
     }
 }

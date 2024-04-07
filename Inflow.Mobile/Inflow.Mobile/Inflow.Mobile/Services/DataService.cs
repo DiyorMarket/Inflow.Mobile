@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Xamarin.Essentials;
 
 namespace Inflow.Mobile.Services
@@ -37,6 +38,26 @@ namespace Inflow.Mobile.Services
                 Console.WriteLine($"Error getting {key}: {ex.Message}");
             }
             return Enumerable.Empty<Product>();
+        }
+
+        public static void RemoveAllSavedProducts(string key)
+        {
+            try
+            {
+                if (SecureStorage.GetAsync(key).GetAwaiter().GetResult() != null)
+                {
+                    SecureStorage.Remove(key);
+                    Console.WriteLine("file successfuly deleted");
+                }
+                else
+                {
+                    Console.WriteLine("file with this name cannot fined");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error getting: {ex.Message}");
+            }
         }
     }
 }
