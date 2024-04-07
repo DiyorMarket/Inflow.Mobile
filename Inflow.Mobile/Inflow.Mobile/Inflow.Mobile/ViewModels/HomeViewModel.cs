@@ -17,6 +17,7 @@ namespace Inflow.Mobile.ViewModels
         public ObservableCollection<Product> Products { get; set; }
         public ObservableCollection<Category> Categories { get; private set; }
         public ObservableCollection<string> Properties { get; private set; }
+        public ObservableCollection<string> OrderBy { get; private set;}
 
         private string _searchString = string.Empty;
         public string SearchString
@@ -56,6 +57,12 @@ namespace Inflow.Mobile.ViewModels
             get => _selectedProperty;
             set=>SetProperty(ref _selectedProperty, value);
         }
+        private string _selectedOrderby= string.Empty;
+        public string SelectedOrderby
+        {
+            get=> _selectedOrderby;
+            set=>SetProperty(ref _selectedOrderby, value);
+        }
 
         public ProductFilters Filters
         {
@@ -86,6 +93,11 @@ namespace Inflow.Mobile.ViewModels
                 "Name",
                 "Price",
                 "Description"
+            };
+            OrderBy = new ObservableCollection<string>
+            {
+                "ASC",
+                "DESC"
             };
         }
 

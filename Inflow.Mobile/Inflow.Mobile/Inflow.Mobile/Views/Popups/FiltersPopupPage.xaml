@@ -30,64 +30,101 @@
         WidthRequest="300">
 
         <StackLayout>
-            <Label Text="Categories" TextColor="Black" />
-            <Picker
-                Title="All"
-                ItemsSource="{Binding Categories}"
-                SelectedItem="{Binding SelectedCategory}"
-                TextColor="Blue"
-                TitleColor="Blue">
-                <Picker.ItemDisplayBinding>
-                    <Binding Path="Name"/>
-                </Picker.ItemDisplayBinding>
-            </Picker>
+            <Label
+                FontAttributes="Bold"
+                FontSize="16"
+                Text="Categories"
+                TextColor="Black" />
+            <Frame
+                Padding="2"
+                CornerRadius="10"
+                HasShadow="True">
+                <Picker
+                    x:Name="categoryPicker"
+                    Title="All"
+                    ItemsSource="{Binding Categories}"
+                    SelectedItem="{Binding SelectedCategory}"
+                    TextColor="Blue"
+                    TitleColor="Blue">
+                    <Picker.ItemDisplayBinding>
+                        <Binding Path="Name" />
+                    </Picker.ItemDisplayBinding>
+                </Picker>
+            </Frame>
         </StackLayout>
 
-        <Label Text="Property" TextColor="Black" />
+        <Label
+            FontAttributes="Bold"
+            FontSize="16"
+            Text="Property"
+            TextColor="Black" />
         <StackLayout Orientation="Horizontal">
             <Picker
                 Title="Select property"
+                HorizontalTextAlignment="Start"
                 ItemsSource="{Binding Properties}"
                 SelectedItem="{Binding SelectedProperty}"
                 TextColor="Blue"
+                TextTransform="Uppercase"
                 TitleColor="Blue"
-                HorizontalTextAlignment="Start">
-            </Picker>
-
+                WidthRequest="135" />
             <Picker
                 Title="Select option"
-                Margin="50,0,0,0"
+                Margin="30,0,0,0"
                 HorizontalTextAlignment="Start"
-                TitleColor="Blue">
-            </Picker>
+                ItemsSource="{Binding OrderBy}"
+                SelectedItem="{Binding SelectedOrderby}"
+                TextColor="Blue"
+                TextTransform="Uppercase"
+                TitleColor="Blue"
+                WidthRequest="135" />
         </StackLayout>
 
         <Label
             Margin="3,0,0,0"
+            FontAttributes="Bold"
+            FontSize="16"
             Text="Price"
             TextColor="Black" />
         <StackLayout Orientation="Horizontal">
-            <Entry
-                Margin="3,0,0,0"
-                Keyboard="Numeric"
-                Placeholder="Lowest price"
-                Text="{Binding LowestPrice}"
-                TextColor="Blue" />
-            <Entry
-                Margin="70,0,0,0"
-                Keyboard="Numeric"
-                Placeholder="Highest price"
-                Text="{Binding HighestPrice}"
-                TextColor="Blue" />
+            <Frame
+                Margin="5,0,0,0"
+                Padding="2"
+                BorderColor="#2196F3"
+                CornerRadius="10"
+                HasShadow="True">
+                <Entry
+                    BackgroundColor="#E3F2FD"
+                    Keyboard="Numeric"
+                    Placeholder="Lowest price"
+                    Text="{Binding LowestPrice, Mode=TwoWay, StringFormat='{0:F1}'}"
+                    TextColor="Blue"
+                    WidthRequest="135" />
+            </Frame>
+            <Frame
+                Margin="10,0,0,0"
+                Padding="2"
+                BorderColor="#2196F3"
+                CornerRadius="10"
+                HasShadow="True">
+                <Entry
+                    BackgroundColor="#E3F2FD"
+                    Keyboard="Numeric"
+                    Placeholder="Highest price"
+                    Text="{Binding HighestPrice, Mode=TwoWay, StringFormat='{0:F1}'}"
+                    TextColor="Blue"
+                    WidthRequest="135" />
+            </Frame>
         </StackLayout>
 
         <StackLayout
-            Padding="0,30,0,0"
+            Padding="0,10,0,0"
             HorizontalOptions="CenterAndExpand"
             Orientation="Horizontal">
             <Button
                 BackgroundColor="#85929E"
                 BorderColor="AliceBlue"
+                Clicked="Button_Clicked_1"
                 CornerRadius="100"
                 Text="Cancel"
                 WidthRequest="150" />

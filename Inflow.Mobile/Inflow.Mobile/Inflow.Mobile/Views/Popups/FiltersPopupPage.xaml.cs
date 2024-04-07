@@ -31,5 +31,10 @@ namespace Inflow.Mobile.Views.Popups
             await vm?.OnApplyFilters();
             await Navigation.PopModalAsync();
         }
+
+        private async void Button_Clicked_1(object sender, EventArgs e)
+        {
+            await Navigation?.PopModalAsync();
+        }
     }
 }
