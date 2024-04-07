@@ -21,8 +21,8 @@ namespace Inflow.Mobile.Services
             {
                 var body = new
                 {
-                    login = email,
-                    password
+                    Login = email,
+                    Password = password
                 };
                 var jsonBody = JsonConvert.SerializeObject(body);
 
@@ -47,10 +47,10 @@ namespace Inflow.Mobile.Services
             {
                 var body = new
                 {
-                    login = email,
-                    password,
-                    userName,
-                    phoneNumber
+                    Login = email,
+                    Password = password,
+                    FullName = userName,
+                    Phone = phoneNumber
                 };
                 var jsonBody = JsonConvert.SerializeObject(body);
 
@@ -65,6 +65,28 @@ namespace Inflow.Mobile.Services
             }
             catch (Exception ex)
             {
+                throw;
+            }
+        }
+
+        public async Task<bool> ForgotPassword(string email)
+        {
+            try
+            {
+                var body = new
+                {
+                    Login = email
+                };
+                var jsobBody = JsonConvert.SerializeObject(body);
+
+                var result = await _client.PostAsync<bool>("auth/forgotPassword", jsobBody);
+                result.EnsureSuccessStatusCode();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+
                 throw;
             }
         }

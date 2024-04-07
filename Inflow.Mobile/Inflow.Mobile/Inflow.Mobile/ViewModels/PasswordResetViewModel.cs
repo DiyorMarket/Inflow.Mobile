@@ -1,4 +1,5 @@
-﻿using Inflow.Mobile.Views;
+﻿using Inflow.Mobile.Services;
+using Inflow.Mobile.Views;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,6 +10,7 @@ namespace Inflow.Mobile.ViewModels
 {
     public class PasswordResetViewModel : BaseViewModel
     {
+        private readonly LoginService _loginService;
         private string _email;
         public string Email
         {
@@ -47,6 +49,7 @@ namespace Inflow.Mobile.ViewModels
             NewPasswordPageCommand = new Command(OnNewPasswordPage);
             SendCodeCommand = new Command(OnSendCode);
             LoginCommand = new Command(OnLoginPage);
+            _loginService = new LoginService();
         }
 
         private void OnLoginPage(object obj)
@@ -63,7 +66,14 @@ namespace Inflow.Mobile.ViewModels
 
         private void OnSendCode(object obj)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrWhiteSpace(Email))
+            {
+                return;
+            }
+
+            var result = _loginService.ForgotPassword(Email);
+
+            Application.Current.MainPage = new NewPasswordPage();
         }
 
         private void OnNewPasswordPage(object obj)
