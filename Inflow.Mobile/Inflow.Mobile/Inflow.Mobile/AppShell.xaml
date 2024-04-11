@@ -88,7 +88,7 @@
             Icon="icon_home.png" />
         <ShellContent
             Title="History"
-            ContentTemplate="{DataTemplate views:ItemsPage}"
+            ContentTemplate="{DataTemplate views:SavedPage}"
             Icon="icon_history.png" />
         <ShellContent
             Title="Cart"
@@ -96,7 +96,7 @@
             Icon="icon_basket.png" />
         <ShellContent
             Title="Saved"
-            ContentTemplate="{DataTemplate views:ItemsPage}"
+            ContentTemplate="{DataTemplate views:SavedPage}"
             Icon="icon_saved.png" />
         <ShellContent
             Title="Profile"

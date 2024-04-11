@@ -1,0 +1,132 @@
+﻿<ContentPage
+    x:Class="Inflow.Mobile.Views.SavedPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ffi="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:local="clr-namespace:Inflow.Mobile.Converter"
+    xmlns:md="clr-namespace:Plugin.MaterialDesignControls.Material3;assembly=Plugin.MaterialDesignControls"
+    xmlns:vm="clr-namespace:Inflow.Mobile.ViewModels">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:IconConverter x:Key="iconConverter" />
+            <local:HeartIconConverter x:Key="heartIconConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <md:MaterialLabel
+                    Margin="0,15,0,0"
+                    FontSize="Medium"
+                    HorizontalOptions="Center"
+                    Text="Favourite products"
+                    TextColor="Black" />
+                <ImageButton
+                    Margin="0,10,10,0"
+                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:SavedViewModel}}, Path=ClearAllSavedProducts}"
+                    HeightRequest="25"
+                    HorizontalOptions="End"
+                    Source="black_bin.png"
+                    WidthRequest="25" />
+            </Grid>
+
+            <CollectionView
+                Grid.Row="1"
+                Margin="15,15,15,15"
+                ItemsSource="{Binding SavedProducts}"
+                RemainingItemsThreshold="3">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout
+                        HorizontalItemSpacing="10"
+                        Orientation="Vertical"
+                        Span="2"
+                        VerticalItemSpacing="10" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <md:MaterialCard
+                            Padding="0"
+                            BackgroundColor="White"
+                            CornerRadius="16">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="150" />
+                                    <RowDefinition Height="25" />
+                                    <RowDefinition Height="25" />
+                                    <RowDefinition Height="35" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Frame
+                                    Grid.Row="0"
+                                    Grid.ColumnSpan="2"
+                                    Padding="0"
+                                    BackgroundColor="#DFE1E8"
+                                    CornerRadius="15"
+                                    HorizontalOptions="FillAndExpand">
+                                    <Grid>
+                                        <Image Aspect="Fill" Source="{Binding ImageUrl}" />
+                                        <ImageButton
+                                            Margin="0,10,10,0"
+                                            Aspect="Fill"
+                                            BackgroundColor="Transparent"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type vm:SavedViewModel}}, Path=AddToSavedCommand}"
+                                            CommandParameter="{Binding}"
+                                            HeightRequest="20"
+                                            HorizontalOptions="End"
+                                            Source="{Binding IsSaved, Converter={StaticResource heartIconConverter}}"
+                                            VerticalOptions="Start"
+                                            WidthRequest="20" />
+                                    </Grid>
+                                </Frame>
+                                <Label
+                                    Grid.Row="1"
+                                    Grid.Column="0"
+                                    Margin="10,5,0,0"
+                                    FontAttributes="Bold"
+                                    Text="{Binding Name}" />
+                                <Label
+                                    Grid.Row="2"
+                                    Grid.Column="0"
+                                    Margin="10,5,0,0"
+                                    Text="{Binding Category.Name}" />
+                                <Label
+                                    Grid.Row="3"
+                                    Grid.Column="0"
+                                    Margin="10,5,0,0"
+                                    FontAttributes="Bold"
+                                    Text="{Binding SalePrice, StringFormat='{0:c}'}" />
+                                <ImageButton
+                                    Grid.Row="3"
+                                    Grid.Column="1"
+                                    Margin="0,0,10,10"
+                                    BackgroundColor="Transparent"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:SavedViewModel}}, Path=AddToCartCommand}"
+                                    CommandParameter="{Binding}"
+                                    HeightRequest="30"
+                                    HorizontalOptions="End"
+                                    Source="{Binding IsInCart, Converter={StaticResource iconConverter}}"
+                                    VerticalOptions="End"
+                                    WidthRequest="30" />
+                            </Grid>
+                        </md:MaterialCard>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <md:MaterialProgressIndicator
+                Grid.Row="2"
+                IsEnabled="{Binding IsBusy}"
+                IsVisible="{Binding IsBusy}"
+                VerticalOptions="CenterAndExpand" />
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
