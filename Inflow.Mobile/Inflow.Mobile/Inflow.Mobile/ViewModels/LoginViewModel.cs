@@ -114,7 +114,7 @@ namespace Inflow.Mobile.ViewModels
 
             var result = _loginService.RegisterUser(Email, Username, PhoneNumber, Password);
 
-            Application.Current.MainPage= new AppShell();
+            Application.Current.MainPage = new AppShell();
         }
     }
 }
