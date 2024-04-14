@@ -111,8 +111,8 @@ namespace Inflow.Mobile.ViewModels
             LoadMoreCommand = new AsyncCommand(OnLoadMore);
             ProductsInCart = new ObservableCollection<Product>();
             SavedProducts = new ObservableCollection<Product>();
-            AddToCartCommand = new Command<Product>(OnAddToCart);
-            AddToSavedCommand = new Command<Product>(OnAddToSaved);
+            AddToCartCommand = new Xamarin.Forms.Command<Product>(OnAddToCart);
+            AddToSavedCommand = new Xamarin.Forms.Command<Product>(OnAddToSaved);
         }
 
         public async Task LoadData()
