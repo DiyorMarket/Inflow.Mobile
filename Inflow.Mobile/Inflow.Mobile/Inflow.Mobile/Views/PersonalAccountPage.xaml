@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Inflow.Mobile.Views.PersonalAccountPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:md="clr-namespace:Plugin.MaterialDesignControls.Material3;assembly=Plugin.MaterialDesignControls">
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="3*" />
+                <RowDefinition Height="4*" />
+            </Grid.RowDefinitions>
+
+            <Image
+                Grid.RowSpan="3"
+                Aspect="AspectFill"
+                Source="personalaccount3.png" />
+
+            <Label
+                Grid.Row="0"
+                FontSize="Large"
+                FontAttributes="Bold"
+                HorizontalOptions="Center"
+                Text="Personal account"
+                TextColor="#FFFFFF"
+                VerticalOptions="Start" />
+
+            <md:MaterialCard
+                Grid.Row="0"
+                Margin="10"
+                BackgroundColor="#FFFFFF"
+                CornerRadius="50"
+                HeightRequest="55"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                WidthRequest="55">
+                <Image
+                    Margin="0,0,0,5"
+                    HeightRequest="200"
+                    Source="account.png"
+                    WidthRequest="200" />
+            </md:MaterialCard>
+
+            <Label
+                Grid.Row="0"
+                Margin="0,0,0,70"
+                FontSize="Medium"
+                HorizontalOptions="CenterAndExpand"
+                Text="User name"
+                TextColor="#00A3FF"
+                FontAttributes="Bold"
+                VerticalOptions="EndAndExpand" />
+            <Label
+                Grid.Row="0"
+                Margin="0,0,0,45"
+                FontSize="Subtitle"
+                HorizontalOptions="CenterAndExpand"
+                Text="azamatgiasov@gmail.com"
+                TextColor="#00A3FF"
+                VerticalOptions="EndAndExpand" />
+            <Label
+                Grid.Row="0"
+                FontSize="Subtitle"
+                HorizontalOptions="CenterAndExpand"
+                Margin="0,0,0,20"
+                Text="+998977429255"
+                TextColor="#00A3FF"
+                VerticalOptions="EndAndExpand" />
+
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
