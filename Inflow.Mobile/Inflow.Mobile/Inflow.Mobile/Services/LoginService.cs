@@ -1,8 +1,11 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Net.Http;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace Inflow.Mobile.Services
 {
@@ -35,9 +38,19 @@ namespace Inflow.Mobile.Services
 
                 return string.IsNullOrEmpty(token);
             }
+            catch (HttpRequestException ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", "An error occurred. Please try again later.", "OK");
+                return false;
+            }
             catch (Exception ex)
             {
-                throw;
+                await Application.Current.MainPage.DisplayAlert("Error", "An error occurred. Please try again later.", "OK");
+                return false;
+            }
+            finally
+            {
+                Application.Current.MainPage = new AppShell();
             }
         }
 
@@ -63,9 +76,19 @@ namespace Inflow.Mobile.Services
 
                 return string.IsNullOrEmpty(token);
             }
+            catch (HttpRequestException ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", "An error occurred. Please try again later.", "OK");
+                return false;
+            }
             catch (Exception ex)
             {
-                throw;
+                await Application.Current.MainPage.DisplayAlert("Error", "An error occurred. Please try again later.", "OK");
+                return false;
+            }
+            finally
+            {
+                Application.Current.MainPage = new AppShell();
             }
         }
 
@@ -84,10 +107,19 @@ namespace Inflow.Mobile.Services
 
                 return true;
             }
+            catch (HttpRequestException ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", "An error occurred. Please try again later.", "OK");
+                return false;
+            }
             catch (Exception ex)
             {
-
-                throw;
+                await Application.Current.MainPage.DisplayAlert("Error", "An error occurred. Please try again later.", "OK");
+                return false;
+            }
+            finally
+            {
+                Application.Current.MainPage = new AppShell();
             }
         }
 
@@ -112,9 +144,19 @@ namespace Inflow.Mobile.Services
 
                 return string.IsNullOrEmpty(token);
             }
+            catch (HttpRequestException ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", "An error occurred. Please try again later.", "OK");
+                return false;
+            }
             catch (Exception ex)
             {
-                throw;
+                await Application.Current.MainPage.DisplayAlert("Error", "An error occurred. Please try again later.", "OK");
+                return false;
+            }
+            finally
+            {
+                Application.Current.MainPage = new AppShell();
             }
         }
     }
