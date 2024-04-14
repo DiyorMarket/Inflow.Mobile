@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Inflow.Mobile.Views.CartPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:md="clr-namespace:Plugin.MaterialDesignControls.Material3;assembly=Plugin.MaterialDesignControls"
+    xmlns:vm="clr-namespace:Inflow.Mobile.ViewModels.Inflow.Mobile.ViewModels;assembly=Inflow.Mobile">
+
+    <ContentPage.Content>
+        <Grid>
+            <!--  Обновление определений строк  -->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <md:MaterialLabel
+                Grid.Row="0"
+                Margin="0,15,0,0"
+                FontSize="Medium"
+                HorizontalOptions="Center"
+                Text="Favourite products"
+                TextColor="Black" />
+            <Grid Grid.Row="1" Padding="10">
+                <ListView
+                    x:Name="CartListView"
+                    HasUnevenRows="True"
+                    ItemsSource="{Binding CartItems}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid Padding="10">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="120" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Image
+                                        Grid.Column="0"
+                                        HeightRequest="120"
+                                        Source="{Binding ImageUrl}"
+                                        WidthRequest="120" />
+                                    <StackLayout
+                                        Grid.Column="1"
+                                        Spacing="5"
+                                        VerticalOptions="FillAndExpand">
+                                        <Label
+                                            FontAttributes="Bold"
+                                            Text="{Binding Name}"
+                                            VerticalOptions="Start" />
+                                        <Label Text="{Binding SalePrice, StringFormat='{0:C}'}" VerticalOptions="CenterAndExpand" />
+                                        <StackLayout
+                                            Orientation="Horizontal"
+                                            Spacing="10"
+                                            VerticalOptions="End">
+                                            <Button
+                                                BackgroundColor="Yellow"
+                                                Command="{Binding DecreaseCommand}"
+                                                CommandParameter="{Binding .}"
+                                                FontSize="Medium"
+                                                HeightRequest="30"
+                                                Text="-"
+                                                WidthRequest="30" />
+
+                                            <Label
+                                                BackgroundColor="LightGreen"
+                                                FontAttributes="Bold"
+                                                FontSize="Medium"
+                                                HorizontalOptions="Center"
+                                                Text="{Binding Quantity}"
+                                                VerticalOptions="Center" />
+
+                                            <Button
+                                                BackgroundColor="Yellow"
+                                                Command="{Binding IncreaseCommand}"
+                                                CommandParameter="{Binding .}"
+                                                FontSize="Medium"
+                                                HeightRequest="30"
+                                                Text="+"
+                                                WidthRequest="30" />
+                                        </StackLayout>
+                                    </StackLayout>
+                                    <Button
+                                        Grid.Column="2"
+                                        Margin="0,0,0,0"
+                                        Command="{Binding RemoveCommand}"
+                                        CommandParameter="{Binding .}"
+                                        FontSize="Medium"
+                                        HeightRequest="40"
+                                        Text="🗑"
+                                        VerticalOptions="End"
+                                        WidthRequest="40" />
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+            <!--  Перемещение секции суммы заказа в последнюю строку  -->
+            <StackLayout
+                Grid.Row="2"
+                Padding="5"
+                HorizontalOptions="FillAndExpand"
+                Orientation="Horizontal">
+                <Label
+                    HorizontalOptions="StartAndExpand"
+                    Text="Total:"
+                    VerticalOptions="Center" />
+                <Label
+                    HorizontalOptions="End"
+                    Text="{Binding TotalPrice, StringFormat='{0:C}'}"
+                    VerticalOptions="Center" />
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,7 +1,10 @@
 ﻿using Inflow.Mobile.Models;
 using Inflow.Mobile.Services;
+using Inflow.Mobile.Views.Popups;
+using Rg.Plugins.Popup.Services;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -15,7 +18,7 @@ namespace Inflow.Mobile.ViewModels
 
         public ICommand AddToCartCommand { get; }
         public ICommand AddToSavedCommand { get; }
-        public ICommand ClearAllSavedProducts { get; }
+        public ICommand ShowConfirmationCommand { get; }
 
         public SavedViewModel()
         {
@@ -26,7 +29,12 @@ namespace Inflow.Mobile.ViewModels
 
             AddToCartCommand = new Command<Product>(OnAddToCart);
             AddToSavedCommand = new Command<Product>(OnAddToSaved);
-            ClearAllSavedProducts = new Command (RemoveSavedProducts);
+            ShowConfirmationCommand = new Command(async () => await ShowConfirmationPopup());
+        }
+
+        private async Task ShowConfirmationPopup()
+        {
+            await PopupNavigation.Instance.PushAsync(new ConfirmationPopupPage());
         }
 
         public void AddProductsInSaved()
@@ -91,12 +99,12 @@ namespace Inflow.Mobile.ViewModels
             }
         }
 
-        private void RemoveSavedProducts()
+        /*private void RemoveSavedProducts()
         {
             SavedProducts.Clear();
 
             DataService.SaveProductsAsync(SavedProducts, "ProductsInSaved");
             SavedProducts.Clear();
-        }
+        }*/
     }
 }
