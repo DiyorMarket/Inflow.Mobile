@@ -52,18 +52,23 @@
                                         <StackLayout
                                             Orientation="Horizontal"
                                             Spacing="10"
-                                            VerticalOptions="End">
+                                            VerticalOptions="End"
+                                            HorizontalOptions="Center">
                                             <Button
-                                                BackgroundColor="Yellow"
+                                                BackgroundColor="DeepSkyBlue"
                                                 Command="{Binding DecreaseCommand}"
                                                 CommandParameter="{Binding .}"
-                                                FontSize="Medium"
-                                                HeightRequest="30"
+                                                FontAttributes="Bold"
+                                                FontSize="12"
+                                                HeightRequest="35"
+                                                HorizontalOptions="Center"
                                                 Text="-"
-                                                WidthRequest="30" />
+                                                TextColor="White"
+                                                VerticalOptions="Center"
+                                                WidthRequest="35" />
 
                                             <Label
-                                                BackgroundColor="LightGreen"
+                                                BackgroundColor="Red"
                                                 FontAttributes="Bold"
                                                 FontSize="Medium"
                                                 HorizontalOptions="Center"
@@ -71,13 +76,18 @@
                                                 VerticalOptions="Center" />
 
                                             <Button
-                                                BackgroundColor="Yellow"
+                                                BackgroundColor="DeepSkyBlue"
                                                 Command="{Binding IncreaseCommand}"
                                                 CommandParameter="{Binding .}"
-                                                FontSize="Medium"
-                                                HeightRequest="30"
+                                                FontAttributes="Bold"
+                                                FontSize="12"
+                                                HeightRequest="35"
+                                                HorizontalOptions="Center"
                                                 Text="+"
-                                                WidthRequest="30" />
+                                                TextColor="White"
+                                                VerticalOptions="Center"
+                                                WidthRequest="35" />
+
                                         </StackLayout>
                                     </StackLayout>
                                     <Button
@@ -88,6 +98,7 @@
                                         FontSize="Medium"
                                         HeightRequest="40"
                                         Text="🗑"
+                                        TextColor="Red"
                                         VerticalOptions="End"
                                         WidthRequest="40" />
                                 </Grid>
