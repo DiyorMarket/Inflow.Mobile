@@ -7,7 +7,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Xamarin.Forms;
 
 namespace Inflow.Mobile.ViewModels
 {
@@ -19,7 +18,7 @@ namespace Inflow.Mobile.ViewModels
         public ObservableCollection<Product> Products { get; set; }
         public ObservableCollection<Category> Categories { get; private set; }
         public ObservableCollection<string> Properties { get; private set; }
-        public ObservableCollection<string> OrderBy { get; private set;}
+        public ObservableCollection<string> OrderBy { get; private set; }
         public ObservableCollection<Product> ProductsInCart { get; set; }
         public ObservableCollection<Product> SavedProducts { get; set; }
 
@@ -61,20 +60,20 @@ namespace Inflow.Mobile.ViewModels
         public string SelectedProperty
         {
             get => _selectedProperty;
-            set=>SetProperty(ref _selectedProperty, value);
+            set => SetProperty(ref _selectedProperty, value);
         }
-        private string _selectedOrderby= string.Empty;
+        private string _selectedOrderby = string.Empty;
         public string SelectedOrderby
         {
-            get=> _selectedOrderby;
-            set=>SetProperty(ref _selectedOrderby, value);
+            get => _selectedOrderby;
+            set => SetProperty(ref _selectedOrderby, value);
         }
 
         public ProductFilters Filters
         {
             get
             {
-                return new ProductFilters(_searchString, _selectedProperty+SelectedOrderby.ToLower(), _lowestPrice, _highestPrice,
+                return new ProductFilters(_searchString, _selectedProperty + SelectedOrderby.ToLower(), _lowestPrice, _highestPrice,
                     SelectedCategory != null ? SelectedCategory.Id : 0);
             }
         }
@@ -215,7 +214,7 @@ namespace Inflow.Mobile.ViewModels
             }
             return;
         }
-        
+
         private async void OnAddToCart(Product product)
         {
             AddProductsInCart();
@@ -260,7 +259,7 @@ namespace Inflow.Mobile.ViewModels
             var productsInCart = DataService.GetProducts("ProductsInCart");
             ProductsInCart.Clear();
 
-            foreach(var product in productsInCart)
+            foreach (var product in productsInCart)
             {
                 ProductsInCart.Add(product);
             }
@@ -271,7 +270,7 @@ namespace Inflow.Mobile.ViewModels
             var productsInSaved = DataService.GetProducts("ProductsInSaved");
             SavedProducts.Clear();
 
-            foreach(var product in productsInSaved)
+            foreach (var product in productsInSaved)
             {
                 SavedProducts.Add(product);
             }
@@ -279,18 +278,18 @@ namespace Inflow.Mobile.ViewModels
 
         private void UpdateProductListParam()
         {
-            foreach(var product in Products)
+            foreach (var product in Products)
             {
                 if (ProductsInCart != null)
                 {
                     var changeProductInCart = ProductsInCart.FirstOrDefault(x => x.Id == product.Id);
-                    
-                    if(changeProductInCart != null)
+
+                    if (changeProductInCart != null)
                     {
                         product.IsInCart = changeProductInCart.IsInCart;
                     }
                 }
-                if(SavedProducts != null)
+                if (SavedProducts != null)
                 {
                     var changeProductInSaved = SavedProducts.FirstOrDefault(x => x.Id == product.Id);
 
