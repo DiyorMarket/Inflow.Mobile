@@ -9,7 +9,6 @@ namespace Inflow.Mobile.ViewModels
 {
     public class SavedViewModel : BaseViewModel
     {
-
         public ObservableCollection<Product> ProductsInCart { get; set; }
         public ObservableCollection<Product> SavedProducts { get; set; }
 
