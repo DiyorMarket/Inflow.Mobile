@@ -6,8 +6,16 @@ namespace Inflow.Mobile.Models
 {
     public class Sale
     {
+        public int Id { get; set; }
         public DateTime SaleDate { get; set; }
+        public decimal totalDue { get; set; }
+        public int Quantity { get; set; }
 
-        public virtual ICollection<SaleItem> SaleItems { get; set; }
+        public List<SaleItem> SaleItems { get; set; }
+
+        public Sale()
+        {
+            SaleItems = new List<SaleItem>();
+        }
     }
 }

@@ -1,72 +1,41 @@
-﻿<ContentPage
-    x:Class="Inflow.Mobile.Views.HistoryPage"
-    xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:ffi="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
-    xmlns:local="clr-namespace:Inflow.Mobile.Converter"
-    xmlns:md="clr-namespace:Plugin.MaterialDesignControls.Material3;assembly=Plugin.MaterialDesignControls"
-    xmlns:vm="clr-namespace:Inflow.Mobile.ViewModels">
-
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <local:IconConverter x:Key="iconConverter" />
-            <local:HeartIconConverter x:Key="heartIconConverter" />
-        </ResourceDictionary>
-    </ContentPage.Resources>
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:Inflow.Mobile.ViewModels"
+             x:Class="Inflow.Mobile.Views.HistoryPage">
 
     <ContentPage.Content>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            <Grid Grid.Row="0">
-                <md:MaterialLabel
-                    Margin="0,15,0,0"
-                    FontSize="Medium"
-                    HorizontalOptions="Center"
-                    Text="History"
-                    TextColor="Black" />
-                <ImageButton
-                    Margin="0,10,10,0"
-                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:HistoryViewModel}}}"
-                    HeightRequest="25"
-                    HorizontalOptions="End"
-                    Source="black_bin.png"
-                    WidthRequest="25" />
-            </Grid>
+        <ScrollView>
+            <StackLayout>
+                <ListView ItemsSource="{Binding SaleHistory}" RowHeight="120" Margin="10">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
 
-            <CollectionView
-                Grid.Row="1"
-                Margin="15,15,15,15"
-                ItemsSource="{Binding SavedProducts}"
-                RemainingItemsThreshold="3">
-                <CollectionView.ItemsLayout>
-                    <GridItemsLayout
-                        HorizontalItemSpacing="10"
-                        Orientation="Vertical"
-                        Span="2"
-                        VerticalItemSpacing="10" />
-                </CollectionView.ItemsLayout>
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <md:MaterialCard
-                            Padding="0"
-                            BackgroundColor="White"
-                            CornerRadius="16">
-                            <Grid>
-                               
-                            </Grid>
-                        </md:MaterialCard>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+                                    <StackLayout Grid.Column="0">
+                                        <Label Text="SaleId: " HorizontalTextAlignment="Start" FontAttributes="Bold"/>
+                                        <Label Text="SaleDate: " HorizontalTextAlignment="Start"/>
+                                        <Label Text="Quantity: " HorizontalTextAlignment="Start"/>
+                                        <Label Text="TotalDue: " HorizontalTextAlignment="Start"/>
+                                    </StackLayout>
 
-            <md:MaterialProgressIndicator
-                Grid.Row="2"
-                IsEnabled="{Binding IsBusy}"
-                IsVisible="{Binding IsBusy}"
-                VerticalOptions="CenterAndExpand" />
-        </Grid>
+                                    <StackLayout Grid.Column="1">
+                                        <Label Text="{Binding Id}" HorizontalTextAlignment="Start"/>
+                                        <Label Text="{Binding SaleDate, StringFormat='{0:dd/MM/yyyy}'}" HorizontalTextAlignment="Start"/>
+                                        <Label Text="{Binding Quantity}" HorizontalTextAlignment="Start"/>
+                                        <Label Text="{Binding totalDue}" HorizontalTextAlignment="Start"/>
+                                    </StackLayout>
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

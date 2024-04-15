@@ -1,11 +1,9 @@
 ﻿using Inflow.Mobile.DataStores.Sales;
+using Inflow.Mobile.Models;
 using Inflow.Mobile.Services;
 using Inflow.Mobile.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -25,10 +23,17 @@ namespace Inflow.Mobile.Views
         }
         protected override async void OnAppearing()
         {
-            var vm = BindingContext as HistoryViewModel;
-            await vm?.LoadSaleHistory();
-
             base.OnAppearing();
+            await (BindingContext as HistoryViewModel)?.LoadSaleHistory();
+        }
+        private async void OnDetailsButtonClicked(object sender, EventArgs e)
+        {
+            if (sender is Button button && button.CommandParameter is Sale sale)
+            {
+                // Перейти на новую страницу для отображения деталей продажи
+                // Например:
+                // await Shell.Current.Navigation.PushAsync(new SaleItemsPage(sale));
+            }
         }
     }
 }
