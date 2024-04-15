@@ -29,7 +29,7 @@
                     Margin="0,0,75,0"
                     BackgroundColor="#DFE1E8"
                     BorderWidth="0"
-                    CornerRadius="50"
+                    CornerRadius="20"
                     HasBorder="True"
                     HorizontalOptions="Start"
                     LeadingIcon="icon_search.png"
@@ -37,15 +37,16 @@
                     Text="{Binding SearchString}" />
                 <md:MaterialCard
                     Margin="15,0,0,0"
+                    BackgroundColor="#DFE1E8"
+                    CornerRadius="20"
                     HasBorder="True"
                     HeightRequest="50"
                     HorizontalOptions="End"
                     WidthRequest="25">
                     <ImageButton
+                        BackgroundColor="#DFE1E8"
                         Clicked="ImageButton_OnClicked"
-                        HeightRequest="10"
-                        Source="bullets.png"
-                        WidthRequest="10" />
+                        Source="icon_filter.png" />
                 </md:MaterialCard>
             </Grid>
 
@@ -76,10 +77,10 @@
             </CarouselView>
 
             <CollectionView
-            Grid.Row="2"
-            Margin="15,15,15,15"
-            ItemsSource="{Binding Products}"
-            RemainingItemsThreshold="4"
+                Grid.Row="2"
+                Margin="15,15,15,15"
+                ItemsSource="{Binding Products}"
+                RemainingItemsThreshold="4"
                 RemainingItemsThresholdReachedCommand="{Binding LoadMoreCommand}">
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout

@@ -100,7 +100,7 @@
             Icon="icon_saved.png" />
         <ShellContent
             Title="Profile"
-            ContentTemplate="{DataTemplate views:LoginPage}"
+            ContentTemplate="{DataTemplate views:PersonalAccountPage}"
             Icon="icon_account.png" />
         <ShellContent
             ContentTemplate="{DataTemplate views:LoginPage}"

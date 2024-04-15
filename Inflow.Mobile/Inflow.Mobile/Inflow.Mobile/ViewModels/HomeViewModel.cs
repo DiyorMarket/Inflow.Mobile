@@ -113,6 +113,7 @@ namespace Inflow.Mobile.ViewModels
             SavedProducts = new ObservableCollection<Product>();
             AddToCartCommand = new MvvmHelpers.Commands.Command<Product>(OnAddToCart);
             AddToSavedCommand = new MvvmHelpers.Commands.Command<Product>(OnAddToSaved);
+
         }
 
         public async Task LoadData()
