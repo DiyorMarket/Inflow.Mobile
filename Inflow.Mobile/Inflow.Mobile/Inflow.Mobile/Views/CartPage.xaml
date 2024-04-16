@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Inflow.Mobile.Views.CartPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:Inflow.Mobile.Converter"
+    xmlns:md="clr-namespace:Plugin.MaterialDesignControls.Material3;assembly=Plugin.MaterialDesignControls"
+    xmlns:vm="clr-namespace:Inflow.Mobile.ViewModels;assembly=Inflow.Mobile">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:BooleanToColorConverter x:Key="BooleanToColorConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <md:MaterialLabel
+                Grid.Row="0"
+                Margin="0,15,0,0"
+                FontSize="Medium"
+                HorizontalOptions="Center"
+                Text="Cart"
+                TextColor="Black" />
+
+            <Grid Grid.Row="1" Padding="10">
+                <ListView
+                    x:Name="CartListView"
+                    HasUnevenRows="True"
+                    ItemsSource="{Binding CartItems}"
+                    SelectedItem="{Binding SelectedItem}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Frame Padding="10" BackgroundColor="{Binding IsSelected, Converter={StaticResource BooleanToColorConverter}}">
+                                    <Grid Padding="10">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="120" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <Image
+                                            Grid.Column="0"
+                                            HeightRequest="100"
+                                            Source="{Binding ImageUrl}"
+                                            WidthRequest="120" />
+                                        <StackLayout
+                                            Grid.Column="1"
+                                            Spacing="5"
+                                            VerticalOptions="FillAndExpand">
+                                            <Label
+                                                Margin="15,0,0,0"
+                                                FontAttributes="Bold"
+                                                Text="{Binding Name}"
+                                                VerticalOptions="Start" />
+                                            <Label
+                                                Margin="15,0,0,0"
+                                                Text="{Binding SalePrice, StringFormat='{0:C}'}"
+                                                VerticalOptions="CenterAndExpand" />
+                                            <StackLayout
+                                                Margin="15,0,0,0"
+                                                HorizontalOptions="Start"
+                                                Orientation="Horizontal"
+                                                Spacing="10"
+                                                VerticalOptions="End">
+                                                <ImageButton
+                                                    BackgroundColor="Transparent"
+                                                    Command="{Binding DecreaseCommand}"
+                                                    CommandParameter="{Binding .}"
+                                                    HeightRequest="25"
+                                                    Source="minus_frame.png"
+                                                    WidthRequest="25" />
+
+                                                <md:MaterialLabel
+                                                    Margin="0,0,0,7"
+                                                    FontAttributes="Bold"
+                                                    FontSize="Large"
+                                                    HeightRequest="25"
+                                                    HorizontalTextAlignment="Center"
+                                                    Text="{Binding Quantity}"
+                                                    VerticalTextAlignment="Center"
+                                                    WidthRequest="25" />
+
+                                                <ImageButton
+                                                    BackgroundColor="Transparent"
+                                                    Command="{Binding IncreaseCommand}"
+                                                    CommandParameter="{Binding .}"
+                                                    HeightRequest="25"
+                                                    Source="plus_frame.png"
+                                                    WidthRequest="25" />
+
+                                            </StackLayout>
+                                        </StackLayout>
+                                        <ImageButton
+                                            Grid.Column="2"
+                                            BackgroundColor="Transparent"
+                                            Command="{Binding RemoveCommand}"
+                                            CommandParameter="{Binding .}"
+                                            HeightRequest="20"
+                                            Source="red_bin.png"
+                                            VerticalOptions="End"
+                                            WidthRequest="20" />
+                                    </Grid>
+                                </Frame>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+
+            <StackLayout
+                Grid.Row="2"
+                Padding="5"
+                BackgroundColor="LightGray"
+                HorizontalOptions="FillAndExpand"
+                Orientation="Horizontal">
+                <Label
+                    FontAttributes="Bold"
+                    HorizontalOptions="StartAndExpand"
+                    Text="Total:"
+                    TextColor="Black"
+                    VerticalOptions="Center" />
+                <Label
+                    FontAttributes="Bold"
+                    HorizontalOptions="CenterAndExpand"
+                    Text="{Binding TotalPrice, StringFormat='{0:C}'}"
+                    TextColor="Black"
+                    VerticalOptions="Center" />
+                <Button
+                    Margin="0,0,5,0"
+                    BackgroundColor="DeepSkyBlue"
+                    BorderWidth="1"
+                    CornerRadius="10"
+                    HeightRequest="35"
+                    HorizontalOptions="EndAndExpand"
+                    Text="Buy"
+                    TextColor="White"
+                    WidthRequest="75" />
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

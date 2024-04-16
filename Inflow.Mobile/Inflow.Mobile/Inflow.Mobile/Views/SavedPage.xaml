@@ -29,11 +29,12 @@
                     TextColor="Black" />
                 <ImageButton
                     Margin="0,10,10,0"
-                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:SavedViewModel}}, Path=ClearAllSavedProducts}"
+                    Command="{Binding ShowConfirmationCommand}"
                     HeightRequest="25"
                     HorizontalOptions="End"
                     Source="black_bin.png"
                     WidthRequest="25" />
+
             </Grid>
 
             <CollectionView

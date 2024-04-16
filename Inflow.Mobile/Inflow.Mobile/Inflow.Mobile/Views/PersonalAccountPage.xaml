@@ -107,14 +107,14 @@
                     BackgroundColor="Transparent"
                     BorderColor="#00A3FF"
                     ButtonType="Outlined"
-                    Clicked="Register_Clicked"
-                    Command="{Binding RegisterCommand}"
                     CornerRadius="10"
                     FontSize="18"
                     HeightRequest="50"
                     TabIndex="3"
                     Text="Log out"
                     TextColor="#00A3FF" />
+                <!--  Command="{Binding RegisterCommand}"  -->
+
             </StackLayout>
 
             <Label
