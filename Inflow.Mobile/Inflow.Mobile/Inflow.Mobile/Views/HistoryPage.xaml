@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<!-- HistoryPage.xaml -->
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels="clr-namespace:Inflow.Mobile.ViewModels"
@@ -7,29 +7,35 @@
     <ContentPage.Content>
         <ScrollView>
             <StackLayout>
-                <ListView ItemsSource="{Binding SaleHistory}" RowHeight="120" Margin="10">
+                <ListView ItemsSource="{Binding SaleHistory}" RowHeight="150" Margin="10" SeparatorVisibility="Default">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
                                 <Grid>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
 
                                     <StackLayout Grid.Column="0">
-                                        <Label Text="SaleId: " HorizontalTextAlignment="Start" FontAttributes="Bold"/>
-                                        <Label Text="SaleDate: " HorizontalTextAlignment="Start"/>
-                                        <Label Text="Quantity: " HorizontalTextAlignment="Start"/>
-                                        <Label Text="TotalDue: " HorizontalTextAlignment="Start"/>
+                                        <Label Text="SaleId: " HorizontalTextAlignment="Start" FontAttributes="Bold" FontSize="Subtitle"/>
+                                        <Label Text="SaleDate: " HorizontalTextAlignment="Start" FontAttributes="Bold" FontSize="Subtitle"/>
+                                        <Label Text="Quantity: " HorizontalTextAlignment="Start" FontAttributes="Bold" FontSize="Subtitle"/>
+                                        <Label Text="TotalDue: " HorizontalTextAlignment="Start" FontAttributes="Bold" FontSize="Subtitle"/>
                                     </StackLayout>
 
                                     <StackLayout Grid.Column="1">
-                                        <Label Text="{Binding Id}" HorizontalTextAlignment="Start"/>
-                                        <Label Text="{Binding SaleDate, StringFormat='{0:dd/MM/yyyy}'}" HorizontalTextAlignment="Start"/>
-                                        <Label Text="{Binding Quantity}" HorizontalTextAlignment="Start"/>
-                                        <Label Text="{Binding totalDue}" HorizontalTextAlignment="Start"/>
+                                        <Label Text="{Binding Id}" HorizontalTextAlignment="Start" HorizontalOptions="End" FontAttributes="Bold" FontSize="Subtitle"/>
+                                        <Label Text="{Binding SaleDate, StringFormat='{0:dd/MM/yyyy}'}" HorizontalTextAlignment="Start" HorizontalOptions="End" FontAttributes="Bold" FontSize="Subtitle"/>
+                                        <Label Text="{Binding Quantity}" HorizontalTextAlignment="Start" HorizontalOptions="End" FontAttributes="Bold" FontSize="Subtitle"/>
+                                        <Label Text="{Binding totalDue, StringFormat='${0:N2}'}" HorizontalTextAlignment="Start" HorizontalOptions="End" FontAttributes="Bold" FontSize="Subtitle"/>
                                     </StackLayout>
+
+                                    <Label Grid.Row="2" Grid.Column="1" HorizontalOptions="End" Text="View Products" FontAttributes="Bold" FontSize="Medium" TextColor="#00A3FF" Margin="10,10,0,10">
+                                        <Label.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding ViewProductsCommand}" CommandParameter="{Binding .}" />
+                                        </Label.GestureRecognizers>
+                                    </Label>
                                 </Grid>
                             </ViewCell>
                         </DataTemplate>
