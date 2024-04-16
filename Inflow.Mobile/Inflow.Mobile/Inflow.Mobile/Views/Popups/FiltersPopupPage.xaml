@@ -20,26 +20,121 @@
             ScaleOut="0.8" />
     </pages:PopupPage.Animation>
     <!--  You can use any elements here which are extended from Xamarin.Forms.View  -->
+
     <StackLayout
         Padding="20,20,20,20"
         BackgroundColor="AliceBlue"
-        HeightRequest="400"
+        HeightRequest="300"
         HorizontalOptions="Center"
         VerticalOptions="Center"
         WidthRequest="300">
-        <StackLayout Orientation="Horizontal">
-            <Label Text="Select Category" />
-            <Picker x:Name="CategoryPicker" />
-        </StackLayout>
-        <StackLayout Orientation="Horizontal">
-            <Label Text="Sort" />
-            <Picker x:Name="SortPicker" />
+
+        <StackLayout>
+            <Label
+                FontAttributes="Bold"
+                FontSize="16"
+                Text="Categories"
+                TextColor="Black" />
+            <Frame
+                Padding="2"
+                CornerRadius="10"
+                HasShadow="True">
+                <Picker
+                    x:Name="categoryPicker"
+                    Title="All"
+                    ItemsSource="{Binding Categories}"
+                    SelectedItem="{Binding SelectedCategory}"
+                    TextColor="Blue"
+                    TitleColor="Blue">
+                    <Picker.ItemDisplayBinding>
+                        <Binding Path="Name" />
+                    </Picker.ItemDisplayBinding>
+                </Picker>
+            </Frame>
         </StackLayout>
 
-        <Label Text="Price" />
+        <Label
+            FontAttributes="Bold"
+            FontSize="16"
+            Text="Property"
+            TextColor="Black" />
         <StackLayout Orientation="Horizontal">
-            <Entry Placeholder="Lowest price" />
-            <Entry Margin="15,0,0,0" Placeholder="Highest price" />
+            <Picker
+                Title="Select property"
+                HorizontalTextAlignment="Start"
+                ItemsSource="{Binding Properties}"
+                SelectedItem="{Binding SelectedProperty}"
+                TextColor="Blue"
+                TextTransform="Uppercase"
+                TitleColor="Blue"
+                WidthRequest="135" />
+            <Picker
+                Title="Select option"
+                Margin="30,0,0,0"
+                HorizontalTextAlignment="Start"
+                ItemsSource="{Binding OrderBy}"
+                SelectedItem="{Binding SelectedOrderby}"
+                TextColor="Blue"
+                TextTransform="Uppercase"
+                TitleColor="Blue"
+                WidthRequest="135" />
         </StackLayout>
+
+        <Label
+            Margin="3,0,0,0"
+            FontAttributes="Bold"
+            FontSize="16"
+            Text="Price"
+            TextColor="Black" />
+        <StackLayout Orientation="Horizontal">
+            <Frame
+                Margin="5,0,0,0"
+                Padding="2"
+                BorderColor="#2196F3"
+                CornerRadius="10"
+                HasShadow="True">
+                <Entry
+                    BackgroundColor="#E3F2FD"
+                    Keyboard="Numeric"
+                    Placeholder="Lowest price"
+                    Text="{Binding LowestPrice, Mode=TwoWay, StringFormat='{0:F1}'}"
+                    TextColor="Blue"
+                    WidthRequest="135" />
+            </Frame>
+            <Frame
+                Margin="10,0,0,0"
+                Padding="2"
+                BorderColor="#2196F3"
+                CornerRadius="10"
+                HasShadow="True">
+                <Entry
+                    BackgroundColor="#E3F2FD"
+                    Keyboard="Numeric"
+                    Placeholder="Highest price"
+                    Text="{Binding HighestPrice, Mode=TwoWay, StringFormat='{0:F1}'}"
+                    TextColor="Blue"
+                    WidthRequest="135" />
+            </Frame>
+        </StackLayout>
+
+        <StackLayout
+            Padding="0,10,0,0"
+            HorizontalOptions="CenterAndExpand"
+            Orientation="Horizontal">
+            <Button
+                BackgroundColor="#85929E"
+                BorderColor="AliceBlue"
+                Clicked="Button_Clicked_1"
+                CornerRadius="100"
+                Text="Cancel"
+                WidthRequest="150" />
+            <Button
+                BackgroundColor="#2A7BEF"
+                Clicked="Button_Clicked"
+                CornerRadius="100"
+                Text="Ok"
+                WidthRequest="150" />
+        </StackLayout>
+
     </StackLayout>
 </pages:PopupPage>

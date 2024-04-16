@@ -16,7 +16,7 @@ namespace Inflow.Mobile
 
         protected override void OnAppearing()
         {
-            Shell.Current.Navigation.PushAsync(new LoginPage());
+            Shell.Current.Navigation.PushAsync(new HomePage());
             base.OnAppearing();
         }
 

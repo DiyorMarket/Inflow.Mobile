@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Net.Http;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace Inflow.Mobile.Services
 {
@@ -21,8 +21,8 @@ namespace Inflow.Mobile.Services
             {
                 var body = new
                 {
-                    login = email,
-                    password
+                    Login = email,
+                    Password = password
                 };
                 var jsonBody = JsonConvert.SerializeObject(body);
 
@@ -35,9 +35,19 @@ namespace Inflow.Mobile.Services
 
                 return string.IsNullOrEmpty(token);
             }
-            catch(Exception ex)
+            catch (HttpRequestException ex)
             {
-                throw;
+                await Application.Current.MainPage.DisplayAlert("Error", "An error occurred. Please try again later.", "OK");
+                return false;
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", "An error occurred. Please try again later.", "OK");
+                return false;
+            }
+            finally
+            {
+                Application.Current.MainPage = new AppShell();
             }
         }
 
@@ -47,10 +57,10 @@ namespace Inflow.Mobile.Services
             {
                 var body = new
                 {
-                    login = email,
-                    password,
-                    userName,
-                    phoneNumber
+                    Login = email,
+                    Password = password,
+                    FullName = userName,
+                    Phone = phoneNumber
                 };
                 var jsonBody = JsonConvert.SerializeObject(body);
 
@@ -63,9 +73,87 @@ namespace Inflow.Mobile.Services
 
                 return string.IsNullOrEmpty(token);
             }
+            catch (HttpRequestException ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", "An error occurred. Please try again later.", "OK");
+                return false;
+            }
             catch (Exception ex)
             {
-                throw;
+                await Application.Current.MainPage.DisplayAlert("Error", "An error occurred. Please try again later.", "OK");
+                return false;
+            }
+            finally
+            {
+                Application.Current.MainPage = new AppShell();
+            }
+        }
+
+        public async Task<bool> ForgotPassword(string email)
+        {
+            try
+            {
+                var body = new
+                {
+                    Login = email
+                };
+                var jsobBody = JsonConvert.SerializeObject(body);
+
+                var result = await _client.PostAsync<bool>("auth/forgotPassword", jsobBody);
+                result.EnsureSuccessStatusCode();
+
+                return true;
+            }
+            catch (HttpRequestException ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", "An error occurred. Please try again later.", "OK");
+                return false;
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", "An error occurred. Please try again later.", "OK");
+                return false;
+            }
+            finally
+            {
+                Application.Current.MainPage = new AppShell();
+            }
+        }
+
+        public async Task<bool> ResetPassword(string email, string resetCode, string newPassword)
+        {
+            try
+            {
+                var body = new
+                {
+                    Login = email,
+                    ResetCode = resetCode,
+                    newPassword = newPassword
+                };
+                var jsonBody = JsonConvert.SerializeObject(body);
+
+                var result = await _client.PostAsync<bool>("auth/resetPassword", jsonBody);
+                result.EnsureSuccessStatusCode();
+
+                var resultJson = await result.Content?.ReadAsStringAsync();
+
+                var token = JsonConvert.DeserializeObject<string>(resultJson);
+
+                return string.IsNullOrEmpty(token);
+            }
+            catch (HttpRequestException ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", "An error occurred. Please try again later.", "OK");
+                return false;
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", "An error occurred. Please try again later.", "OK");
+                return false;
+            }
+            finally
+            {
+                Application.Current.MainPage = new AppShell();
             }
         }
     }

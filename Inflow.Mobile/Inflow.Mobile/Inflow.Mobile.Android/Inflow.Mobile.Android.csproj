@@ -38,7 +38,6 @@
     <EnableLLVM>false</EnableLLVM>
     <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
     <BundleAssemblies>false</BundleAssemblies>
-    <MandroidI18n />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -123,7 +122,6 @@
     <AndroidResource Include="Resources\drawable\icon_account.png" />
     <AndroidResource Include="Resources\drawable\icon_basket.png" />
     <AndroidResource Include="Resources\drawable\icon_category.png" />
-    <AndroidResource Include="Resources\drawable\icon_filter.png" />
     <AndroidResource Include="Resources\drawable\icon_history.png" />
     <AndroidResource Include="Resources\drawable\icon_home.png" />
     <AndroidResource Include="Resources\drawable\icon_saved.png" />
@@ -168,6 +166,21 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\black_bin.jpg" />
     <AndroidResource Include="Resources\drawable\blue_bin.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\icon_filter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\personalaccount3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\person.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\account.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\InflowIcon.jpg" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\icon_minus.png" />

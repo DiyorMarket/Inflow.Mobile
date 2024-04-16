@@ -1,5 +1,4 @@
-﻿using Inflow.Mobile.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,12 +10,11 @@ using Xamarin.Forms.Xaml;
 namespace Inflow.Mobile.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class PasswordCodeEntryPage : ContentPage
+    public partial class PersonalAccountPage : ContentPage
     {
-        public PasswordCodeEntryPage()
+        public PersonalAccountPage()
         {
             InitializeComponent();
-            // this.BindingContext = new PasswordResetViewModel();
         }
     }
 }

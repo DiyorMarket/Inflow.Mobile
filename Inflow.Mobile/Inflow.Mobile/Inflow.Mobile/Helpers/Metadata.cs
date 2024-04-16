@@ -1,10 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace Inflow.Mobile.Responses
+﻿namespace Inflow.Mobile.Helpers
 {
-    public class GetBaseReponse<T>
+    public class Metadata
     {
-        public IEnumerable<T> Data { get; set; }
         public int PageNumber { get; set; }
         public int PageSize { get; set; }
         public bool HasNextPage { get; set; }

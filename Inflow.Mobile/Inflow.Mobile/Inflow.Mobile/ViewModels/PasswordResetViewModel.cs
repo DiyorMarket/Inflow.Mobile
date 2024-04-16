@@ -1,14 +1,16 @@
-﻿using Inflow.Mobile.Views;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Inflow.Mobile.Services;
+using Inflow.Mobile.Views;
+using MvvmHelpers.Commands;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
+using Command = MvvmHelpers.Commands.Command;
 
 namespace Inflow.Mobile.ViewModels
 {
     public class PasswordResetViewModel : BaseViewModel
     {
+        private readonly LoginService _loginService;
         private string _email;
         public string Email
         {
@@ -40,37 +42,59 @@ namespace Inflow.Mobile.ViewModels
         public ICommand SendCodeCommand { get; }
         public ICommand LoginCommand { get; }
 
-        public PasswordResetViewModel() 
+        public PasswordResetViewModel()
         {
             LoginPageCommand = new Command(OnLoginPageNavigation);
             CodeEntryCommand = new Command(OnEntryCodeCommand);
             NewPasswordPageCommand = new Command(OnNewPasswordPage);
-            SendCodeCommand = new Command(OnSendCode);
-            LoginCommand = new Command(OnLoginPage);
-        }
-
-        private void OnLoginPage(object obj)
-        {
-            throw new NotImplementedException();
+            SendCodeCommand = new AsyncCommand<object>(OnSendCode);
+            LoginCommand = new Command(OnNewPasswordPage);
+            _loginService = new LoginService();
         }
 
         private void OnEntryCodeCommand(object obj)
         {
-            var codeEntryPage = new PasswordCodeEntryPage();
+            if (string.IsNullOrWhiteSpace(Code))
+            {
+                return;
+            }
 
-            Application.Current.MainPage = codeEntryPage;
+            Application.Current.MainPage = new NewPasswordPage()
+            {
+                BindingContext = this
+            };
         }
 
-        private void OnSendCode(object obj)
+        private async Task OnSendCode(object obj)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrWhiteSpace(Email))
+            {
+                return;
+            }
+
+            var result = _loginService.ForgotPassword(Email);
+
+            Application.Current.MainPage = new PasswordCodeEntryPage()
+            {
+                BindingContext = this
+            };
         }
 
         private void OnNewPasswordPage(object obj)
         {
-            var newPasswordPage = new NewPasswordPage();
+            if (string.IsNullOrWhiteSpace(Password) || string.IsNullOrWhiteSpace(ConfirmPassword))
+            {
+                return;
+            }
 
-            Application.Current.MainPage = newPasswordPage;
+            if (Password != ConfirmPassword)
+            {
+                return;
+            }
+
+            var result = _loginService.ResetPassword(Email, _codeEmail, Password);
+
+            Application.Current.MainPage = new AppShell();
         }
 
         private void OnLoginPageNavigation(object obj)

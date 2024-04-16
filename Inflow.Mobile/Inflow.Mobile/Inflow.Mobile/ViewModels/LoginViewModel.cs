@@ -1,11 +1,5 @@
 ﻿using Inflow.Mobile.Services;
 using Inflow.Mobile.Views;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -62,7 +56,7 @@ namespace Inflow.Mobile.ViewModels
         public ICommand ForgotPasswordCommand { get; }
         public ICommand CancelLoginCommand { get; }
 
-        public LoginViewModel() 
+        public LoginViewModel()
         {
             LoginCommand = new Command(OnLogin);
             RegisterCommand = new Command(OnRegister);
@@ -88,7 +82,7 @@ namespace Inflow.Mobile.ViewModels
                 return;
             }
 
-            var result = _loginService.LoginUser(Username, Password);
+            var result = _loginService.LoginUser(Email, Password);
 
             Application.Current.MainPage = new AppShell();
         }
@@ -112,9 +106,9 @@ namespace Inflow.Mobile.ViewModels
                 return;
             }
 
-            var result = _loginService.RegisterUser(Email, Password, Username, PhoneNumber);
+            var result = _loginService.RegisterUser(Email, Username, PhoneNumber, Password);
 
-            Application.Current.MainPage= new AppShell();
+            Application.Current.MainPage = new AppShell();
         }
     }
 }
