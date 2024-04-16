@@ -15,6 +15,21 @@ namespace Inflow.Mobile.ViewModels
         {
             public ObservableCollection<Product> CartItems { get; set; }
             public ObservableCollection<Product> ProductsInCart { get; set; }
+            private Product selectedItem;
+            public Product SelectedItem
+            {
+                get => selectedItem;
+                set
+                {
+                    if (selectedItem != value)
+                    {
+                        if (selectedItem != null) selectedItem.IsSelected = false;
+                        selectedItem = value;
+                        if (selectedItem != null) selectedItem.IsSelected = true;
+                        OnPropertyChanged(nameof(SelectedItem));
+                    }
+                }
+            }
 
             public decimal TotalPrice
             {
@@ -51,7 +66,7 @@ namespace Inflow.Mobile.ViewModels
                     CartItems.Add(product);
                 }
 
-                OnPropertyChanged(nameof(CartItems)); // Notify that CartItems has changed
+                OnPropertyChanged(nameof(CartItems));
             }
 
 
@@ -62,6 +77,12 @@ namespace Inflow.Mobile.ViewModels
                 CartItems.Remove(product);
                 DataService.SaveProductsAsync(ProductsInCart, "ProductsInCart");
                 OnPropertyChanged(nameof(TotalPrice));
+            }
+
+            public event PropertyChangedEventHandler PropertyChanged;
+            protected void OnPropertyChanged(string propertyName)
+            {
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
             }
         }
     }

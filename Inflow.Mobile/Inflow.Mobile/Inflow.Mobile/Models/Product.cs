@@ -36,5 +36,12 @@ namespace Inflow.Mobile.Models
                 OnPropertyChanged(nameof(IsSaved));
             }
         }
+
+        private bool isSelected;
+        public bool IsSelected
+        {
+            get => isSelected;
+            set => SetProperty(ref isSelected, value);
+        }
     }
 }
