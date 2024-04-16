@@ -11,6 +11,7 @@ namespace Inflow.Mobile.Services
     {
         private const string BaseUrl = "https://r6n606dm-7258.euw.devtunnels.ms/api";
 
+
         private readonly HttpClient _client;
 
         public ApiClient()
@@ -36,7 +37,7 @@ namespace Inflow.Mobile.Services
                 }
 
                 var json = await response.Content.ReadAsStringAsync();
-                return JsonConvert.DeserializeObject<ApiResponse<T>>(json) 
+                return JsonConvert.DeserializeObject<ApiResponse<T>>(json)
                        ?? throw new JsonSerializationException();
             }
             catch (HttpRequestException ex)
@@ -61,11 +62,11 @@ namespace Inflow.Mobile.Services
 
                 return response;
             }
-            catch(HttpRequestException ex)
+            catch (HttpRequestException ex)
             {
                 throw;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw;
             }

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Inflow.Mobile.Models
+﻿namespace Inflow.Mobile.Models
 {
     public class Item
     {

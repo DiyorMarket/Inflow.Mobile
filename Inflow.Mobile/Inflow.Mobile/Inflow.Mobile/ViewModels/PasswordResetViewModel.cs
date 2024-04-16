@@ -1,9 +1,6 @@
 ﻿using Inflow.Mobile.Services;
 using Inflow.Mobile.Views;
 using MvvmHelpers.Commands;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -45,7 +42,7 @@ namespace Inflow.Mobile.ViewModels
         public ICommand SendCodeCommand { get; }
         public ICommand LoginCommand { get; }
 
-        public PasswordResetViewModel() 
+        public PasswordResetViewModel()
         {
             LoginPageCommand = new Command(OnLoginPageNavigation);
             CodeEntryCommand = new Command(OnEntryCodeCommand);

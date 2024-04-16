@@ -23629,6 +23629,7 @@ namespace Inflow.Mobile.Droid
 			
 			// aapt resource value: 0x7F070072
 			public const int ic_mtrl_chip_close_circle = 2131165298;
+			public const int InflowIcon = 2131165310;
 			
 			// aapt resource value: 0x7F07007F
 			public const int login = 2131165311;

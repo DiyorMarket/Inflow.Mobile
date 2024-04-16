@@ -1,9 +1,5 @@
 ﻿using Inflow.Mobile.Models;
-using Inflow.Mobile.Responses;
-using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Inflow.Mobile.DataStores.Products
