@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Windows.Input;
 
 namespace Inflow.Mobile.ViewModels
 {
@@ -16,6 +17,9 @@ namespace Inflow.Mobile.ViewModels
             public ObservableCollection<Product> CartItems { get; set; }
             public ObservableCollection<Product> ProductsInCart { get; set; }
             private Product selectedItem;
+
+            public ICommand IncreaseCommand { get; }
+            public ICommand DecreaseCommand { get; }
             public Product SelectedItem
             {
                 get => selectedItem;

@@ -2,10 +2,7 @@
 using Inflow.Mobile.Responses;
 using Inflow.Mobile.Services;
 using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Inflow.Mobile.DataStores.Sales
