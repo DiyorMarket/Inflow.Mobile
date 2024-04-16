@@ -92,7 +92,7 @@
             Icon="icon_history.png" />
         <ShellContent
             Title="Cart"
-            ContentTemplate="{DataTemplate views:AboutPage}"
+            ContentTemplate="{DataTemplate views:CartPage}"
             Icon="icon_basket.png" />
         <ShellContent
             Title="Saved"

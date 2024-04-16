@@ -1,6 +1,8 @@
 ﻿using DiyorMarket.Helper;
 using Inflow.Mobile.Helpers;
+using System;
 using System.Collections.Generic;
+using System.Net.Http;
 
 namespace Inflow.Mobile.Responses
 {
@@ -15,6 +17,11 @@ namespace Inflow.Mobile.Responses
             Data = new List<T>();
             Links = new List<ResourceLink>();
             Metadata = new Metadata();
+        }
+
+        public static implicit operator ApiResponse<T>(HttpResponseMessage v)
+        {
+            throw new NotImplementedException();
         }
     }
 }

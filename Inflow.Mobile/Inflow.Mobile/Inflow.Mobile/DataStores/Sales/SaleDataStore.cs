@@ -1,6 +1,7 @@
 ﻿using Inflow.Mobile.Models;
 using Inflow.Mobile.Responses;
 using Inflow.Mobile.Services;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
@@ -22,6 +23,12 @@ namespace Inflow.Mobile.DataStores.Sales
             _response = await _client.GetAsync<Sale>($"Sales?CustomerId={CustomerId}");
 
             return _response.Data;
+        }
+
+        public async Task CreateSale(Sale sale)
+        {
+            var json = JsonConvert.SerializeObject(sale);
+            _response = await _client.PostAsync<Sale>("Sales", json);
         }
     }
 }
