@@ -1,13 +1,18 @@
-﻿<!-- HistoryPage.xaml -->
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:viewModels="clr-namespace:Inflow.Mobile.ViewModels"
-             x:Class="Inflow.Mobile.Views.HistoryPage">
+﻿<!--  HistoryPage.xaml  -->
+<ContentPage
+    x:Class="Inflow.Mobile.Views.HistoryPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewModels="clr-namespace:Inflow.Mobile.ViewModels">
 
     <ContentPage.Content>
         <ScrollView>
             <StackLayout>
-                <ListView ItemsSource="{Binding SaleHistory}" RowHeight="150" Margin="10" SeparatorVisibility="Default">
+                <ListView
+                    Margin="10"
+                    ItemsSource="{Binding SaleHistory}"
+                    RowHeight="150"
+                    SeparatorVisibility="Default">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
@@ -18,24 +23,66 @@
                                     </Grid.ColumnDefinitions>
 
                                     <StackLayout Grid.Column="0">
-                                        <Label Text="SaleId: " HorizontalTextAlignment="Start" FontAttributes="Bold" FontSize="Subtitle"/>
-                                        <Label Text="SaleDate: " HorizontalTextAlignment="Start" FontAttributes="Bold" FontSize="Subtitle"/>
-                                        <Label Text="Quantity: " HorizontalTextAlignment="Start" FontAttributes="Bold" FontSize="Subtitle"/>
-                                        <Label Text="TotalDue: " HorizontalTextAlignment="Start" FontAttributes="Bold" FontSize="Subtitle"/>
+                                        <Label
+                                            FontAttributes="Bold"
+                                            FontSize="Subtitle"
+                                            HorizontalTextAlignment="Start"
+                                            Text="SaleId: " />
+                                        <Label
+                                            FontAttributes="Bold"
+                                            FontSize="Subtitle"
+                                            HorizontalTextAlignment="Start"
+                                            Text="SaleDate: " />
+                                        <Label
+                                            FontAttributes="Bold"
+                                            FontSize="Subtitle"
+                                            HorizontalTextAlignment="Start"
+                                            Text="Quantity: " />
+                                        <Label
+                                            FontAttributes="Bold"
+                                            FontSize="Subtitle"
+                                            HorizontalTextAlignment="Start"
+                                            Text="TotalDue: " />
                                     </StackLayout>
 
                                     <StackLayout Grid.Column="1">
-                                        <Label Text="{Binding Id}" HorizontalTextAlignment="Start" HorizontalOptions="End" FontAttributes="Bold" FontSize="Subtitle"/>
-                                        <Label Text="{Binding SaleDate, StringFormat='{0:dd/MM/yyyy}'}" HorizontalTextAlignment="Start" HorizontalOptions="End" FontAttributes="Bold" FontSize="Subtitle"/>
-                                        <Label Text="{Binding Quantity}" HorizontalTextAlignment="Start" HorizontalOptions="End" FontAttributes="Bold" FontSize="Subtitle"/>
-                                        <Label Text="{Binding totalDue, StringFormat='${0:N2}'}" HorizontalTextAlignment="Start" HorizontalOptions="End" FontAttributes="Bold" FontSize="Subtitle"/>
+                                        <Label
+                                            FontAttributes="Bold"
+                                            FontSize="Subtitle"
+                                            HorizontalOptions="End"
+                                            HorizontalTextAlignment="Start"
+                                            Text="{Binding Id}" />
+                                        <Label
+                                            FontAttributes="Bold"
+                                            FontSize="Subtitle"
+                                            HorizontalOptions="End"
+                                            HorizontalTextAlignment="Start"
+                                            Text="{Binding SaleDate, StringFormat='{0:dd/MM/yyyy}'}" />
+                                        <Label
+                                            FontAttributes="Bold"
+                                            FontSize="Subtitle"
+                                            HorizontalOptions="End"
+                                            HorizontalTextAlignment="Start"
+                                            Text="{Binding Quantity}" />
+                                        <Label
+                                            FontAttributes="Bold"
+                                            FontSize="Subtitle"
+                                            HorizontalOptions="End"
+                                            HorizontalTextAlignment="Start"
+                                            Text="{Binding totalDue, StringFormat='${0:N2}'}" />
                                     </StackLayout>
 
-                                    <Label Grid.Row="2" Grid.Column="1" HorizontalOptions="End" Text="View Products" FontAttributes="Bold" FontSize="Medium" TextColor="#00A3FF" Margin="10,10,0,10">
-                                        <Label.GestureRecognizers>
-                                            <TapGestureRecognizer Command="{Binding ViewProductsCommand}" CommandParameter="{Binding .}" />
-                                        </Label.GestureRecognizers>
-                                    </Label>
+                                    <Button
+                                        Grid.Row="2"
+                                        Grid.Column="1"
+                                        Margin="10,10,0,10"
+                                        Command="{Binding ViewSaleItemsCommand}"
+                                        CommandParameter="{Binding .}"
+                                        FontAttributes="Bold"
+                                        FontSize="Medium"
+                                        HorizontalOptions="End"
+                                        Text="View Products"
+                                        TextColor="#00A3FF" />
                                 </Grid>
                             </ViewCell>
                         </DataTemplate>
