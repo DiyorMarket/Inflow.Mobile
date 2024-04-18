@@ -30,5 +30,14 @@ namespace Inflow.Mobile.Views
             CartListView.ItemsSource = _viewModel.CartItems; // Force ListView to rebind and refresh
         }
 
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            var vm = BindingContext as CartViewModel;
+            if (vm != null)
+            {
+                vm.SaveProductsAsync();
+            }
+        }
     }
 }

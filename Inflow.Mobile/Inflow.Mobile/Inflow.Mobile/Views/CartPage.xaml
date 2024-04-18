@@ -52,60 +52,85 @@
                                             WidthRequest="120" />
                                         <StackLayout
                                             Grid.Column="1"
+                                            Orientation="Vertical"
                                             Spacing="5"
                                             VerticalOptions="FillAndExpand">
-                                            <Label
-                                                Margin="15,0,0,0"
-                                                FontAttributes="Bold"
-                                                Text="{Binding Name}"
-                                                VerticalOptions="Start" />
-                                            <Label
-                                                Margin="15,0,0,0"
-                                                Text="{Binding SalePrice, StringFormat='{0:C}'}"
-                                                VerticalOptions="CenterAndExpand" />
                                             <StackLayout
-                                                Margin="15,0,0,0"
-                                                HorizontalOptions="Start"
+                                                HorizontalOptions="FillAndExpand"
                                                 Orientation="Horizontal"
-                                                Spacing="10"
-                                                VerticalOptions="End">
-                                                <ImageButton
-                                                    BackgroundColor="Transparent"
-                                                    Command="{Binding DecreaseCommand}"
-                                                    CommandParameter="{Binding .}"
-                                                    HeightRequest="25"
-                                                    Source="minus_frame.png"
-                                                    WidthRequest="25" />
-
-                                                <md:MaterialLabel
-                                                    Margin="0,0,0,7"
+                                                VerticalOptions="Start">
+                                                <Label
                                                     FontAttributes="Bold"
-                                                    FontSize="Large"
-                                                    HeightRequest="25"
-                                                    HorizontalTextAlignment="Center"
-                                                    Text="{Binding Quantity}"
-                                                    VerticalTextAlignment="Center"
-                                                    WidthRequest="25" />
-
+                                                    HorizontalOptions="Start"
+                                                    Text="{Binding Name}"
+                                                    VerticalOptions="Center" />
                                                 <ImageButton
+                                                    Margin="10,0,0,0"
                                                     BackgroundColor="Transparent"
-                                                    Command="{Binding IncreaseCommand}"
+                                                    Command="{Binding BindingContext.RemoveCommand, Source={x:Reference Name=CartListView}}"
                                                     CommandParameter="{Binding .}"
-                                                    HeightRequest="25"
-                                                    Source="plus_frame.png"
-                                                    WidthRequest="25" />
+                                                    HeightRequest="20"
+                                                    HorizontalOptions="End"
+                                                    Source="close_button.png"
+                                                    WidthRequest="20" />
+                                            </StackLayout>
+                                            <StackLayout
+                                                HorizontalOptions="FillAndExpand"
+                                                Orientation="Horizontal"
+                                                VerticalOptions="Start">
+                                                <Label
+                                                    HorizontalOptions="Start"
+                                                    Text="{Binding Category.Name}"
+                                                    VerticalOptions="Center" />
+                                                <Label
+                                                    Margin="15,0,0,0"
+                                                    HorizontalOptions="End"
+                                                    Text="{Binding SalePrice, StringFormat='{0:C}'}"
+                                                    VerticalOptions="Center" />
+                                            </StackLayout>
+                                            <StackLayout
+                                                HorizontalOptions="FillAndExpand"
+                                                Orientation="Horizontal"
+                                                VerticalOptions="Start">
+                                                <Label
+                                                    HorizontalOptions="Start"
+                                                    Text="{Binding QuantityInStock, StringFormat='In stock: {0}'}"
+                                                    VerticalOptions="Center" />
+                                                <StackLayout
+                                                    Margin="0"
+                                                    HorizontalOptions="End"
+                                                    Orientation="Horizontal"
+                                                    Spacing="10"
+                                                    VerticalOptions="Center">
+                                                    <ImageButton
+                                                        BackgroundColor="Transparent"
+                                                        Command="{Binding BindingContext.DecreaseCommand, Source={x:Reference Name=CartListView}}"
+                                                        CommandParameter="{Binding .}"
+                                                        HeightRequest="25"
+                                                        Source="minus_frame.png"
+                                                        WidthRequest="25" />
+
+                                                    <md:MaterialLabel
+                                                        Margin="0,0,0,7"
+                                                        FontAttributes="Bold"
+                                                        FontSize="Large"
+                                                        HeightRequest="25"
+                                                        HorizontalTextAlignment="Center"
+                                                        Text="{Binding Quantity}"
+                                                        VerticalTextAlignment="Center"
+                                                        WidthRequest="25" />
+
+                                                    <ImageButton
+                                                        BackgroundColor="Transparent"
+                                                        Command="{Binding BindingContext.IncreaseCommand, Source={x:Reference Name=CartListView}}"
+                                                        CommandParameter="{Binding .}"
+                                                        HeightRequest="25"
+                                                        Source="plus_frame.png"
+                                                        WidthRequest="25" />
+                                                </StackLayout>
 
                                             </StackLayout>
                                         </StackLayout>
-                                        <ImageButton
-                                            Grid.Column="2"
-                                            BackgroundColor="Transparent"
-                                            Command="{Binding RemoveCommand}"
-                                            CommandParameter="{Binding .}"
-                                            HeightRequest="20"
-                                            Source="red_bin.png"
-                                            VerticalOptions="End"
-                                            WidthRequest="20" />
                                     </Grid>
                                 </Frame>
                             </ViewCell>
@@ -129,7 +154,7 @@
                 <Label
                     FontAttributes="Bold"
                     HorizontalOptions="CenterAndExpand"
-                    Text="{Binding TotalPrice, StringFormat='{0:C}'}"
+                    Text="{Binding TotalPrice, StringFormat='Total: {0:C}'}"
                     TextColor="Black"
                     VerticalOptions="Center" />
                 <Button
