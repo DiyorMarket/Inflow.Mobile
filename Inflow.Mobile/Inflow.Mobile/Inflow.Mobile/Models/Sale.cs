@@ -12,7 +12,6 @@ namespace Inflow.Mobile.Models
         public int Quantity { get; set; }
 
         public List<SaleItem> SaleItems { get; set; }
-
         public Sale()
         {
             SaleItems = new List<SaleItem>();

@@ -39,6 +39,13 @@ namespace Inflow.Mobile.ViewModels
             return true;
         }
 
+        bool isListViewVisible = false;
+        public bool IsListViewVisible
+        {
+            get { return isListViewVisible; }
+            set { SetProperty(ref isListViewVisible, value); }
+        }
+
         #region INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string propertyName = "")

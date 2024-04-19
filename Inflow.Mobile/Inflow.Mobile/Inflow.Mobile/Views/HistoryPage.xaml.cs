@@ -1,4 +1,5 @@
-﻿using Inflow.Mobile.DataStores.Sales;
+﻿using Inflow.Mobile.DataStores.Products;
+using Inflow.Mobile.DataStores.Sales;
 using Inflow.Mobile.Models;
 using Inflow.Mobile.Services;
 using Inflow.Mobile.ViewModels;
@@ -16,10 +17,9 @@ namespace Inflow.Mobile.Views
         public HistoryPage()
         {
             InitializeComponent();
-            var api = new ApiClient();
-            var saleDataStore = new SaleDataStore(api);
-
-            BindingContext = new HistoryViewModel(saleDataStore);
+            var apiClient = new ApiClient();
+            var productDataStore = new SaleDataStore(apiClient);
+            BindingContext = new HistoryViewModel(productDataStore);
         }
         protected override async void OnAppearing()
         {
@@ -28,12 +28,7 @@ namespace Inflow.Mobile.Views
         }
         private async void OnDetailsButtonClicked(object sender, EventArgs e)
         {
-            if (sender is Button button && button.CommandParameter is Sale sale)
-            {
-                // Перейти на новую страницу для отображения деталей продажи
-                // Например:
-                // await Shell.Current.Navigation.PushAsync(new SaleItemsPage(sale));
-            }
+            await Navigation.PopModalAsync();
         }
     }
 }

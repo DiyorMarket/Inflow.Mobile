@@ -3,12 +3,14 @@
     x:Class="Inflow.Mobile.Views.HistoryPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:md="clr-namespace:Plugin.MaterialDesignControls.Material3;assembly=Plugin.MaterialDesignControls"
     xmlns:viewModels="clr-namespace:Inflow.Mobile.ViewModels">
 
     <ContentPage.Content>
         <ScrollView>
             <StackLayout>
                 <ListView
+                    x:Name="HistoryList"
                     Margin="10"
                     ItemsSource="{Binding SaleHistory}"
                     RowHeight="150"
@@ -70,19 +72,40 @@
                                             HorizontalOptions="End"
                                             HorizontalTextAlignment="Start"
                                             Text="{Binding totalDue, StringFormat='${0:N2}'}" />
-                                    </StackLayout>
 
-                                    <Button
-                                        Grid.Row="2"
-                                        Grid.Column="1"
-                                        Margin="10,10,0,10"
-                                        Command="{Binding ViewSaleItemsCommand}"
-                                        CommandParameter="{Binding .}"
-                                        FontAttributes="Bold"
-                                        FontSize="Medium"
-                                        HorizontalOptions="End"
-                                        Text="View Products"
-                                        TextColor="#00A3FF" />
+                                    </StackLayout>
+                                    <StackLayout Grid.Column="0">
+                                        <md:MaterialButton
+                                            Grid.Row="1"
+                                            Grid.Column="1"
+                                            Margin="10,10,0,10"
+                                            Command="{Binding BindingContext.ShowProductsCommand, Source={x:Reference Name=HistoryList}}"
+                                            Text="Show Products"
+                                            TextColor="#00A3FF" />
+                                        <ListView
+                                            Grid.Row="1"
+                                            Grid.Column="1"
+                                            IsVisible="{Binding IsListViewVisible}"
+                                            ItemsSource="{Binding SaleItems}"
+                                            SeparatorVisibility="None">
+                                            <ListView.ItemTemplate>
+                                                <DataTemplate>
+                                                    <ViewCell>
+                                                        <StackLayout Orientation="Horizontal">
+                                                            <Label
+                                                                FontAttributes="Bold"
+                                                                FontSize="Subtitle"
+                                                                Text="{Binding Quantity}" />
+                                                            <Label
+                                                                FontAttributes="Bold"
+                                                                FontSize="Subtitle"
+                                                                Text="{Binding Product.Name}" />
+                                                        </StackLayout>
+                                                    </ViewCell>
+                                                </DataTemplate>
+                                            </ListView.ItemTemplate>
+                                        </ListView>
+                                    </StackLayout>
                                 </Grid>
                             </ViewCell>
                         </DataTemplate>

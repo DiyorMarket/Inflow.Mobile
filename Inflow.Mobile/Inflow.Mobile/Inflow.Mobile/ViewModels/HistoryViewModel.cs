@@ -1,5 +1,6 @@
 ﻿using Inflow.Mobile.DataStores.Sales;
 using Inflow.Mobile.Models;
+using Inflow.Mobile.Services;
 using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
@@ -11,12 +12,17 @@ namespace Inflow.Mobile.ViewModels
     public class HistoryViewModel : BaseViewModel
     {
         private ISaleDataStore _saleDataStore;
-        private Sale _selectedSale;
+
+        private bool _isListViewVisible;
+        public bool IsListViewVisible
+        {
+            get { return _isListViewVisible; }
+            set { SetProperty(ref _isListViewVisible, value); }
+        }
 
         public ObservableCollection<Sale> SaleHistory { get; set; }
-
-        public Command<Sale> ViewSaleItemsCommand { get; }
-        public ICommand ExpandSaleItemCommand { get; set; }
+        public ObservableCollection<SaleItem> SaleItems { get; set; }
+        public ICommand ShowProductsCommand { get; }
 
         public HistoryViewModel(ISaleDataStore saleDataStore)
         {
@@ -24,18 +30,16 @@ namespace Inflow.Mobile.ViewModels
 
             _saleDataStore = saleDataStore;
             SaleHistory = new ObservableCollection<Sale>();
+            SaleItems = new ObservableCollection<SaleItem>(); // Initialize SaleItems
+            ShowProductsCommand = new Command(ShowProducts);
+            IsListViewVisible = false;
+        }
 
-            ViewSaleItemsCommand = new Command<Sale>(async (sale) => await ViewSaleItemsAsync(sale));
-            ExpandSaleItemCommand = new Command<Sale>(ExpandSaleItem);
-        }
-        private void ExpandSaleItem(Sale sale)
+        private void ShowProducts()
         {
-            
-            foreach (var saleItem in sale.SaleItems)
-            {
-                saleItem.IsExpanded = true;
-            }
+            IsListViewVisible = !IsListViewVisible;
         }
+
         public async Task LoadSaleHistory()
         {
             if (IsBusy) return;
@@ -64,13 +68,6 @@ namespace Inflow.Mobile.ViewModels
             {
                 IsBusy = false;
             }
-        }
-
-        private async Task ViewSaleItemsAsync(Sale sale)
-        {
-            // Можно перейти на новую страницу для отображения деталей продажи
-            // Например:
-            // await Shell.Current.Navigation.PushAsync(new SaleItemsPage(sale));
         }
     }
 }
