@@ -1,6 +1,5 @@
 ﻿using Inflow.Mobile.DataStores.Sales;
 using Inflow.Mobile.Models;
-using Inflow.Mobile.Services;
 using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
@@ -12,14 +11,6 @@ namespace Inflow.Mobile.ViewModels
     public class HistoryViewModel : BaseViewModel
     {
         private ISaleDataStore _saleDataStore;
-
-        private bool _isListViewVisible;
-        public bool IsListViewVisible
-        {
-            get { return _isListViewVisible; }
-            set { SetProperty(ref _isListViewVisible, value); }
-        }
-
         public ObservableCollection<Sale> SaleHistory { get; set; }
         public ObservableCollection<SaleItem> SaleItems { get; set; }
         public ICommand ShowProductsCommand { get; }
@@ -30,7 +21,7 @@ namespace Inflow.Mobile.ViewModels
 
             _saleDataStore = saleDataStore;
             SaleHistory = new ObservableCollection<Sale>();
-            SaleItems = new ObservableCollection<SaleItem>(); // Initialize SaleItems
+            SaleItems = new ObservableCollection<SaleItem>();
             ShowProductsCommand = new Command(ShowProducts);
             IsListViewVisible = false;
         }

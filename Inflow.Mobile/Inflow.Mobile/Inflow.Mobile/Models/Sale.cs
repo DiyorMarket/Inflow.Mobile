@@ -10,7 +10,7 @@ namespace Inflow.Mobile.Models
         public DateTime SaleDate { get; set; }
         public decimal totalDue { get; set; }
         public int Quantity { get; set; }
-
+        public bool IsListViewVisible { get; set; }
         public List<SaleItem> SaleItems { get; set; }
         public Sale()
         {
