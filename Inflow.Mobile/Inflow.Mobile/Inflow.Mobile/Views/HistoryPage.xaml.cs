@@ -1,4 +1,5 @@
 ﻿using Inflow.Mobile.DataStores.Products;
+using Inflow.Mobile.DataStores.SaleItems;
 using Inflow.Mobile.DataStores.Sales;
 using Inflow.Mobile.Models;
 using Inflow.Mobile.Services;
@@ -18,8 +19,12 @@ namespace Inflow.Mobile.Views
         {
             InitializeComponent();
             var apiClient = new ApiClient();
-            var productDataStore = new SaleDataStore(apiClient);
-            BindingContext = new HistoryViewModel(productDataStore);
+
+            var sale = new SaleDataStore(apiClient);
+
+            var saleitem = new SaleItemDataStore(apiClient);
+
+            BindingContext = new HistoryViewModel(sale, saleitem);
         }
         protected override async void OnAppearing()
         {
