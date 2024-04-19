@@ -1,7 +1,9 @@
-﻿using Newtonsoft.Json;
+﻿using Inflow.Mobile.Models;
+using Newtonsoft.Json;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace Inflow.Mobile.Services
@@ -31,9 +33,16 @@ namespace Inflow.Mobile.Services
 
                 var resultJson = await result.Content.ReadAsStringAsync();
 
-                var token = JsonConvert.DeserializeObject<string>(resultJson);
+                var response = JsonConvert.DeserializeObject<AuthenticationResponse>(resultJson);
 
-                return string.IsNullOrEmpty(token);
+                bool isAuthenticate = !string.IsNullOrEmpty(response.Token);
+
+                if (isAuthenticate)
+                {
+                    SaveUserData(response.Token, response.UserId, response.UserName, response.UserEmail, response.UserPhone);
+                }
+
+                return isAuthenticate;
             }
             catch (HttpRequestException ex)
             {
@@ -154,6 +163,48 @@ namespace Inflow.Mobile.Services
             finally
             {
                 Application.Current.MainPage = new AppShell();
+            }
+        }
+
+        private async Task SaveUserData(string token, int userId, string userName, string userEmail, string userPhone)
+        {
+            try
+            {
+                await SecureStorage.SetAsync("AuthToken", token);
+                await SecureStorage.SetAsync("UserId", userId.ToString());
+                await SecureStorage.SetAsync("UserName", userName);
+                await SecureStorage.SetAsync("UserEmail", userEmail);
+                await SecureStorage.SetAsync("UserPhone", userPhone);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error occurred while saving user data:", ex);
+            }
+        }
+
+        public async Task<AuthenticationResponse> GetUserData()
+        {
+            try
+            {
+                string token = await SecureStorage.GetAsync("AuthToken");
+                string userIdStr = await SecureStorage.GetAsync("UserId");
+                int userId = int.Parse(userIdStr);
+                string userName = await SecureStorage.GetAsync("UserName");
+                string userEmail = await SecureStorage.GetAsync("UserEmail");
+                string userPhone = await SecureStorage.GetAsync("UserPhone");
+
+                return new AuthenticationResponse
+                {
+                    Token = token,
+                    UserId = userId,
+                    UserName = userName,
+                    UserEmail = userEmail,
+                    UserPhone = userPhone
+                };
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Data is don't exists", ex);
             }
         }
     }
