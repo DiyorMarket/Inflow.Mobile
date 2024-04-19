@@ -20,11 +20,11 @@ namespace Inflow.Mobile.ViewModels
             private System.Timers.Timer saveTimer;
             public ObservableCollection<Product> CartItems { get; set; }
             public ObservableCollection<Product> ProductsInCart { get; set; }
-            public ICommand RemoveCommand { get; private set; }
-            private Product selectedItem;
 
+            public ICommand RemoveCommand { get; private set; }
             public ICommand IncreaseCommand { get; }
             public ICommand DecreaseCommand { get; }
+            private Product selectedItem;
             public Product SelectedItem
             {
                 get => selectedItem;
@@ -137,9 +137,11 @@ namespace Inflow.Mobile.ViewModels
                 foreach (var product in productsInCart)
                 {
                     if(product.Quantity == 0) product.Quantity = 1;
+                    product.IsSelected = false;
                     ProductsInCart.Add(product);
                     CartItems.Add(product);
                 }
+
 
                 OnPropertyChanged(nameof(CartItems));
             }
@@ -176,14 +178,6 @@ namespace Inflow.Mobile.ViewModels
                     UpdateTotalPrice();
                     OnQuantityChanged();
                 }
-            }
-
-
-
-            public event PropertyChangedEventHandler PropertyChanged;
-            protected void OnPropertyChanged(string propertyName)
-            {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
             }
         }
     }
