@@ -18,6 +18,7 @@ namespace Inflow.Mobile.ViewModels
         public ICommand AddToCartCommand { get; }
         public ICommand AddToSavedCommand { get; }
         public ICommand ShowConfirmationCommand { get; }
+        public bool IsSavedProductsEmpty => SavedProducts.Count == 0;
 
         public SavedViewModel()
         {
@@ -29,6 +30,11 @@ namespace Inflow.Mobile.ViewModels
             AddToCartCommand = new Command<Product>(OnAddToCart);
             AddToSavedCommand = new Command<Product>(OnAddToSaved);
             ShowConfirmationCommand = new Command(async () => await ShowConfirmationPopup());
+
+            SavedProducts.CollectionChanged += (sender, args) =>
+            {
+                OnPropertyChanged(nameof(IsSavedProductsEmpty));
+            };
         }
 
         private async Task ShowConfirmationPopup()
@@ -97,13 +103,5 @@ namespace Inflow.Mobile.ViewModels
                 ProductsInCart.Add(product);
             }
         }
-
-        /*private void RemoveSavedProducts()
-        {
-            SavedProducts.Clear();
-
-            DataService.SaveProductsAsync(SavedProducts, "ProductsInSaved");
-            SavedProducts.Clear();
-        }*/
     }
 }

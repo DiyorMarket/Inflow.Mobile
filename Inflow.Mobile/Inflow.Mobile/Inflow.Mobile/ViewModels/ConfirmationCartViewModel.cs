@@ -12,36 +12,25 @@ using Xamarin.Forms;
 
 namespace Inflow.Mobile.ViewModels
 {
-    public class ConfirmationViewModel : BaseViewModel
+    public class ConfirmationCartViewModel : BaseViewModel
     {
-        public ICommand ClearAllSavedProductsCommand { get; }
+        public ICommand ClearAllCartProductsCommand { get; }
         public ICommand CancelCommand { get; }
-        public ObservableCollection<Product> SavedProducts { get; set; }
+        public ObservableCollection<Product> ProductsInCart { get; set; }
 
-        public ConfirmationViewModel()
+        public ConfirmationCartViewModel() 
         {
-            ClearAllSavedProductsCommand = new Command(async () => await ClearAllSavedProducts());
+            ClearAllCartProductsCommand = new Command(async () => await ClearAllProductsInCart());
             CancelCommand = new Command(async () => await Cancel());
-            SavedProducts = new ObservableCollection<Product>();
+            ProductsInCart = new ObservableCollection<Product>();
         }
 
-        private async Task ClearAllSavedProducts()
+        private async Task ClearAllProductsInCart()
         {
-            var productsInSaved = DataService.GetProducts("ProductsInSaved");
-            SavedProducts.Clear();
-
-            foreach (var product in productsInSaved)
-            {
-                SavedProducts.Add(product);
-            }
-
-            SavedProducts.Clear();
-
-            DataService.SaveProductsAsync(SavedProducts, "ProductsInSaved");
-
+            ProductsInCart.Clear();
+            DataService.SaveProductsAsync(ProductsInCart, "ProductsInCart");
             await PopupNavigation.Instance.PopAsync();
-
-            await Application.Current.MainPage.Navigation.PushAsync(new SavedPage());
+            MessagingCenter.Send(this, "CartUpdated");
         }
 
 
@@ -56,6 +45,5 @@ namespace Inflow.Mobile.ViewModels
                 Console.WriteLine("An error occurred while trying to close the modal: " + ex.Message);
             }
         }
-
     }
 }

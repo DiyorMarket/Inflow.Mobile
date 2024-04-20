@@ -5,12 +5,12 @@ using Xamarin.Forms.Xaml;
 namespace Inflow.Mobile.Views.Popups
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ConfirmationPopupPage : PopupPage
+	public partial class ConfirmationCartPopupPage : PopupPage
     {
-        public ConfirmationPopupPage()
-        {
+		public ConfirmationCartPopupPage()
+		{
             InitializeComponent();
-            BindingContext = new ConfirmationViewModel();
-        }
-    }
+			BindingContext = new ConfirmationCartViewModel();
+		}
+	}
 }

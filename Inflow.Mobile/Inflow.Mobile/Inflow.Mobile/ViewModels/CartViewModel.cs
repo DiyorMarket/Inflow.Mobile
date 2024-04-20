@@ -1,5 +1,7 @@
 ﻿using Inflow.Mobile.Models;
 using Inflow.Mobile.Services;
+using Inflow.Mobile.Views.Popups;
+using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -24,6 +26,8 @@ namespace Inflow.Mobile.ViewModels
             public ICommand RemoveCommand { get; private set; }
             public ICommand IncreaseCommand { get; }
             public ICommand DecreaseCommand { get; }
+            public ICommand ShowConfirmationCartCommand { get; }
+
             private Product selectedItem;
             public Product SelectedItem
             {
@@ -54,12 +58,24 @@ namespace Inflow.Mobile.ViewModels
                 RemoveCommand = new Command<Product>(RemoveProductFromCart);
                 IncreaseCommand = new Command<Product>(IncreaseQuantity);
                 DecreaseCommand = new Command<Product>(DecreaseQuantity);
+                ShowConfirmationCartCommand = new Command(async () => await ShowConfirmationPopup());
 
                 saveTimer = new System.Timers.Timer(5000);
                 saveTimer.Elapsed += OnSaveTimerElapsed;
                 saveTimer.AutoReset = false;
 
+                MessagingCenter.Subscribe<ConfirmationCartViewModel>(this, "CartUpdated", (sender) =>
+                {
+                    CartItems.Clear();
+                    OnPropertyChanged(nameof(TotalPrice));
+                });
+
                 AddProductsToCart();
+            }
+
+            private async Task ShowConfirmationPopup()
+            {
+                await PopupNavigation.Instance.PushAsync(new ConfirmationCartPopupPage());
             }
 
             private void OnCartItemsChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -85,8 +101,6 @@ namespace Inflow.Mobile.ViewModels
                     OnPropertyChanged(nameof(TotalPrice));
                 });
             }
-
-
 
             private void OnProductPropertyChanged(object sender, PropertyChangedEventArgs e)
             {
