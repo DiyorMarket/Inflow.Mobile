@@ -22,8 +22,6 @@ namespace Inflow.Mobile.ViewModels
             _saleDataStore = saleDataStore;
             HistorySale = new ObservableCollection<Sale>();
             HistorySaleItems = new ObservableCollection<SaleItem>();
-
-
         }
         public async Task LoadSaleHistory()
         {
