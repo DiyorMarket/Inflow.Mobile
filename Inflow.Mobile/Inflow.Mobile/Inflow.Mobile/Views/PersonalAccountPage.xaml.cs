@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Inflow.Mobile.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,7 @@ namespace Inflow.Mobile.Views
         public PersonalAccountPage()
         {
             InitializeComponent();
+            this.BindingContext = new AccountViewModel();
         }
     }
 }
