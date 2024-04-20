@@ -9,5 +9,6 @@ namespace Inflow.Mobile.DataStores.Sales
     public interface ISaleDataStore
     {
         Task<IEnumerable<Sale>> GetSales(int CustomerId);
+        Task<Sale> CreateSale(Sale sale);
     }
 }

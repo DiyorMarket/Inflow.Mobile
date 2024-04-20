@@ -1,4 +1,6 @@
-﻿using Inflow.Mobile.Models;
+﻿using Inflow.Mobile.DataStores.Customers;
+using Inflow.Mobile.DataStores.Sales;
+using Inflow.Mobile.Models;
 using Inflow.Mobile.Services;
 using Inflow.Mobile.Views.Popups;
 using Rg.Plugins.Popup.Services;
@@ -8,7 +10,6 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -19,6 +20,10 @@ namespace Inflow.Mobile.ViewModels
     {
         public class CartViewModel : BaseViewModel
         {
+            private  ISaleDataStore _saleDataStore;
+            private  ICustomerDataStore _customerDataStore;
+            private readonly LoginService _loginService;
+
             private System.Timers.Timer saveTimer;
             public ObservableCollection<Product> CartItems { get; set; }
             public ObservableCollection<Product> ProductsInCart { get; set; }
@@ -29,6 +34,7 @@ namespace Inflow.Mobile.ViewModels
             public ICommand ShowConfirmationCartCommand { get; }
 
             private Product selectedItem;
+            public ICommand BuyProducts {  get; }
             public Product SelectedItem
             {
                 get => selectedItem;
@@ -49,8 +55,11 @@ namespace Inflow.Mobile.ViewModels
                 get { return CartItems.Sum(item => item.Quantity * item.SalePrice); }
             }
 
-            public CartViewModel()
+            public CartViewModel(ISaleDataStore saleDataStore, ICustomerDataStore customerDataStore)
             {
+                _saleDataStore = saleDataStore;
+                _customerDataStore = customerDataStore;
+
                 CartItems = new ObservableCollection<Product>();
                 CartItems.CollectionChanged += OnCartItemsChanged;
                 ProductsInCart = new ObservableCollection<Product>();
@@ -59,6 +68,8 @@ namespace Inflow.Mobile.ViewModels
                 IncreaseCommand = new Command<Product>(IncreaseQuantity);
                 DecreaseCommand = new Command<Product>(DecreaseQuantity);
                 ShowConfirmationCartCommand = new Command(async () => await ShowConfirmationPopup());
+                BuyProducts = new Command(CreateSale);
+                _loginService = new LoginService();
 
                 saveTimer = new System.Timers.Timer(5000);
                 saveTimer.Elapsed += OnSaveTimerElapsed;
@@ -71,6 +82,7 @@ namespace Inflow.Mobile.ViewModels
                 });
 
                 AddProductsToCart();
+                _customerDataStore = customerDataStore;
             }
 
             private async Task ShowConfirmationPopup()
@@ -192,6 +204,55 @@ namespace Inflow.Mobile.ViewModels
                     UpdateTotalPrice();
                     OnQuantityChanged();
                 }
+            }
+
+            private async Task ClearAllProductsInCart()
+            {
+                ProductsInCart.Clear();
+                DataService.SaveProductsAsync(ProductsInCart, "ProductsInCart");
+                await PopupNavigation.Instance.PopAsync();
+                MessagingCenter.Send(this, "CartUpdated");
+            }
+
+            private async void CreateSale()
+            {
+                if(CartItems == null)
+                {
+                    return;
+                }
+                var saleItems = new List<SaleItem>();
+
+                var userId = _loginService.GetUserData().Result.UserId;
+
+                var customers = await _customerDataStore.GetCustomersAsync(userId);
+
+                var customer = customers.FirstOrDefault(x => x.UserId == userId);
+
+                foreach (var item in CartItems)
+                {
+                    saleItems.Add(new SaleItem()
+                    {
+                        Quantity = item.Quantity,
+                        ProductId = item.Id,
+                        UnitPrice = item.SalePrice
+                    });
+                }
+
+                var sale = new Sale()
+                {
+                    SaleDate = DateTime.Now,
+                    CustomerId = customer.Id,
+                    SaleItems = saleItems
+                };
+
+                var newSale = _saleDataStore.CreateSale(sale);
+
+                if(newSale == null)
+                {
+                    // Popup chiqarish kerak.
+                }
+
+                ClearAllProductsInCart();
             }
         }
     }

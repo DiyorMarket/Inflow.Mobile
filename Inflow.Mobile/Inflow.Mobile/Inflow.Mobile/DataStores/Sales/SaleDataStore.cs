@@ -2,6 +2,7 @@
 using Inflow.Mobile.Responses;
 using Inflow.Mobile.Services;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -22,10 +23,19 @@ namespace Inflow.Mobile.DataStores.Sales
             return _response.Data;
         }
 
-        public async Task CreateSale(Sale sale)
+        public async Task<Sale> CreateSale(Sale sale)
         {
             var json = JsonConvert.SerializeObject(sale);
-            _response = await _client.PostAsync<Sale>("Sales", json);
+            var response = await _client.PostAsync<Sale>("Sales", json);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception("Error creating sales.");
+            }
+
+            var jsonResponse = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+
+            return JsonConvert.DeserializeObject<Sale>(jsonResponse);
         }
     }
 }
