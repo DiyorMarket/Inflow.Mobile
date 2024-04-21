@@ -2,6 +2,7 @@
     x:Class="Inflow.Mobile.Views.HomePage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="http://xamarin.com/schemas/2014/forms"
     xmlns:ffi="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:local="clr-namespace:Inflow.Mobile.Converter"
     xmlns:md="clr-namespace:Plugin.MaterialDesignControls.Material3;assembly=Plugin.MaterialDesignControls"
@@ -50,22 +51,27 @@
                 </md:MaterialCard>
             </Grid>
 
-            <CarouselView
+            <controls:CarouselView
                 Grid.Row="1"
-                Margin="15,0,0,0"
+                Margin="0"
                 EmptyView="No data."
                 HeightRequest="50"
+                HorizontalOptions="FillAndExpand"
                 ItemsSource="{Binding TopFilters}"
-                PeekAreaInsets="120">
-                <CarouselView.ItemsLayout>
+                Loop="False"
+                PeekAreaInsets="0,0,30,0"
+                WidthRequest="0">
+                <controls:CarouselView.ItemsLayout>
                     <LinearItemsLayout ItemSpacing="10" Orientation="Horizontal" />
-                </CarouselView.ItemsLayout>
-                <CarouselView.ItemTemplate>
+                </controls:CarouselView.ItemsLayout>
+                <controls:CarouselView.ItemTemplate>
                     <DataTemplate>
                         <md:MaterialCard
+                            Margin="5,0"
                             BackgroundColor="#DFE1E8"
                             BorderColor="#333333"
-                            CornerRadius="50">
+                            CornerRadius="50"
+                            HeightRequest="50">
                             <Label
                                 FontSize="Default"
                                 HorizontalOptions="CenterAndExpand"
@@ -73,8 +79,9 @@
                                 TextColor="#333333" />
                         </md:MaterialCard>
                     </DataTemplate>
-                </CarouselView.ItemTemplate>
-            </CarouselView>
+                </controls:CarouselView.ItemTemplate>
+            </controls:CarouselView>
+
 
             <CollectionView
                 Grid.Row="2"
