@@ -32,7 +32,7 @@ namespace Inflow.Mobile.ViewModels
             public ICommand IncreaseCommand { get; }
             public ICommand DecreaseCommand { get; }
             public ICommand ShowConfirmationCartCommand { get; }
-            public ICommand BuyProducts {  get; }
+            public ICommand BuyProductsCommand {  get; }
             public bool IsProductsInCartEmpty => CartItems.Count == 0;
 
             private Product selectedItem;
@@ -69,7 +69,7 @@ namespace Inflow.Mobile.ViewModels
                 IncreaseCommand = new Command<Product>(IncreaseQuantity);
                 DecreaseCommand = new Command<Product>(DecreaseQuantity);
                 ShowConfirmationCartCommand = new Command(async () => await ShowConfirmationPopup());
-                BuyProducts = new Command(CreateSale);
+                BuyProductsCommand = new Command(async () => await BuyProductsConfirmationPopup());
                 _loginService = new LoginService();
 
                 saveTimer = new System.Timers.Timer(5000);
@@ -94,6 +94,11 @@ namespace Inflow.Mobile.ViewModels
             private async Task ShowConfirmationPopup()
             {
                 await PopupNavigation.Instance.PushAsync(new ConfirmationCartPopupPage());
+            }
+
+            private async Task BuyProductsConfirmationPopup()
+            {
+                await PopupNavigation.Instance.PushAsync(new ConfirmationToBuyInCartPopupPage());
             }
 
             private void OnCartItemsChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -210,55 +215,6 @@ namespace Inflow.Mobile.ViewModels
                     UpdateTotalPrice();
                     OnQuantityChanged();
                 }
-            }
-
-            private async Task ClearAllProductsInCart()
-            {
-                ProductsInCart.Clear();
-                DataService.SaveProductsAsync(ProductsInCart, "ProductsInCart");
-                await PopupNavigation.Instance.PopAsync();
-                MessagingCenter.Send(this, "CartUpdated");
-            }
-
-            private async void CreateSale()
-            {
-                if(CartItems == null)
-                {
-                    return;
-                }
-                var saleItems = new List<SaleItem>();
-
-                var userId = _loginService.GetUserData().Result.UserId;
-
-                var customers = await _customerDataStore.GetCustomersAsync(userId);
-
-                var customer = customers.FirstOrDefault(x => x.UserId == userId);
-
-                foreach (var item in CartItems)
-                {
-                    saleItems.Add(new SaleItem()
-                    {
-                        Quantity = item.Quantity,
-                        ProductId = item.Id,
-                        UnitPrice = item.SalePrice
-                    });
-                }
-
-                var sale = new Sale()
-                {
-                    SaleDate = DateTime.Now,
-                    CustomerId = customer.Id,
-                    SaleItems = saleItems
-                };
-
-                var newSale = _saleDataStore.CreateSale(sale);
-
-                if(newSale == null)
-                {
-                    // Popup chiqarish kerak.
-                }
-
-                ClearAllProductsInCart();
             }
         }
     }
