@@ -10,6 +10,7 @@ namespace Inflow.Mobile.Services
     public class ApiClient
     {
         private const string BaseUrl = "https://vzwlsq47-7258.euw.devtunnels.ms/api";
+
         private readonly HttpClient _client;
 
         public ApiClient()
