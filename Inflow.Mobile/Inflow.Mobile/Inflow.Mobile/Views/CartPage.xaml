@@ -10,6 +10,7 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <local:BooleanToColorConverter x:Key="BooleanToColorConverter" />
+            <local:CollectionCountToVisibilityConverter x:Key="CollectionCountToVisibilityConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -163,6 +164,7 @@
                 Padding="5"
                 BackgroundColor="GhostWhite"
                 HorizontalOptions="FillAndExpand"
+                IsVisible="{Binding CartItems.Count, Converter={StaticResource CollectionCountToVisibilityConverter}}"
                 Orientation="Horizontal">
                 <Label
                     FontAttributes="Bold"
@@ -188,6 +190,12 @@
                     TextColor="White"
                     WidthRequest="75" />
             </StackLayout>
+            <Label
+                Grid.Row="1"
+                HorizontalOptions="Center"
+                IsVisible="{Binding IsProductsInCartEmpty}"
+                Text="There is no products in cart."
+                VerticalOptions="Center" />
         </Grid>
     </ContentPage.Content>
 </ContentPage>

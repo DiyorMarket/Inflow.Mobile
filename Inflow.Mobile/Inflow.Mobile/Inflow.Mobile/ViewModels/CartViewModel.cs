@@ -32,9 +32,10 @@ namespace Inflow.Mobile.ViewModels
             public ICommand IncreaseCommand { get; }
             public ICommand DecreaseCommand { get; }
             public ICommand ShowConfirmationCartCommand { get; }
+            public ICommand BuyProducts {  get; }
+            public bool IsProductsInCartEmpty => CartItems.Count == 0;
 
             private Product selectedItem;
-            public ICommand BuyProducts {  get; }
             public Product SelectedItem
             {
                 get => selectedItem;
@@ -80,6 +81,11 @@ namespace Inflow.Mobile.ViewModels
                     CartItems.Clear();
                     OnPropertyChanged(nameof(TotalPrice));
                 });
+
+                CartItems.CollectionChanged += (sender, args) =>
+                {
+                    OnPropertyChanged(nameof(IsProductsInCartEmpty));
+                };
 
                 AddProductsToCart();
                 _customerDataStore = customerDataStore;
