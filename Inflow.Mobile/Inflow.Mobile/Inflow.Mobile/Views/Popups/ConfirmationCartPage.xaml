@@ -8,7 +8,7 @@
     CloseWhenBackgroundIsClicked="False">
     <StackLayout
         Padding="20,20,20,20"
-        BackgroundColor="#80b6e8"
+        BackgroundColor=" #f2f2f2"
         HeightRequest="150"
         HorizontalOptions="Center"
         VerticalOptions="Center"
@@ -18,7 +18,7 @@
             HorizontalOptions="Center"
             HorizontalTextAlignment="Center"
             Text="Are you sure to delete all products?"
-            TextColor="White" />
+            TextColor="Black" />
         <StackLayout
             Margin="0,40,0,0"
             HorizontalOptions="Center"
@@ -30,7 +30,7 @@
                 Text="Yes" />
             <Button
                 Margin="20,0,0,0"
-                BackgroundColor="DodgerBlue"
+                BackgroundColor="DeepSkyBlue"
                 Command="{Binding CancelCommand}"
                 Text="No" />
         </StackLayout>

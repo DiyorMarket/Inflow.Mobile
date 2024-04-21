@@ -9,7 +9,7 @@ namespace Inflow.Mobile.Converter
         {
             if ((bool)value)
             {
-                return "yellow_cart.png";
+                return "cart_blue.png";
             }
             else
             {

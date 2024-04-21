@@ -13,8 +13,6 @@
         </ResourceDictionary>
     </ContentPage.Resources>
 
-    <ContentPage.BindingContext />
-
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>
@@ -27,16 +25,18 @@
                 <md:MaterialLabel
                     Margin="0,15,0,0"
                     FontSize="Medium"
-                    HorizontalOptions="Center"
+                    HorizontalOptions="CenterAndExpand"
                     Text="Cart"
                     TextColor="Black" />
-                <ImageButton
-                    Margin="0,10,10,0"
+                <Button
+                    Margin="0,10,0,0"
+                    BackgroundColor="Transparent"
                     Command="{Binding ShowConfirmationCartCommand}"
-                    HeightRequest="25"
+                    FontSize="Caption"
                     HorizontalOptions="End"
-                    Source="black_bin.png"
-                    WidthRequest="25" />
+                    Text="Clean all"
+                    TextColor="Red"
+                    WidthRequest="95" />
             </Grid>
 
 
@@ -141,15 +141,15 @@
                                         <ImageButton
                                             Grid.Row="0"
                                             Grid.Column="2"
-                                            Margin="0,-10,-10,0"
+                                            Margin="0,0,-10,0"
                                             BackgroundColor="Transparent"
                                             Command="{Binding BindingContext.RemoveCommand, Source={x:Reference Name=CartListView}}"
                                             CommandParameter="{Binding .}"
-                                            HeightRequest="20"
+                                            HeightRequest="15"
                                             HorizontalOptions="End"
-                                            Source="close_button.png"
+                                            Source="red_bin.png"
                                             VerticalOptions="Start"
-                                            WidthRequest="20" />
+                                            WidthRequest="15" />
                                     </Grid>
                                 </Frame>
                             </ViewCell>
@@ -161,19 +161,19 @@
             <StackLayout
                 Grid.Row="2"
                 Padding="5"
-                BackgroundColor="LightGray"
+                BackgroundColor="GhostWhite"
                 HorizontalOptions="FillAndExpand"
                 Orientation="Horizontal">
                 <Label
                     FontAttributes="Bold"
                     HorizontalOptions="StartAndExpand"
-                    Text="Total:"
+                    Text="Total :"
                     TextColor="Black"
                     VerticalOptions="Center" />
                 <Label
                     FontAttributes="Bold"
                     HorizontalOptions="CenterAndExpand"
-                    Text="{Binding TotalPrice, StringFormat='Total: {0:C}'}"
+                    Text="{Binding TotalPrice, StringFormat='{0:C}'}"
                     TextColor="Black"
                     VerticalOptions="Center" />
                 <Button
