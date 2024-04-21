@@ -35,17 +35,17 @@ namespace Inflow.Mobile.Views
             _viewModel.AddProductsToCart();
 
             CartListView.ItemsSource = null;
-            CartListView.ItemsSource = _viewModel.CartItems; // Force ListView to rebind and refresh
+            CartListView.ItemsSource = _viewModel.CartItems; 
         }
 
-        protected override void OnDisappearing()
-        {
-            base.OnDisappearing();
-            var vm = BindingContext as CartViewModel;
-            if (vm != null)
-            {
-                vm.SaveProductsAsync();
-            }
-        }
+        //protected override void OnDisappearing()
+        //{
+        //    base.OnDisappearing();
+        //    var vm = BindingContext as CartViewModel;
+        //    if (vm != null)
+        //    {
+        //        vm.SaveProductsAsync();
+        //    }
+        //}
     }
 }

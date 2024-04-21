@@ -26,8 +26,6 @@ namespace Inflow.Mobile.ViewModels
             try
             {
                 await PopupNavigation.Instance.PopAsync();
-
-                await Application.Current.MainPage.Navigation.PushAsync(new CartPage());
             }
             catch (Exception ex)
             {
