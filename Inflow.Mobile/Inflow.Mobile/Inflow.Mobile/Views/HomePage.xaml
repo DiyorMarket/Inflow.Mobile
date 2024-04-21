@@ -53,25 +53,21 @@
 
             <controls:CarouselView
                 Grid.Row="1"
-                Margin="0"
+                Margin="15,0,0,0"
                 EmptyView="No data."
                 HeightRequest="50"
-                HorizontalOptions="FillAndExpand"
                 ItemsSource="{Binding TopFilters}"
                 Loop="False"
-                PeekAreaInsets="0,0,30,0"
-                WidthRequest="0">
+                PeekAreaInsets="120">
                 <controls:CarouselView.ItemsLayout>
                     <LinearItemsLayout ItemSpacing="10" Orientation="Horizontal" />
                 </controls:CarouselView.ItemsLayout>
                 <controls:CarouselView.ItemTemplate>
                     <DataTemplate>
                         <md:MaterialCard
-                            Margin="5,0"
                             BackgroundColor="#DFE1E8"
                             BorderColor="#333333"
-                            CornerRadius="50"
-                            HeightRequest="50">
+                            CornerRadius="50">
                             <Label
                                 FontSize="Default"
                                 HorizontalOptions="CenterAndExpand"
@@ -81,7 +77,6 @@
                     </DataTemplate>
                 </controls:CarouselView.ItemTemplate>
             </controls:CarouselView>
-
 
             <CollectionView
                 Grid.Row="2"
