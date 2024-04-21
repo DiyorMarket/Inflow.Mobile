@@ -7,7 +7,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inflow.Mobile.Android", "In
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inflow.Mobile.iOS", "Inflow.Mobile\Inflow.Mobile.iOS\Inflow.Mobile.iOS.csproj", "{142FD0B0-D286-4958-ABC8-5BE1BE50FB74}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inflow.Mobile", "Inflow.Mobile\Inflow.Mobile\Inflow.Mobile.csproj", "{0889E585-3254-4FDB-8DF8-BBF8C0F11CF9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inflow.Mobile", "Inflow.Mobile\Inflow.Mobile\Inflow.Mobile.csproj", "{0889E585-3254-4FDB-8DF8-BBF8C0F11CF9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C58D6A4F-616D-4B03-B568-20CC550CB169}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
