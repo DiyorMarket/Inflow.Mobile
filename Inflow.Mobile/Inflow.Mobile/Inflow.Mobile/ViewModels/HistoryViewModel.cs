@@ -28,6 +28,7 @@ namespace Inflow.Mobile.ViewModels
         private void ShowProducts(Sale sale)
         {
             sale.SalesVisible = !sale.SalesVisible;
+            sale.ButtomVisible = !sale.ButtomVisible;
         }
 
         public async Task LoadSaleHistory()

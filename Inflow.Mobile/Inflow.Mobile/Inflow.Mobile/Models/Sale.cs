@@ -20,6 +20,12 @@ namespace Inflow.Mobile.Models
 
     public partial class Sale : ObservableModelBase
     {
+        private bool _buttomVisible = true;
+        public bool ButtomVisible
+        {
+            get => _buttomVisible;
+            set => SetProperty(ref _buttomVisible, value);
+        }
         private bool _salesVisible;
         public bool SalesVisible 
         { 
