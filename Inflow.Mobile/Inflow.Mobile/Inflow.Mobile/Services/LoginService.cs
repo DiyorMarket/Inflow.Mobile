@@ -1,4 +1,5 @@
 ﻿using Inflow.Mobile.Models;
+using Inflow.Mobile.Views;
 using Newtonsoft.Json;
 using System;
 using System.Net.Http;
@@ -46,17 +47,11 @@ namespace Inflow.Mobile.Services
             }
             catch (HttpRequestException ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", "An error occurred. Please try again later.", "OK");
                 return false;
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", "An error occurred. Please try again later.", "OK");
                 return false;
-            }
-            finally
-            {
-                Application.Current.MainPage = new AppShell();
             }
         }
 
@@ -69,7 +64,8 @@ namespace Inflow.Mobile.Services
                     Login = email,
                     Password = password,
                     FullName = userName,
-                    Phone = phoneNumber
+                    Phone = phoneNumber,
+                    Role = "customer"
                 };
                 var jsonBody = JsonConvert.SerializeObject(body);
 
@@ -78,23 +74,24 @@ namespace Inflow.Mobile.Services
 
                 var resultJson = await result.Content.ReadAsStringAsync();
 
-                var token = JsonConvert.DeserializeObject<string>(resultJson);
+                var response = JsonConvert.DeserializeObject<AuthenticationResponse>(resultJson);
 
-                return string.IsNullOrEmpty(token);
+                bool isAuthenticate = !string.IsNullOrEmpty(response.Token);
+
+                if (isAuthenticate)
+                {
+                    SaveUserData(response.Token, response.UserId, response.UserName, response.UserEmail, response.UserPhone);
+                }
+
+                return isAuthenticate;
             }
             catch (HttpRequestException ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", "An error occurred. Please try again later.", "OK");
                 return false;
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", "An error occurred. Please try again later.", "OK");
                 return false;
-            }
-            finally
-            {
-                Application.Current.MainPage = new AppShell();
             }
         }
 
@@ -115,17 +112,11 @@ namespace Inflow.Mobile.Services
             }
             catch (HttpRequestException ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", "An error occurred. Please try again later.", "OK");
                 return false;
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", "An error occurred. Please try again later.", "OK");
                 return false;
-            }
-            finally
-            {
-                Application.Current.MainPage = new AppShell();
             }
         }
 
@@ -146,23 +137,24 @@ namespace Inflow.Mobile.Services
 
                 var resultJson = await result.Content?.ReadAsStringAsync();
 
-                var token = JsonConvert.DeserializeObject<string>(resultJson);
+                var response = JsonConvert.DeserializeObject<AuthenticationResponse>(resultJson);
 
-                return string.IsNullOrEmpty(token);
+                bool isAuthenticate = !string.IsNullOrEmpty(response.Token);
+
+                if (isAuthenticate)
+                {
+                    SaveUserData(response.Token, response.UserId, response.UserName, response.UserEmail, response.UserPhone);
+                }
+
+                return isAuthenticate;
             }
             catch (HttpRequestException ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", "An error occurred. Please try again later.", "OK");
                 return false;
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", "An error occurred. Please try again later.", "OK");
                 return false;
-            }
-            finally
-            {
-                Application.Current.MainPage = new AppShell();
             }
         }
 

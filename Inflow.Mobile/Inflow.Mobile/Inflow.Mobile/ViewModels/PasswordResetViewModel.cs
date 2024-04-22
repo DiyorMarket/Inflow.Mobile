@@ -54,11 +54,17 @@ namespace Inflow.Mobile.ViewModels
 
         private void OnEntryCodeCommand(object obj)
         {
+            if (IsBusy)
+            {
+                return;
+            }
+            IsBusy = true;
             if (string.IsNullOrWhiteSpace(Code))
             {
                 return;
             }
 
+            IsBusy = false;
             Application.Current.MainPage = new NewPasswordPage()
             {
                 BindingContext = this
@@ -67,21 +73,38 @@ namespace Inflow.Mobile.ViewModels
 
         private async Task OnSendCode(object obj)
         {
+            if (IsBusy)
+            {
+                return;
+            }
+            IsBusy = true;
             if (string.IsNullOrWhiteSpace(Email))
             {
                 return;
             }
 
-            var result = _loginService.ForgotPassword(Email);
+            var result = await _loginService.ForgotPassword(Email);
 
+            if (!result)
+            {
+                await Application.Current.MainPage.DisplayAlert("Login Failed", "Please check your credentials and try again.", "OK");
+                return;
+            }
+
+            IsBusy = false;
             Application.Current.MainPage = new PasswordCodeEntryPage()
             {
                 BindingContext = this
             };
         }
 
-        private void OnNewPasswordPage(object obj)
+        private async void OnNewPasswordPage(object obj)
         {
+            if (IsBusy)
+            {
+                return;
+            }
+            IsBusy = true;
             if (string.IsNullOrWhiteSpace(Password) || string.IsNullOrWhiteSpace(ConfirmPassword))
             {
                 return;
@@ -92,16 +115,18 @@ namespace Inflow.Mobile.ViewModels
                 return;
             }
 
-            var result = _loginService.ResetPassword(Email, _codeEmail, Password);
+            var result = await _loginService.ResetPassword(Email, _codeEmail, Password);
 
+            if (!result)
+            {
+                await Application.Current.MainPage.DisplayAlert("Login Failed", "Please check your credentials and try again.", "OK");
+                return;
+            }
+
+            IsBusy = false;
             Application.Current.MainPage = new AppShell();
         }
 
-        private void OnLoginPageNavigation(object obj)
-        {
-            var loginPage = new LoginPage();
-
-            Application.Current.MainPage = loginPage;
-        }
+        private void OnLoginPageNavigation(object obj) => Application.Current.MainPage = new LoginPage();   
     }
 }
