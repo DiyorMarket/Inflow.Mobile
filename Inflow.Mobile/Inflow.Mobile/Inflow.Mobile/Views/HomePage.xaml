@@ -58,9 +58,9 @@
                 HeightRequest="50"
                 ItemsSource="{Binding TopFilters}"
                 Loop="False"
-                PeekAreaInsets="120">
+                PeekAreaInsets="50">
                 <controls:CarouselView.ItemsLayout>
-                    <LinearItemsLayout ItemSpacing="10" Orientation="Horizontal" />
+                    <LinearItemsLayout ItemSpacing="20" Orientation="Horizontal" />
                 </controls:CarouselView.ItemsLayout>
                 <controls:CarouselView.ItemTemplate>
                     <DataTemplate>
