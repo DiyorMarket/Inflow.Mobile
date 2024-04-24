@@ -1,53 +1,64 @@
 ﻿using Inflow.Mobile.DataStores.Sales;
 using Inflow.Mobile.Models;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Forms;
+
 
 namespace Inflow.Mobile.ViewModels
 {
     public class HistoryViewModel : BaseViewModel
     {
-        private ISaleDataStore _saleDataStore;
+        private readonly ISaleDataStore _saleDataStore;
 
-        public ObservableCollection<Sale> HistorySale { get; set; }
-        public ObservableCollection<SaleItem> HistorySaleItems { get; set; }
+        public Command<Sale> ShowProductsCommand { get; private set; }
+
+        public ObservableCollection<Sale> SaleHistory { get; private set; }
 
         public HistoryViewModel(ISaleDataStore saleDataStore)
         {
             Title = "History";
 
             _saleDataStore = saleDataStore;
-            HistorySale = new ObservableCollection<Sale>();
-            HistorySaleItems = new ObservableCollection<SaleItem>();
+            SaleHistory = new ObservableCollection<Sale>();
+            ShowProductsCommand = new Command<Sale>(ShowProducts);
         }
+
+        private void ShowProducts(Sale sale)
+        {
+            sale.SalesVisible = !sale.SalesVisible;
+            sale.ButtomVisible = !sale.ButtomVisible;
+        }
+
         public async Task LoadSaleHistory()
         {
-            if(IsBusy) return;
+            if (IsBusy) return;
 
-            HistorySale.Clear();
+            SaleHistory.Clear();
             IsBusy = true;
 
             try
             {
                 var sales = await _saleDataStore.GetSales(4);
-
-                foreach(var sale in sales)
+                foreach (var sale in sales)
                 {
-                    HistorySale.Add(sale);
+                    sale.Quantity = 0;
+                    foreach (var saleItem in sale.SaleItems)
+                    {
+                        sale.Quantity += saleItem.Quantity;
+                    }
+                    SaleHistory.Add(sale);
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error loading products: {ex.Message}");
+                Console.WriteLine($"Error loading sales history: {ex.Message}");
             }
             finally
             {
                 IsBusy = false;
             }
-        } 
-
+        }
     }
 }

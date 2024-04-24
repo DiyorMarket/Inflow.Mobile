@@ -1,11 +1,8 @@
 ﻿using Inflow.Mobile.Models;
 using Inflow.Mobile.Services;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
 
 namespace Inflow.Mobile.ViewModels
 {
@@ -35,7 +32,7 @@ namespace Inflow.Mobile.ViewModels
             {
                 get { return CartItems.Sum(item => item.SalePrice); }
             }
-            
+
             public CartViewModel()
             {
                 CartItems = new ObservableCollection<Product>();
@@ -51,7 +48,7 @@ namespace Inflow.Mobile.ViewModels
 
                 DataService.SaveProductsAsync(ProductsInCart, "ProductsInCart");
 
-                OnPropertyChanged(nameof(TotalPrice)); 
+                OnPropertyChanged(nameof(TotalPrice));
             }
 
             public void AddProductsToCart()

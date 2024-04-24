@@ -13,7 +13,7 @@ namespace Inflow.Mobile.Views
     {
         public HomePage()
         {
-            InitializeComponent(); 
+            InitializeComponent();
 
             var apiClient = new ApiClient();
             var productDataStore = new ProductDataStore(apiClient);
