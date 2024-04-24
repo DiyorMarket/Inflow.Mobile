@@ -82,14 +82,12 @@ namespace Inflow.Mobile.ViewModels
 
             var newSale = _saleDataStore.CreateSale(sale);
 
-            ProductsInCart.Clear();
-            DataService.SaveProductsAsync(ProductsInCart, "ProductsInCart");
 
             if (newSale != null)
             {
                 ProductsInCart.Clear();
                 DataService.SaveProductsAsync(ProductsInCart, "ProductsInCart");
-                await PopupNavigation.Instance.PushAsync(new PurchaseConfirmationPopupPage());
+                PopupNavigation.Instance.PushAsync(new PurchaseConfirmationPopupPage());
             }
         }
 

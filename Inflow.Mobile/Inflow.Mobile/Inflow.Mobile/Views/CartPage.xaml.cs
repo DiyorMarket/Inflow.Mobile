@@ -1,20 +1,11 @@
-﻿using Inflow.Mobile.DataStores.Customers;
-using Inflow.Mobile.DataStores.Products;
-using Inflow.Mobile.DataStores.Sales;
-using Inflow.Mobile.Services;
-using Inflow.Mobile.ViewModels.Inflow.Mobile.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Inflow.Mobile.ViewModels.Inflow.Mobile.ViewModels;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace Inflow.Mobile.Views
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
+    [XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class CartPage : ContentPage
 	{
 		CartViewModel _viewModel;
@@ -22,11 +13,7 @@ namespace Inflow.Mobile.Views
 		{
 			InitializeComponent ();
 
-            var apiClient = new ApiClient();
-            var saleDataStore = new SaleDataStore(apiClient);
-            var customerDataStore = new CustomerDataStore(apiClient);
-
-            BindingContext = _viewModel = new CartViewModel (saleDataStore, customerDataStore);
+            BindingContext = _viewModel = new CartViewModel ();
 		}
 
         protected override void OnAppearing()

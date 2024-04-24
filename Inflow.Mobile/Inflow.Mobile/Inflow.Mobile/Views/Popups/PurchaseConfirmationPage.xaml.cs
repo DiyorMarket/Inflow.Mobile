@@ -1,14 +1,7 @@
-﻿using Inflow.Mobile.Models;
-using Inflow.Mobile.ViewModels;
+﻿using Inflow.Mobile.ViewModels;
+using Inflow.Mobile.ViewModels.Inflow.Mobile.ViewModels;
 using Rg.Plugins.Popup.Pages;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace Inflow.Mobile.Views.Popups
@@ -20,6 +13,18 @@ namespace Inflow.Mobile.Views.Popups
         {
             InitializeComponent();
             BindingContext = new PurchaseConfirmationViewModel();
+        }
+
+        protected override async void OnAppearing()
+        {
+            var vm = BindingContext as CartViewModel;
+            vm?.AddProductsToCart();
+            base.OnAppearing();
+        }
+
+        private async void Ok_Button(object sender, EventArgs e)
+        {
+            await Navigation.PopModalAsync();
         }
     }
 }

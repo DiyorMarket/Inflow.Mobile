@@ -1,11 +1,7 @@
-﻿using Inflow.Mobile.DataStores.Customers;
-using Inflow.Mobile.DataStores.Sales;
-using Inflow.Mobile.Models;
+﻿using Inflow.Mobile.Models;
 using Inflow.Mobile.Services;
 using Inflow.Mobile.Views.Popups;
 using Rg.Plugins.Popup.Services;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
@@ -20,10 +16,6 @@ namespace Inflow.Mobile.ViewModels
     {
         public class CartViewModel : BaseViewModel
         {
-            private  ISaleDataStore _saleDataStore;
-            private  ICustomerDataStore _customerDataStore;
-            private readonly LoginService _loginService;
-
             private System.Timers.Timer saveTimer;
             public ObservableCollection<Product> CartItems { get; set; }
             public ObservableCollection<Product> ProductsInCart { get; set; }
@@ -56,11 +48,8 @@ namespace Inflow.Mobile.ViewModels
                 get { return CartItems.Sum(item => item.Quantity * item.SalePrice); }
             }
 
-            public CartViewModel(ISaleDataStore saleDataStore, ICustomerDataStore customerDataStore)
+            public CartViewModel()
             {
-                _saleDataStore = saleDataStore;
-                _customerDataStore = customerDataStore;
-
                 CartItems = new ObservableCollection<Product>();
                 CartItems.CollectionChanged += OnCartItemsChanged;
                 ProductsInCart = new ObservableCollection<Product>();
@@ -69,8 +58,7 @@ namespace Inflow.Mobile.ViewModels
                 IncreaseCommand = new Command<Product>(IncreaseQuantity);
                 DecreaseCommand = new Command<Product>(DecreaseQuantity);
                 ShowConfirmationCartCommand = new Command(async () => await ShowConfirmationPopup());
-                BuyProductsCommand = new Command(async () => await BuyProductsConfirmationPopup());
-                _loginService = new LoginService();
+                BuyProductsCommand = new Command(async () => BuyProductsConfirmationPopup());
 
                 saveTimer = new System.Timers.Timer(5000);
                 saveTimer.Elapsed += OnSaveTimerElapsed;
@@ -88,7 +76,6 @@ namespace Inflow.Mobile.ViewModels
                 };
 
                 AddProductsToCart();
-                _customerDataStore = customerDataStore;
             }
 
             private async Task ShowConfirmationPopup()
@@ -96,9 +83,10 @@ namespace Inflow.Mobile.ViewModels
                 await PopupNavigation.Instance.PushAsync(new ConfirmationCartPopupPage());
             }
 
-            private async Task BuyProductsConfirmationPopup()
+            private void BuyProductsConfirmationPopup()
             {
-                await PopupNavigation.Instance.PushAsync(new ConfirmationToBuyInCartPopupPage());
+                PopupNavigation.Instance.PushAsync(new ConfirmationToBuyInCartPopupPage());
+
             }
 
             private void OnCartItemsChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -215,6 +203,12 @@ namespace Inflow.Mobile.ViewModels
                     UpdateTotalPrice();
                     OnQuantityChanged();
                 }
+            }
+
+            public void RefreshData()
+            {
+                ProductsInCart.Clear();
+                CartItems.Clear();
             }
         }
     }

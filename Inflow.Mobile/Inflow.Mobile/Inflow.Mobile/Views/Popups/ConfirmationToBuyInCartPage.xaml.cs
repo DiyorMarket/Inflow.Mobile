@@ -19,5 +19,12 @@ namespace Inflow.Mobile.Views.Popups
             var custoemrDataStire = new CustomerDataStore(apiClient);
             BindingContext = new ConfirmationToBuyInCartViewModel(saleDataStore, custoemrDataStire);
         }
+
+        protected override async void OnAppearing()
+        {
+            var vm = BindingContext as CartViewModel;
+            vm?.AddProductsToCart();
+            base.OnAppearing();
+        }
     }
 }

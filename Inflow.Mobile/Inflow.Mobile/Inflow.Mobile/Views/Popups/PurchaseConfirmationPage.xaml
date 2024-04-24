@@ -24,10 +24,10 @@
             HorizontalOptions="Center"
             Orientation="Horizontal">
             <Button
-                HorizontalOptions="Center"
                 Margin="20,0,0,0"
                 BackgroundColor="DeepSkyBlue"
                 Command="{Binding OKCommand}"
+                HorizontalOptions="Center"
                 Text="Ok" />
         </StackLayout>
     </StackLayout>
