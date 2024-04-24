@@ -9,8 +9,8 @@
 
     <ContentPage.Resources>
         <ResourceDictionary>
-            <local:BooleanToColorConverter x:Key="BooleanToColorConverter" />
             <local:CollectionCountToVisibilityConverter x:Key="CollectionCountToVisibilityConverter" />
+            <local:QuantityInStockToColorConverter x:Key="QuantityInStockToColorConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -51,7 +51,10 @@
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
-                                <Frame Padding="10" BackgroundColor="{Binding IsSelected, Converter={StaticResource BooleanToColorConverter}}">
+                                <Frame Padding="10" BackgroundColor="{Binding QuantityInStock, Converter={StaticResource QuantityInStockToColorConverter}}">
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnFrameTapped" />
+                                    </Frame.GestureRecognizers>
                                     <Grid Padding="10">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="120" />
@@ -79,7 +82,6 @@
                                             Text="{Binding Name}"
                                             VerticalOptions="Center" />
 
-                                        <!--  Категория и цена на одной строке  -->
                                         <StackLayout
                                             Grid.Row="1"
                                             Grid.Column="1"
@@ -97,7 +99,6 @@
                                                 VerticalOptions="Center" />
                                         </StackLayout>
 
-                                        <!--  Количество на складе и элементы управления количеством товара  -->
                                         <StackLayout
                                             Grid.Row="2"
                                             Grid.Column="1"
@@ -139,7 +140,6 @@
                                             </StackLayout>
                                         </StackLayout>
 
-                                        <!--  Кнопка удаления в верхнем правом углу  -->
                                         <ImageButton
                                             Grid.Row="0"
                                             Grid.Column="2"
@@ -153,6 +153,16 @@
                                             VerticalOptions="Start"
                                             WidthRequest="15" />
                                     </Grid>
+                                    <VisualStateManager.VisualStateGroups>
+                                        <VisualStateGroup x:Name="CommonStates">
+                                            <VisualState x:Name="Normal" />
+                                            <VisualState x:Name="Selected">
+                                                <VisualState.Setters>
+                                                    <Setter Property="BackgroundColor" Value="LightSkyBlue" />
+                                                </VisualState.Setters>
+                                            </VisualState>
+                                        </VisualStateGroup>
+                                    </VisualStateManager.VisualStateGroups>
                                 </Frame>
                             </ViewCell>
                         </DataTemplate>

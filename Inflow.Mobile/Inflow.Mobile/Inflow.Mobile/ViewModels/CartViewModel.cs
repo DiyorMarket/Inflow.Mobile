@@ -161,7 +161,14 @@ namespace Inflow.Mobile.ViewModels
 
                 foreach (var product in productsInCart)
                 {
-                    if(product.Quantity == 0) product.Quantity = 1;
+                    if (product.QuantityInStock == 0)
+                    {
+                        product.Quantity = 0;
+                    }
+                    else if (product.Quantity == 0)
+                    {
+                        product.Quantity = 1;
+                    }
                     product.IsSelected = false;
                     ProductsInCart.Add(product);
                     CartItems.Add(product);

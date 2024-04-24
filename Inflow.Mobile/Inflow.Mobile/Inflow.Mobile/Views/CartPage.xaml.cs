@@ -1,5 +1,6 @@
-﻿using Inflow.Mobile.ViewModels.Inflow.Mobile.ViewModels;
-
+﻿using Inflow.Mobile.Models;
+using Inflow.Mobile.ViewModels.Inflow.Mobile.ViewModels;
+using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -25,14 +26,22 @@ namespace Inflow.Mobile.Views
             CartListView.ItemsSource = _viewModel.CartItems; 
         }
 
-        //protected override void OnDisappearing()
-        //{
-        //    base.OnDisappearing();
-        //    var vm = BindingContext as CartViewModel;
-        //    if (vm != null)
-        //    {
-        //        vm.SaveProductsAsync();
-        //    }
-        //}
+        private void OnFrameTapped(object sender, EventArgs e)
+        {
+            if (sender is Frame frame && frame.BindingContext is Product product)
+            {
+                product.IsSelected = !product.IsSelected;
+            }
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            var vm = BindingContext as CartViewModel;
+            if (vm != null)
+            {
+                vm.SaveProductsAsync();
+            }
+        }
     }
 }
