@@ -23804,9 +23804,6 @@ namespace Inflow.Mobile.Droid
 			// aapt resource value: 0x7F0700B8
 			public const int xamarin_logo = 2131165368;
 			
-			// aapt resource value: 0x7F0700B9
-			public const int yellow_cart = 2131165369;
-			
 			static Drawable()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
