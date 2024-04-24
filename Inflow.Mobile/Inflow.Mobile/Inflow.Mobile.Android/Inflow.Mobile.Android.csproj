@@ -158,7 +158,6 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\grey_cart.png" />
-    <AndroidResource Include="Resources\drawable\yellow_cart.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\red_heart.png" />

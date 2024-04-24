@@ -2,14 +2,12 @@
 using Inflow.Mobile.DataStores.Sales;
 using Inflow.Mobile.Models;
 using Inflow.Mobile.Services;
-using Inflow.Mobile.ViewModels.Inflow.Mobile.ViewModels;
 using Inflow.Mobile.Views.Popups;
 using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -65,12 +63,15 @@ namespace Inflow.Mobile.ViewModels
 
             foreach (var item in ProductsInCart)
             {
-                saleItems.Add(new SaleItem()
+                if(item.QuantityInStock != 0)
                 {
-                    Quantity = item.Quantity,
-                    ProductId = item.Id,
-                    UnitPrice = item.SalePrice
-                });
+                    saleItems.Add(new SaleItem()
+                    {
+                        Quantity = item.Quantity,
+                        ProductId = item.Id,
+                        UnitPrice = item.SalePrice
+                    });
+                }
             }
 
             var sale = new Sale()
