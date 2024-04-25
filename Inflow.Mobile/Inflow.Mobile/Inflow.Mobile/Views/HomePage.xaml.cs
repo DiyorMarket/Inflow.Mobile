@@ -3,6 +3,7 @@ using Inflow.Mobile.DataStores.Products;
 using Inflow.Mobile.Services;
 using Inflow.Mobile.ViewModels;
 using Inflow.Mobile.Views.Popups;
+using Rg.Plugins.Popup.Services;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -40,9 +41,7 @@ namespace Inflow.Mobile.Views
             {
                 BindingContext = BindingContext
             };
-
-            await Navigation.PushModalAsync(popup);
-    
+            await PopupNavigation.Instance.PushAsync(popup); 
         }
     }
 }
