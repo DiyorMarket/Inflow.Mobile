@@ -2,6 +2,7 @@ using Inflow.Mobile.DataStores.Products;
 using Inflow.Mobile.Models;
 using Inflow.Mobile.Services;
 using MvvmHelpers.Commands;
+using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -177,6 +178,7 @@ namespace Inflow.Mobile.ViewModels
 
         public async Task OnApplyFilters()
         {
+            
             if (IsBusy)
             {
                 return;
