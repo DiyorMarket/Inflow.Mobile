@@ -13,8 +13,6 @@ namespace Inflow.Mobile.DataStores.Products
     {
         private readonly ApiClient _api;
         private ApiResponse<Product> currentReponse;
-        private bool check = true;
-        private bool checkForLoadData = true;
 
         public ProductDataStore(ApiClient api)
         {
@@ -47,7 +45,7 @@ namespace Inflow.Mobile.DataStores.Products
         {
             string queryParams = GetQueryParams(filters);
             string resource = string.IsNullOrEmpty(queryParams)
-                ? $"products?pageNumber=${currentReponse.Metadata.PageNumber}"
+                ? $"products?pageNumber={currentReponse.Metadata.PageNumber}"
                 : $"products?{queryParams}";
 
             currentReponse = await _api.GetAsync<Product>(resource);
@@ -69,7 +67,7 @@ namespace Inflow.Mobile.DataStores.Products
                 {
                     filters.Sort = filters.Sort.TrimEnd("asc".ToCharArray());
                 }
-                queryParams.Append($"OrderBy={filters.Sort}");
+                queryParams.Append($"OrderBy={filters.Sort}&");
             }
 
             if (filters.CategoryId != 0)
@@ -89,7 +87,7 @@ namespace Inflow.Mobile.DataStores.Products
 
             if (filters.HighestPrice != 0)
             {
-                queryParams.Append($"PriceGreaterThan={filters.LowestPrice / (decimal)1.5}");
+                queryParams.Append($"PriceGreaterThan={filters.LowestPrice / (decimal)1.5}&");
             }
 
             return queryParams.ToString().TrimEnd('&');

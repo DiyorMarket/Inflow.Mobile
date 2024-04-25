@@ -13,7 +13,7 @@ namespace Inflow.Mobile.ViewModels
 {
     public class HomeViewModel : BaseViewModel
     {
-        private IProductDataStore _productDataStore;
+        private readonly IProductDataStore _productDataStore;
 
         public ObservableCollection<TopFilter> TopFilters { get; set; }
         public ObservableCollection<Product> Products { get; set; }
@@ -25,6 +25,7 @@ namespace Inflow.Mobile.ViewModels
 
         public ICommand AddToCartCommand { get; }
         public ICommand AddToSavedCommand { get; }
+
         private string _searchString = string.Empty;
         public string SearchString
         {
@@ -57,13 +58,13 @@ namespace Inflow.Mobile.ViewModels
             set => SetProperty(ref _selectedCategory, value);
         }
 
-        private string _selectedProperty = string.Empty;
+        private string _selectedProperty = "Name";
         public string SelectedProperty
         {
             get => _selectedProperty;
             set => SetProperty(ref _selectedProperty, value);
         }
-        private string _selectedOrderby = string.Empty;
+        private string _selectedOrderby = "Asc";
         public string SelectedOrderby
         {
             get => _selectedOrderby;
@@ -125,14 +126,25 @@ namespace Inflow.Mobile.ViewModels
 
             Products.Clear();
             IsBusy = true;
+            ApiClient apiService = new ApiClient();
 
             try
             {
-                var products = await _productDataStore.GetProductsAsync();
+                var products = _productDataStore.GetProductsAsync();
+                var categories = apiService.GetAsync<Category>("categories");
+
+                await Task.WhenAll(products, categories);
+
                 Products.Clear();
-                foreach (var product in products)
+                foreach (var product in products.Result)
                 {
                     Products.Add(product);
+                }
+
+                Categories.Clear();
+                foreach(var category in categories.Result.Data)
+                {
+                    Categories.Add(category);
                 }
 
                 AddProductsInCart();
@@ -186,10 +198,10 @@ namespace Inflow.Mobile.ViewModels
 
             IsBusy = true;
             Products.Clear();
+
             try
             {
                 var filteredProducts = await _productDataStore.FilterProducts(Filters);
-
                 foreach (var product in filteredProducts)
                 {
                     Products.Add(product);
@@ -203,18 +215,6 @@ namespace Inflow.Mobile.ViewModels
             {
                 IsBusy = false;
             }
-        }
-
-        public async Task LoadCategories()
-        {
-            ApiClient apiService = new ApiClient();
-            var categories = await apiService.GetAsync<Category>("categories");
-
-            foreach (var category in categories.Data)
-            {
-                Categories.Add(category);
-            }
-            return;
         }
 
         private async void OnAddToCart(Product product)

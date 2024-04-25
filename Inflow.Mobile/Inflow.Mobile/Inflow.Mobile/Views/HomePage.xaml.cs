@@ -1,9 +1,9 @@
-﻿using System;
-using Inflow.Mobile.DataStores.Products;
+﻿using Inflow.Mobile.DataStores.Products;
 using Inflow.Mobile.Services;
 using Inflow.Mobile.ViewModels;
 using Inflow.Mobile.Views.Popups;
 using Rg.Plugins.Popup.Services;
+using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -29,19 +29,20 @@ namespace Inflow.Mobile.Views
             base.OnAppearing();
         }
 
-        private async void ItemsView_OnRemainingItemsThresholdReached(object sender, EventArgs e)
-        {
-            //var vm = BindingContext as HomeViewModel;
-            //await vm?.OnLoadMore();
-        }
-
         private async void ImageButton_OnClicked(object sender, EventArgs e)
         {
+            var vm = BindingContext as HomeViewModel;
+
+            if (vm is null)
+            {
+                return;
+            }
+
             var popup = new FiltersPopupPage()
             {
-                BindingContext = BindingContext
+                BindingContext = vm
             };
-            await PopupNavigation.Instance.PushAsync(popup); 
+            await PopupNavigation.Instance.PushAsync(popup);
         }
     }
 }
