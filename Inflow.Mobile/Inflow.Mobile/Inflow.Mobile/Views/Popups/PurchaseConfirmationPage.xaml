@@ -7,9 +7,10 @@
     BackgroundColor="Transparent"
     CloseWhenBackgroundIsClicked="False">
     <StackLayout
+        x:Name="MainStackLayout"
         Padding="20,20,20,20"
-        BackgroundColor=" #f2f2f2"
-        HeightRequest="150"
+        BackgroundColor="#f2f2f2"
+        HeightRequest="300"
         HorizontalOptions="Center"
         VerticalOptions="Center"
         WidthRequest="300">
@@ -19,16 +20,20 @@
             HorizontalTextAlignment="Center"
             Text="Thank you for your purchase"
             TextColor="Black" />
-        <StackLayout
-            Margin="0,40,0,0"
-            HorizontalOptions="Center"
-            Orientation="Horizontal">
-            <Button
-                Margin="20,0,0,0"
-                BackgroundColor="DeepSkyBlue"
-                Command="{Binding OKCommand}"
-                HorizontalOptions="Center"
-                Text="Ok" />
-        </StackLayout>
+
+        <Image
+            x:Name="SuccessImage"
+            HeightRequest="150"
+            HorizontalOptions="CenterAndExpand"
+            Source="success.png"
+            VerticalOptions="CenterAndExpand"
+            WidthRequest="150" />
+
+        <Button
+            Margin="0,0,20,0"
+            BackgroundColor="DeepSkyBlue"
+            Command="{Binding OKCommand}"
+            HorizontalOptions="EndAndExpand"
+            Text="Ok" />
     </StackLayout>
 </pages:PopupPage>

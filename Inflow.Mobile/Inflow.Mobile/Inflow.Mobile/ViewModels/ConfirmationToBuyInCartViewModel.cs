@@ -19,7 +19,7 @@ namespace Inflow.Mobile.ViewModels
         private ISaleDataStore _saleDataStore;
         private ICustomerDataStore _customerDataStore;
         private readonly LoginService _loginService;
-        public ICommand SuccesComand { get; }
+        public ICommand SuccesCommand { get; }
         public ICommand CancelCommand { get; }
         public ObservableCollection<Product> ProductsInCart { get; set; }
 
@@ -28,7 +28,7 @@ namespace Inflow.Mobile.ViewModels
             _saleDataStore = saleDataStore;
             _customerDataStore = customerDataStore;
             _loginService = new LoginService();
-            SuccesComand = new Command(async () => await Success());
+            SuccesCommand = new Command(async () => await Success());
             CancelCommand = new Command(async () => await Cancel());
             ProductsInCart = new ObservableCollection<Product>();
         }
@@ -83,12 +83,11 @@ namespace Inflow.Mobile.ViewModels
 
             var newSale = _saleDataStore.CreateSale(sale);
 
-
             if (newSale != null)
             {
                 ProductsInCart.Clear();
                 DataService.SaveProductsAsync(ProductsInCart, "ProductsInCart");
-                PopupNavigation.Instance.PushAsync(new PurchaseConfirmationPopupPage());
+                await PopupNavigation.Instance.PushAsync(new PurchaseConfirmationPopupPage());
             }
         }
 

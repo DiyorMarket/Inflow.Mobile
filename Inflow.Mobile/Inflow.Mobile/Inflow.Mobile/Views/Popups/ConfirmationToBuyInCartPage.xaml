@@ -26,11 +26,11 @@
             <Button
                 Margin="0,0,20,0"
                 BackgroundColor="DeepSkyBlue"
-                Command="{Binding SuccesComand}"
+                Command="{Binding SuccesCommand}"
                 Text="Yes" />
             <Button
                 Margin="20,0,0,0"
-                BackgroundColor="Red"
+                BackgroundColor="PaleVioletRed"
                 Command="{Binding CancelCommand}"
                 Text="No" />
         </StackLayout>

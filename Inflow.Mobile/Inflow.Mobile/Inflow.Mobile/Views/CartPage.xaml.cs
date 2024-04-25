@@ -34,14 +34,14 @@ namespace Inflow.Mobile.Views
             }
         }
 
-        protected override void OnDisappearing()
-        {
-            base.OnDisappearing();
-            var vm = BindingContext as CartViewModel;
-            if (vm != null)
-            {
-                vm.SaveProductsAsync();
-            }
-        }
+        //protected override void OnDisappearing()
+        //{
+        //    base.OnDisappearing();
+        //    var vm = BindingContext as CartViewModel;
+        //    if (vm != null)
+        //    {
+        //        vm.SaveProductsAsync();
+        //    }
+        //}
     }
 }

@@ -58,7 +58,7 @@ namespace Inflow.Mobile.ViewModels
                 IncreaseCommand = new Command<Product>(IncreaseQuantity);
                 DecreaseCommand = new Command<Product>(DecreaseQuantity);
                 ShowConfirmationCartCommand = new Command(async () => await ShowConfirmationPopup());
-                BuyProductsCommand = new Command(async () => BuyProductsConfirmationPopup());
+                BuyProductsCommand = new Command(async () => await BuyProductsConfirmationPopup());
 
                 saveTimer = new System.Timers.Timer(5000);
                 saveTimer.Elapsed += OnSaveTimerElapsed;
@@ -83,9 +83,9 @@ namespace Inflow.Mobile.ViewModels
                 await PopupNavigation.Instance.PushAsync(new ConfirmationCartPopupPage());
             }
 
-            private void BuyProductsConfirmationPopup()
+            private async Task BuyProductsConfirmationPopup()
             {
-                PopupNavigation.Instance.PushAsync(new ConfirmationToBuyInCartPopupPage());
+                await PopupNavigation.Instance.PushAsync(new ConfirmationToBuyInCartPopupPage());
 
             }
 
