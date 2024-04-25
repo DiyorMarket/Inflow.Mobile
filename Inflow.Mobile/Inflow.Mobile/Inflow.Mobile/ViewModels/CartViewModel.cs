@@ -1,7 +1,5 @@
 ﻿using Inflow.Mobile.Models;
 using Inflow.Mobile.Services;
-using Inflow.Mobile.Views.Popups;
-using Rg.Plugins.Popup.Services;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
@@ -150,7 +148,7 @@ namespace Inflow.Mobile.ViewModels
 
                 DataService.SaveProductsAsync(ProductsInCart, "ProductsInCart");
 
-                OnPropertyChanged(nameof(TotalPrice)); 
+                OnPropertyChanged(nameof(TotalPrice));
             }
 
             public void AddProductsToCart()

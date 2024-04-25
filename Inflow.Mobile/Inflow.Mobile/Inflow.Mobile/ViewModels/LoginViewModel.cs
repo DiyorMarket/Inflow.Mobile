@@ -1,5 +1,6 @@
 ﻿using Inflow.Mobile.Services;
 using Inflow.Mobile.Views;
+using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -23,6 +24,12 @@ namespace Inflow.Mobile.ViewModels
             get => _email;
             set => SetProperty(ref _email, value);
         }
+        private string _emailRegister;
+        public string EmailRegister
+        {
+            get => _emailRegister;
+            set => SetProperty(ref _emailRegister, value);
+        }
 
         private string _phoneNumber;
         public string PhoneNumber
@@ -36,6 +43,12 @@ namespace Inflow.Mobile.ViewModels
         {
             get { return _password; }
             set { SetProperty(ref _password, value); }
+        }
+        private string _passwordRegister;
+        public string PasswordRegister
+        {
+            get { return _passwordRegister; }
+            set { SetProperty(ref _passwordRegister, value);}
         }
 
         private string _confirmPassword;
@@ -73,6 +86,11 @@ namespace Inflow.Mobile.ViewModels
 
         private async void OnLogin()
         {
+            if (IsBusy)
+            {
+                return;
+            }
+
             if (string.IsNullOrWhiteSpace(Email))
             {
                 return;
@@ -83,14 +101,40 @@ namespace Inflow.Mobile.ViewModels
                 return;
             }
 
-            var result = _loginService.LoginUser(Email, Password);
+            try
+            {
+                IsBusy = true;
 
-            Application.Current.MainPage = new AppShell();
+                var isSuccess = await _loginService.LoginUser(Email, Password);
+
+                if (!isSuccess)
+                {
+                    await Application.Current.MainPage.DisplayAlert("Login Failed", "Please check your credentials and try again.", "OK");
+
+                    return;
+                }
+
+                Application.Current.MainPage = new AppShell();
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Login Failed", "Please check your credentials and try again.", "OK");
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
 
         private async void OnRegister()
         {
-            if (string.IsNullOrWhiteSpace(Email))
+            if (IsBusy)
+            {
+                return;
+            }
+            IsBusy = true;
+
+            if (string.IsNullOrWhiteSpace(EmailRegister))
             {
                 return;
             }
@@ -102,13 +146,20 @@ namespace Inflow.Mobile.ViewModels
             {
                 return;
             }
-            if (string.IsNullOrWhiteSpace(Password))
+            if (string.IsNullOrWhiteSpace(PasswordRegister))
             {
                 return;
             }
 
-            var result = _loginService.RegisterUser(Email, Username, PhoneNumber, Password);
+            var result = await _loginService.RegisterUser(EmailRegister, Username, PhoneNumber, PasswordRegister);
 
+            if (!result)
+            {
+                await Application.Current.MainPage.DisplayAlert("Login Failed", "Please check your credentials and try again.", "OK");
+                return;
+            }
+
+            IsBusy = false;
             Application.Current.MainPage = new AppShell();
         }
     }

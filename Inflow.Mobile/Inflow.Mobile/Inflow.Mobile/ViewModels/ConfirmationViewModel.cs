@@ -42,7 +42,6 @@ namespace Inflow.Mobile.ViewModels
             await Application.Current.MainPage.Navigation.PushAsync(new SavedPage());
         }
 
-
         private async Task Cancel()
         {
             try

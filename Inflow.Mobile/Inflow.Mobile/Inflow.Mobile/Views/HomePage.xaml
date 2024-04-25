@@ -165,6 +165,7 @@
 
             <md:MaterialProgressIndicator
                 Grid.Row="2"
+                IndicatorColor="#00A3FF"
                 IsEnabled="{Binding IsBusy}"
                 IsVisible="{Binding IsBusy}"
                 VerticalOptions="CenterAndExpand" />
