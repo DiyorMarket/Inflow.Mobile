@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <pages:PopupPage
-    x:Class="Inflow.Mobile.Views.Popups.ConfirmationPopupPage"
+    x:Class="Inflow.Mobile.Views.Popups.ConfirmationCartPopupPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
@@ -14,19 +14,20 @@
         VerticalOptions="Center"
         WidthRequest="300">
         <Label
+            Margin="0,10,0,0"
             FontSize="22"
             HorizontalOptions="Center"
             HorizontalTextAlignment="Center"
-            Text="Are you sure to delete all products?"
+            Text="Do you want to clean cart?"
             TextColor="Black" />
         <StackLayout
-            Margin="0,40,0,0"
+            Margin="0,50,0,0"
             HorizontalOptions="Center"
             Orientation="Horizontal">
             <Button
                 Margin="0,0,20,0"
                 BackgroundColor="#2A7BEF"
-                Command="{Binding ClearAllSavedProductsCommand}"
+                Command="{Binding ClearAllCartProductsCommand}"
                 CornerRadius="100"
                 FontSize="18"
                 Text="Ok"
@@ -46,7 +47,3 @@
         </StackLayout>
     </StackLayout>
 </pages:PopupPage>
-
-
-
-

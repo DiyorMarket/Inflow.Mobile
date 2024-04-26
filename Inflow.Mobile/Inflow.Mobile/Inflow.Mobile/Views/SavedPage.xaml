@@ -11,6 +11,8 @@
         <ResourceDictionary>
             <local:IconConverter x:Key="iconConverter" />
             <local:HeartIconConverter x:Key="heartIconConverter" />
+            <local:CollectionCountToVisibilityConverter x:Key="CollectionCountToVisibilityConverter" />
+            <local:InverseBoolConverter x:Key="InverseBool" />
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -25,15 +27,20 @@
                     Margin="0,15,0,0"
                     FontSize="Medium"
                     HorizontalOptions="Center"
+                    IsVisible="{Binding IsSavedProductsEmpty, Converter={StaticResource InverseBool}}"
                     Text="Favourite products"
                     TextColor="Black" />
-                <ImageButton
-                    Margin="0,10,10,0"
+                <Button
+                    Margin="0,5,0,0"
+                    BackgroundColor="Transparent"
                     Command="{Binding ShowConfirmationCommand}"
-                    HeightRequest="25"
-                    HorizontalOptions="End"
-                    Source="black_bin.png"
-                    WidthRequest="25" />
+                    FontSize="14"
+                    FontAttributes="Bold"
+                    HeightRequest="35"
+                    HorizontalOptions="EndAndExpand"
+                    IsVisible="{Binding SavedProducts.Count, Converter={StaticResource CollectionCountToVisibilityConverter}}"
+                    Text="Remove all"
+                    TextColor="PaleVioletRed" />
 
             </Grid>
 
@@ -122,6 +129,22 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
+            <StackLayout
+                Grid.RowSpan="2"
+                HorizontalOptions="CenterAndExpand"
+                IsVisible="{Binding IsSavedProductsEmpty}"
+                VerticalOptions="CenterAndExpand">
+                <Image
+                    HeightRequest="250"
+                    Source="empty_cart.png"
+                    WidthRequest="250" />
+                <Label
+                    Grid.Row="1"
+                    FontSize="Title"
+                    HorizontalOptions="Center"
+                    Text="No saved products."
+                    VerticalOptions="Center" />
+            </StackLayout>
 
             <md:MaterialProgressIndicator
                 Grid.Row="2"

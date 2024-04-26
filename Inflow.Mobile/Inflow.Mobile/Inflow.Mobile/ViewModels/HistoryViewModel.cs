@@ -1,7 +1,10 @@
-﻿using Inflow.Mobile.DataStores.Sales;
+﻿using Inflow.Mobile.DataStores.Customers;
+using Inflow.Mobile.DataStores.Sales;
 using Inflow.Mobile.Models;
+using Inflow.Mobile.Services;
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -11,16 +14,20 @@ namespace Inflow.Mobile.ViewModels
     public class HistoryViewModel : BaseViewModel
     {
         private readonly ISaleDataStore _saleDataStore;
+        private readonly ICustomerDataStore _customerDataStore;
+        private LoginService _loginService;
 
         public Command<Sale> ShowProductsCommand { get; private set; }
 
         public ObservableCollection<Sale> SaleHistory { get; private set; }
 
-        public HistoryViewModel(ISaleDataStore saleDataStore)
+        public HistoryViewModel(ISaleDataStore saleDataStore, ICustomerDataStore customerDataStore)
         {
             Title = "History";
 
             _saleDataStore = saleDataStore;
+            _customerDataStore = customerDataStore;
+            _loginService = new LoginService();
             SaleHistory = new ObservableCollection<Sale>();
             ShowProductsCommand = new Command<Sale>(ShowProducts);
         }
@@ -40,7 +47,13 @@ namespace Inflow.Mobile.ViewModels
 
             try
             {
-                var sales = await _saleDataStore.GetSales(4);
+                var userId = _loginService.GetUserData().Result.UserId;
+
+                var customers = await _customerDataStore.GetCustomersAsync(userId);
+
+                var customer = customers.FirstOrDefault(x => x.UserId == userId);
+
+                var sales = await _saleDataStore.GetSales(customer.Id);
                 foreach (var sale in sales)
                 {
                     sale.Quantity = 0;

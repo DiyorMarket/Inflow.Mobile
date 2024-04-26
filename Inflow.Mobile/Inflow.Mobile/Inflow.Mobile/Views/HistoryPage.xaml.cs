@@ -1,4 +1,5 @@
-﻿using Inflow.Mobile.DataStores.Sales;
+﻿using Inflow.Mobile.DataStores.Customers;
+using Inflow.Mobile.DataStores.Sales;
 using Inflow.Mobile.Services;
 using Inflow.Mobile.ViewModels;
 using Xamarin.Forms;
@@ -14,7 +15,8 @@ namespace Inflow.Mobile.Views
             InitializeComponent();
             var apiClient = new ApiClient();
             var productDataStore = new SaleDataStore(apiClient);
-            BindingContext = new HistoryViewModel(productDataStore);
+            var customerDataStore = new CustomerDataStore(apiClient);
+            BindingContext = new HistoryViewModel(productDataStore, customerDataStore);
         }
         protected override async void OnAppearing()
         {

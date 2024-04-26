@@ -5,7 +5,7 @@
     xmlns:md="clr-namespace:Plugin.MaterialDesignControls.Material3;assembly=Plugin.MaterialDesignControls"
     xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
     BackgroundClicked="Button_OnClicked"
-    BackgroundColor="Transparent"
+    BackgroundColor="#80000000"
     CloseWhenBackgroundIsClicked="True">
     <!--  You can use any elements here which are extended from Xamarin.Forms.View  -->
     <StackLayout

@@ -46,7 +46,7 @@ namespace Inflow.Mobile.ViewModels
         {
             try
             {
-                await PopupNavigation.Instance.PopAsync(); // Закрыть всплывающее окно
+                await PopupNavigation.Instance.PopAsync();
             }
             catch (Exception ex)
             {

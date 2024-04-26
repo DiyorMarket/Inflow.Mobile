@@ -7,20 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Resources\Svg\cart.svg" />
-    <None Remove="Resources\Svg\history.svg" />
-    <None Remove="Resources\Svg\home.svg" />
-    <None Remove="Resources\Svg\user.svg" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\Svg\cart.svg" />
-    <EmbeddedResource Include="Resources\Svg\history.svg" />
-    <EmbeddedResource Include="Resources\Svg\home.svg" />
-    <EmbeddedResource Include="Resources\Svg\user.svg" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <PackageReference Include="Com.Airbnb.Xamarin.Forms.Lottie" Version="4.1.0" />
+    <PackageReference Include="DocumentFormat.OpenXml" Version="3.0.2" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Plugin.MaterialDesignControls" Version="3.1.4" />
     <PackageReference Include="Refractored.MvvmHelpers" Version="1.6.2" />
@@ -71,10 +59,19 @@
     <EmbeddedResource Update="Views\PersonalAccountPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Views\Popups\ConfirmationCartPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Popups\ConfirmationToBuyInCartPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Views\Popups\FiltersPopupPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\Popups\ConfirmationPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Popups\PurchaseConfirmationPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

@@ -9,6 +9,8 @@ namespace Inflow.Mobile.Models
         public int Quantity { get; set; }
         public decimal TotalDue { get; set; }
         public DateTime SaleDate { get; set; }
+        public int CustomerId { get; set;}
+        public Customer Customer { get; set; }
 
         public List<SaleItem> SaleItems { get; set; }
 

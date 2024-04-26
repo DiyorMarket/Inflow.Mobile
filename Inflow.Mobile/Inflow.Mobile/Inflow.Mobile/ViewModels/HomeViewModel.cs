@@ -111,8 +111,8 @@ namespace Inflow.Mobile.ViewModels
             LoadMoreCommand = new AsyncCommand(OnLoadMore);
             ProductsInCart = new ObservableCollection<Product>();
             SavedProducts = new ObservableCollection<Product>();
-            AddToCartCommand = new MvvmHelpers.Commands.Command<Product>(OnAddToCart);
-            AddToSavedCommand = new MvvmHelpers.Commands.Command<Product>(OnAddToSaved);
+            AddToCartCommand = new Command<Product>(OnAddToCart);
+            AddToSavedCommand = new Command<Product>(OnAddToSaved);
 
         }
 
@@ -137,7 +137,10 @@ namespace Inflow.Mobile.ViewModels
                 Products.Clear();
                 foreach (var product in products.Result)
                 {
-                    Products.Add(product);
+                    if(product.QuantityInStock != 0)
+                    {
+                        Products.Add(product);
+                    }
                 }
 
                 Categories.Clear();

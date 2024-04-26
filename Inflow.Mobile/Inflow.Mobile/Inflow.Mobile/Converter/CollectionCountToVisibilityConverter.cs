@@ -1,16 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Text;
 using Xamarin.Forms;
 
 namespace Inflow.Mobile.Converter
 {
-    public class BooleanToColorConverter : IValueConverter
+    public class CollectionCountToVisibilityConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return (bool)value ? Color.LightSkyBlue : Color.Transparent;
+            if (value is int count)
+            {
+                return count > 0 ? true : false;
+            }
+            return false;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

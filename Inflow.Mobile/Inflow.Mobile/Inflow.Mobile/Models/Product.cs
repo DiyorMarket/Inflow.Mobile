@@ -8,9 +8,34 @@ namespace Inflow.Mobile.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public decimal SalePrice { get; set; }
+        private decimal salePrice;
+        public decimal SalePrice
+        {
+            get => salePrice;
+            set
+            {
+                if (salePrice != value)
+                {
+                    salePrice = value;
+                    OnPropertyChanged(nameof(SalePrice));
+                }
+            }
+        }
         public DateTime ExpireDate { get; set; }
         public int QuantityInStock { get; set; }
+        private int quantity;
+        public int Quantity
+        {
+            get => quantity;
+            set
+            {
+                if (quantity != value)
+                {
+                    quantity = value;
+                    OnPropertyChanged(nameof(Quantity));
+                }
+            }
+        }
         public string ImageUrl { get; set; }
         public Category Category { get; set; }
         private bool _isInCart;

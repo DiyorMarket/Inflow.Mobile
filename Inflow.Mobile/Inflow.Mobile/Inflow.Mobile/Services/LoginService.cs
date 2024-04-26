@@ -1,11 +1,9 @@
 ﻿using Inflow.Mobile.Models;
-using Inflow.Mobile.Views;
 using Newtonsoft.Json;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
-using Xamarin.Forms;
 
 namespace Inflow.Mobile.Services
 {

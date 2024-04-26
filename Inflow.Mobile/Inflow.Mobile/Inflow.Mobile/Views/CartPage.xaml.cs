@@ -1,16 +1,12 @@
-﻿using Inflow.Mobile.ViewModels.Inflow.Mobile.ViewModels;
+﻿using Inflow.Mobile.Models;
+using Inflow.Mobile.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace Inflow.Mobile.Views
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
+    [XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class CartPage : ContentPage
 	{
 		CartViewModel _viewModel;
@@ -18,7 +14,7 @@ namespace Inflow.Mobile.Views
 		{
 			InitializeComponent ();
 
-			BindingContext = _viewModel = new CartViewModel ();
+            BindingContext = _viewModel = new CartViewModel ();
 		}
 
         protected override void OnAppearing()
@@ -27,8 +23,25 @@ namespace Inflow.Mobile.Views
             _viewModel.AddProductsToCart();
 
             CartListView.ItemsSource = null;
-            CartListView.ItemsSource = _viewModel.CartItems; // Force ListView to rebind and refresh
+            CartListView.ItemsSource = _viewModel.CartItems; 
         }
 
+        private void OnFrameTapped(object sender, EventArgs e)
+        {
+            if (sender is Frame frame && frame.BindingContext is Product product)
+            {
+                product.IsSelected = !product.IsSelected;
+            }
+        }
+
+        //protected override void OnDisappearing()
+        //{
+        //    base.OnDisappearing();
+        //    var vm = BindingContext as CartViewModel;
+        //    if (vm != null)
+        //    {
+        //        vm.SaveProductsAsync();
+        //    }
+        //}
     }
 }
