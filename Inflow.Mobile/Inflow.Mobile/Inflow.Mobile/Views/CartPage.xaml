@@ -5,11 +5,14 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:Inflow.Mobile.Converter"
     xmlns:md="clr-namespace:Plugin.MaterialDesignControls.Material3;assembly=Plugin.MaterialDesignControls"
-    xmlns:vm="clr-namespace:Inflow.Mobile.ViewModels;assembly=Inflow.Mobile">
+    xmlns:vm="Inflow.Mobile.ViewModels.Inflow.Mobile.ViewModels"
+    BackgroundColor="#fafafa">
 
     <ContentPage.Resources>
         <ResourceDictionary>
-            <local:BooleanToColorConverter x:Key="BooleanToColorConverter" />
+            <local:CollectionCountToVisibilityConverter x:Key="CollectionCountToVisibilityConverter" />
+            <local:QuantityInStockToColorConverter x:Key="QuantityInStockToColorConverter" />
+            <local:InverseBoolConverter x:Key="InverseBool" />
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -21,63 +24,113 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <md:MaterialLabel
-                Grid.Row="0"
-                Margin="0,15,0,0"
-                FontSize="Medium"
-                HorizontalOptions="Center"
-                Text="Cart"
-                TextColor="Black" />
+            <Grid Grid.Row="0">
+                <md:MaterialLabel
+                    Margin="0,15,0,0"
+                    FontSize="Medium"
+                    HorizontalOptions="CenterAndExpand"
+                    IsVisible="{Binding IsProductsInCartEmpty, Converter={StaticResource InverseBool}}"
+                    Text="Cart"
+                    TextColor="Black" />
+                <Button
+                    Margin="0,5,0,0"
+                    BackgroundColor="Transparent"
+                    Command="{Binding ShowConfirmationCartCommand}"
+                    FontAttributes="Bold"
+                    FontSize="14"
+                    HorizontalOptions="EndAndExpand"
+                    IsVisible="{Binding CartItems.Count, Converter={StaticResource CollectionCountToVisibilityConverter}}"
+                    Text="Remove all"
+                    TextColor="PaleVioletRed" />
+            </Grid>
+
 
             <Grid Grid.Row="1" Padding="10">
                 <ListView
                     x:Name="CartListView"
                     HasUnevenRows="True"
                     ItemsSource="{Binding CartItems}"
-                    SelectedItem="{Binding SelectedItem}">
+                    SelectedItem="{Binding SelectedItem}"
+                    SeparatorVisibility="None">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
-                                <Frame Padding="10" BackgroundColor="{Binding IsSelected, Converter={StaticResource BooleanToColorConverter}}">
-                                    <Grid Padding="10">
+                                <md:MaterialCard
+                                    Margin="10"
+                                    Padding="0"
+                                    BackgroundColor="#fafafa"
+                                    CornerRadius="10"
+                                    Type="Elevated">
+                                    <md:MaterialCard.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnFrameTapped" />
+                                    </md:MaterialCard.GestureRecognizers>
+
+                                    <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="120" />
                                             <ColumnDefinition Width="*" />
                                             <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+
                                         <Image
+                                            Grid.Row="0"
+                                            Grid.RowSpan="3"
                                             Grid.Column="0"
-                                            HeightRequest="100"
-                                            Source="{Binding ImageUrl}"
-                                            WidthRequest="120" />
-                                        <StackLayout
+                                            Source="{Binding ImageUrl}" />
+
+                                        <Label
+                                            Grid.Row="0"
                                             Grid.Column="1"
-                                            Spacing="5"
-                                            VerticalOptions="FillAndExpand">
+                                            Margin="0,5,0,0"
+                                            FontAttributes="Bold"
+                                            Text="{Binding Name}"
+                                            VerticalOptions="Center" />
+                                        <StackLayout
+                                            Grid.Row="1"
+                                            Grid.Column="1"
+                                            Margin="0,10,0,0"
+                                            HorizontalOptions="FillAndExpand"
+                                            Orientation="Horizontal">
                                             <Label
-                                                Margin="15,0,0,0"
-                                                FontAttributes="Bold"
-                                                Text="{Binding Name}"
-                                                VerticalOptions="Start" />
+                                                HorizontalOptions="StartAndExpand"
+                                                Text="{Binding Category.Name}"
+                                                VerticalOptions="Center" />
                                             <Label
-                                                Margin="15,0,0,0"
+                                                Margin="0,0,30,0"
+                                                HorizontalOptions="EndAndExpand"
                                                 Text="{Binding SalePrice, StringFormat='{0:C}'}"
-                                                VerticalOptions="CenterAndExpand" />
+                                                VerticalOptions="Center" />
+                                        </StackLayout>
+
+                                        <StackLayout
+                                            Grid.Row="2"
+                                            Grid.Column="1"
+                                            Margin="0,0,0,10"
+                                            HorizontalOptions="FillAndExpand"
+                                            Orientation="Horizontal">
+                                            <Label
+                                                HorizontalOptions="StartAndExpand"
+                                                Text="{Binding QuantityInStock, StringFormat='In stock: {0}'}"
+                                                VerticalOptions="Center" />
+
                                             <StackLayout
-                                                Margin="15,0,0,0"
-                                                HorizontalOptions="Start"
+                                                HorizontalOptions="End"
                                                 Orientation="Horizontal"
                                                 Spacing="10"
-                                                VerticalOptions="End">
+                                                VerticalOptions="Center">
                                                 <ImageButton
                                                     BackgroundColor="Transparent"
-                                                    Command="{Binding DecreaseCommand}"
+                                                    Command="{Binding BindingContext.DecreaseCommand, Source={x:Reference Name=CartListView}}"
                                                     CommandParameter="{Binding .}"
                                                     HeightRequest="25"
                                                     Source="minus_frame.png"
                                                     WidthRequest="25" />
-
-                                                <md:MaterialLabel
+                                                <Label
                                                     Margin="0,0,0,7"
                                                     FontAttributes="Bold"
                                                     FontSize="Large"
@@ -86,28 +139,31 @@
                                                     Text="{Binding Quantity}"
                                                     VerticalTextAlignment="Center"
                                                     WidthRequest="25" />
-
                                                 <ImageButton
                                                     BackgroundColor="Transparent"
-                                                    Command="{Binding IncreaseCommand}"
+                                                    Command="{Binding BindingContext.IncreaseCommand, Source={x:Reference Name=CartListView}}"
                                                     CommandParameter="{Binding .}"
                                                     HeightRequest="25"
                                                     Source="plus_frame.png"
                                                     WidthRequest="25" />
-
                                             </StackLayout>
                                         </StackLayout>
+
                                         <ImageButton
+                                            Grid.Row="0"
                                             Grid.Column="2"
+                                            Margin="0,5,10,0"
                                             BackgroundColor="Transparent"
-                                            Command="{Binding RemoveCommand}"
+                                            Command="{Binding BindingContext.RemoveCommand, Source={x:Reference Name=CartListView}}"
                                             CommandParameter="{Binding .}"
-                                            HeightRequest="20"
+                                            HeightRequest="15"
+                                            HorizontalOptions="EndAndExpand"
                                             Source="red_bin.png"
-                                            VerticalOptions="End"
-                                            WidthRequest="20" />
+                                            VerticalOptions="Start"
+                                            WidthRequest="15" />
                                     </Grid>
-                                </Frame>
+
+                                </md:MaterialCard>
                             </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>
@@ -116,32 +172,54 @@
 
             <StackLayout
                 Grid.Row="2"
+                Margin="0,0,0,15"
                 Padding="5"
-                BackgroundColor="LightGray"
+                BackgroundColor="#fcfcfc"
                 HorizontalOptions="FillAndExpand"
+                IsVisible="{Binding CartItems.Count, Converter={StaticResource CollectionCountToVisibilityConverter}}"
                 Orientation="Horizontal">
                 <Label
+                    Margin="10,0,0,0"
                     FontAttributes="Bold"
-                    HorizontalOptions="StartAndExpand"
-                    Text="Total:"
-                    TextColor="Black"
+                    FontSize="18"
+                    HorizontalOptions="Start"
+                    Text="Total :"
+                    TextColor="#33363F"
                     VerticalOptions="Center" />
                 <Label
                     FontAttributes="Bold"
-                    HorizontalOptions="CenterAndExpand"
+                    FontSize="18"
+                    HorizontalOptions="StartAndExpand"
                     Text="{Binding TotalPrice, StringFormat='{0:C}'}"
-                    TextColor="Black"
+                    TextColor="#33363F"
                     VerticalOptions="Center" />
                 <Button
                     Margin="0,0,5,0"
-                    BackgroundColor="DeepSkyBlue"
+                    BackgroundColor="#507bbf"
                     BorderWidth="1"
+                    Command="{Binding BuyProductsCommand}"
                     CornerRadius="10"
                     HeightRequest="35"
-                    HorizontalOptions="EndAndExpand"
+                    HorizontalOptions="CenterAndExpand"
                     Text="Buy"
                     TextColor="White"
-                    WidthRequest="75" />
+                    WidthRequest="125" />
+            </StackLayout>
+            <StackLayout
+                Grid.RowSpan="2"
+                HorizontalOptions="CenterAndExpand"
+                IsVisible="{Binding IsProductsInCartEmpty}"
+                VerticalOptions="CenterAndExpand">
+                <Image
+                    HeightRequest="250"
+                    Source="empty_cart.png"
+                    WidthRequest="250" />
+                <Label
+                    Grid.Row="1"
+                    FontSize="Title"
+                    HorizontalOptions="Center"
+                    Text="Cart is empty."
+                    VerticalOptions="Center" />
             </StackLayout>
         </Grid>
     </ContentPage.Content>

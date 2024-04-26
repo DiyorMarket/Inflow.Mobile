@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage
+    x:Class="Inflow.Mobile.Views.Popups.PurchaseConfirmationPopupPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+    BackgroundColor="#80000000"
+    CloseWhenBackgroundIsClicked="False">
+    <StackLayout
+        x:Name="MainStackLayout"
+        Padding="20,20,20,20"
+        BackgroundColor="#f2f2f2"
+        HeightRequest="300"
+        HorizontalOptions="Center"
+        VerticalOptions="Center"
+        WidthRequest="300">
+        <Label
+            FontSize="22"
+            HorizontalOptions="Center"
+            HorizontalTextAlignment="Center"
+            Text="Thank you for your purchase"
+            TextColor="Black" />
+
+        <Image
+            x:Name="SuccessImage"
+            HeightRequest="150"
+            HorizontalOptions="CenterAndExpand"
+            Source="success.png"
+            VerticalOptions="CenterAndExpand"
+            WidthRequest="150" />
+
+        <Button
+            Margin="0,0,20,0"
+            BackgroundColor="#9e9e9e"
+            Command="{Binding OKCommand}"
+            HorizontalOptions="EndAndExpand"
+            Text="Ok" />
+    </StackLayout>
+</pages:PopupPage>
