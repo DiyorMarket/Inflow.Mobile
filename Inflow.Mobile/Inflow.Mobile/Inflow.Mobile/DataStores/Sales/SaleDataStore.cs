@@ -18,7 +18,7 @@ namespace Inflow.Mobile.DataStores.Sales
         }
         public async Task<IEnumerable<Sale>> GetSales(int CustomerId)
         {
-            _response = await _client.GetAsync<Sale>($"Sales?CustomerId={CustomerId}");
+            _response = await _client.GetAsync<Sale>($"Sales?CustomerId={CustomerId}&orderBy=expiredatedesc");
 
             return _response.Data;
         }
