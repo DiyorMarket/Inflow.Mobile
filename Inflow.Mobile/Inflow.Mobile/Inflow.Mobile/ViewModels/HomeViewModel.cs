@@ -2,7 +2,6 @@ using Inflow.Mobile.DataStores.Products;
 using Inflow.Mobile.Models;
 using Inflow.Mobile.Services;
 using MvvmHelpers.Commands;
-using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -142,7 +141,7 @@ namespace Inflow.Mobile.ViewModels
                 }
 
                 Categories.Clear();
-                foreach(var category in categories.Result.Data)
+                foreach (var category in categories.Result.Data)
                 {
                     Categories.Add(category);
                 }
@@ -167,9 +166,6 @@ namespace Inflow.Mobile.ViewModels
             {
                 return;
             }
-
-            IsBusy = true;
-
             try
             {
                 var products = await _productDataStore.GetNextPageAsync(Filters);
@@ -190,13 +186,13 @@ namespace Inflow.Mobile.ViewModels
 
         public async Task OnApplyFilters()
         {
-            
+
             if (IsBusy)
             {
                 return;
             }
 
-            IsBusy = true;
+            IsBusy = false;
             Products.Clear();
 
             try
