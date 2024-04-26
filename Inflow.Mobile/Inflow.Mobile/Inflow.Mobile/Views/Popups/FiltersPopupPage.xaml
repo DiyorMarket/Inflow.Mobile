@@ -2,124 +2,145 @@
     x:Class="Inflow.Mobile.Views.Popups.FiltersPopupPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:md="clr-namespace:Plugin.MaterialDesignControls.Material3;assembly=Plugin.MaterialDesignControls"
     xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
     BackgroundClicked="Button_OnClicked"
     BackgroundColor="Transparent"
     CloseWhenBackgroundIsClicked="True">
     <!--  You can use any elements here which are extended from Xamarin.Forms.View  -->
     <StackLayout
-        Padding="20,20,20,20"
-        BackgroundColor="AliceBlue"
-        HeightRequest="300"
+        Padding="20"
+        BackgroundColor="WhiteSmoke"
         HorizontalOptions="Center"
         VerticalOptions="Center"
         WidthRequest="300">
 
-        <StackLayout>
+        <Label
+            FontAttributes="Bold"
+            FontSize="20"
+            HorizontalOptions="CenterAndExpand"
+            Text="Select Filters" />
+
+        <StackLayout Margin="0,10,0,0">
             <Label
                 FontAttributes="Bold"
                 FontSize="16"
-                Text="Categories"
-                TextColor="Black" />
-            <Frame
-                Padding="2"
+                Text="Select Category"
+                TextColor="LightSlateGray" />
+            <md:MaterialPicker
+                Padding="10"
+                AnimatePlaceholder="True"
+                BackgroundColor="WhiteSmoke"
+                BorderColor="DarkGray"
+                BorderWidth="1"
                 CornerRadius="10"
-                HasShadow="True">
-                <Picker
-                    x:Name="categoryPicker"
-                    Title="All"
-                    ItemsSource="{Binding Categories}"
-                    SelectedItem="{Binding SelectedCategory}"
-                    TextColor="Blue"
-                    TitleColor="Blue">
-                    <Picker.ItemDisplayBinding>
-                        <Binding Path="Name" />
-                    </Picker.ItemDisplayBinding>
-                </Picker>
-            </Frame>
+                HasBorder="True"
+                ItemsSource="{Binding Categories}"
+                Placeholder="Category"
+                PropertyPath="Name"
+                SelectedItem="{Binding SelectedCategory}"
+                SupportingMargin="0"
+                TextColor="DarkSlateGray" />
         </StackLayout>
 
+        <md:MaterialDivider Margin="0,10" />
+
         <Label
+            Margin="0,10,0,0"
             FontAttributes="Bold"
             FontSize="16"
-            Text="Property"
-            TextColor="Black" />
+            Text="Sort products"
+            TextColor="LightSlateGray" />
         <StackLayout Orientation="Horizontal">
-            <Picker
-                Title="Select property"
-                HorizontalTextAlignment="Start"
+            <md:MaterialPicker
+                AnimatePlaceholder="True"
+                BackgroundColor="WhiteSmoke"
+                BorderColor="LightSlateGray"
+                BorderWidth="1"
+                CornerRadius="10"
+                HasBorder="True"
                 ItemsSource="{Binding Properties}"
+                Placeholder="Sort by"
+                PlaceholderColor="DarkSlateGray"
                 SelectedItem="{Binding SelectedProperty}"
-                TextColor="Blue"
-                TextTransform="Uppercase"
-                TitleColor="Blue"
+                TextColor="DarkSlateGray"
                 WidthRequest="135" />
-            <Picker
-                Title="Select option"
+            <md:MaterialPicker
                 Margin="30,0,0,0"
-                HorizontalTextAlignment="Start"
+                AnimatePlaceholder="True"
+                BackgroundColor="WhiteSmoke"
+                BorderColor="LightSlateGray"
+                BorderWidth="1"
+                CornerRadius="10"
+                HasBorder="True"
                 ItemsSource="{Binding OrderBy}"
+                Placeholder="Sort order"
+                PlaceholderColor="DarkSlateGray"
                 SelectedItem="{Binding SelectedOrderby}"
-                TextColor="Blue"
-                TextTransform="Uppercase"
-                TitleColor="Blue"
+                TextColor="DarkSlateGray"
                 WidthRequest="135" />
         </StackLayout>
 
+        <md:MaterialDivider Margin="0,10" />
+
         <Label
-            Margin="3,0,0,0"
+            Margin="3,10,0,0"
             FontAttributes="Bold"
             FontSize="16"
-            Text="Price"
-            TextColor="Black" />
+            Text="Price Range"
+            TextColor="LightSlateGray" />
         <StackLayout Orientation="Horizontal">
-            <Frame
-                Margin="5,0,0,0"
-                Padding="2"
-                BorderColor="#2196F3"
+            <md:MaterialEntry
+                AnimatePlaceholder="True"
+                BackgroundColor="WhiteSmoke"
+                BorderColor="LightSlateGray"
+                BorderWidth="1"
                 CornerRadius="10"
-                HasShadow="True">
-                <Entry
-                    BackgroundColor="#E3F2FD"
-                    Keyboard="Numeric"
-                    Placeholder="Lowest price"
-                    Text="{Binding LowestPrice, Mode=TwoWay, StringFormat='{0:F1}'}"
-                    TextColor="Blue"
-                    WidthRequest="135" />
-            </Frame>
-            <Frame
-                Margin="10,0,0,0"
-                Padding="2"
-                BorderColor="#2196F3"
+                HasBorder="True"
+                Keyboard="Numeric"
+                Placeholder="Min price"
+                Text="{Binding LowestPrice, StringFormat='{0:F1}'}"
+                TextColor="DarkSlateGray"
+                WidthRequest="135" />
+            <md:MaterialEntry
+                Margin="30,0,0,0"
+                AnimatePlaceholder="True"
+                BackgroundColor="WhiteSmoke"
+                BorderColor="LightSlateGray"
+                BorderWidth="1"
                 CornerRadius="10"
-                HasShadow="True">
-                <Entry
-                    BackgroundColor="#E3F2FD"
-                    Keyboard="Numeric"
-                    Placeholder="Highest price"
-                    Text="{Binding HighestPrice, Mode=TwoWay, StringFormat='{0:F1}'}"
-                    TextColor="Blue"
-                    WidthRequest="135" />
-            </Frame>
+                HasBorder="True"
+                Placeholder="Max price"
+                Text="{Binding HighestPrice, StringFormat='{0:F1}'}"
+                TextColor="DarkSlateGray"
+                WidthRequest="135" />
         </StackLayout>
+
+        <md:MaterialDivider Margin="0,10" />
 
         <StackLayout
-            Padding="0,10,0,0"
+            Padding="0,15,0,0"
             HorizontalOptions="CenterAndExpand"
             Orientation="Horizontal">
             <Button
-                BackgroundColor="#85929E"
-                BorderColor="AliceBlue"
+                BackgroundColor="Transparent"
+                BorderColor="#2A7BEF"
+                BorderWidth="1"
                 Clicked="Button_Clicked_1"
                 CornerRadius="100"
+                FontSize="18"
                 Text="Cancel"
-                WidthRequest="150" />
+                TextColor="#2A7BEF"
+                WidthRequest="135" />
             <Button
+                Margin="30,0,0,0"
                 BackgroundColor="#2A7BEF"
                 Clicked="Button_Clicked"
                 CornerRadius="100"
+                FontSize="18"
                 Text="Ok"
-                WidthRequest="150" />
+                TextColor="WhiteSmoke"
+                WidthRequest="135" />
         </StackLayout>
 
     </StackLayout>

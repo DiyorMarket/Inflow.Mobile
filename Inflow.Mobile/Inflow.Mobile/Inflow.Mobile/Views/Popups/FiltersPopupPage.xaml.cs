@@ -19,13 +19,6 @@ namespace Inflow.Mobile.Views.Popups
             BindingContext = new HomeViewModel(productDataStore);
         }
 
-        protected override async void OnAppearing()
-        {
-            var vm = BindingContext as HomeViewModel;
-            await vm?.LoadCategories();
-            base.OnAppearing();
-        }
-
         private async void Button_OnClicked(object sender, EventArgs e)
         {
             await Navigation.PopModalAsync();
