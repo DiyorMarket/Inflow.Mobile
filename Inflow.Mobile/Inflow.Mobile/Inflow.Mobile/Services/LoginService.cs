@@ -197,5 +197,21 @@ namespace Inflow.Mobile.Services
                 throw new Exception("Data is don't exists", ex);
             }
         }
+
+        public async Task DeleteUserData()
+        {
+            try
+            {
+                SecureStorage.Remove("AuthToken");
+                SecureStorage.Remove("UserId");
+                SecureStorage.Remove("UserName");
+                SecureStorage.Remove("UserEmail");
+                SecureStorage.Remove("UserPhone");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error occurred while deleting user data:", ex);
+            }
+        }
     }
 }

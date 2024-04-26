@@ -132,7 +132,6 @@ namespace Inflow.Mobile.ViewModels
             {
                 return;
             }
-            IsBusy = true;
 
             if (string.IsNullOrWhiteSpace(EmailRegister))
             {
@@ -150,17 +149,28 @@ namespace Inflow.Mobile.ViewModels
             {
                 return;
             }
-
-            var result = await _loginService.RegisterUser(EmailRegister, Username, PhoneNumber, PasswordRegister);
-
-            if (!result)
+            try
             {
-                await Application.Current.MainPage.DisplayAlert("Login Failed", "Please check your credentials and try again.", "OK");
-                return;
-            }
+                IsBusy = true;
 
-            IsBusy = false;
-            Application.Current.MainPage = new AppShell();
+                var result = await _loginService.RegisterUser(EmailRegister, Username, PhoneNumber, PasswordRegister);
+
+                if (!result)
+                {
+                    await Application.Current.MainPage.DisplayAlert("Register Failed", "Please check your credentials and try again.", "OK");
+                    return;
+                }
+
+                Application.Current.MainPage = new AppShell();
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Register Failed", "Please check your credentials and try again.", "OK");
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
     }
 }

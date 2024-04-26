@@ -200,7 +200,10 @@
                 VerticalOptions="EndAndExpand">
                 <StackLayout HorizontalOptions="Center" Spacing="5" />
 
-                <StackLayout HorizontalOptions="Center" Spacing="5">
+                <StackLayout
+                    HorizontalOptions="Center"
+                    IsVisible="{Binding IsBusy, Converter={converters:InverseBoolConverter}}"
+                    Spacing="5">
                     <md:MaterialEntry
                         Margin="10"
                         AnimateError="True"

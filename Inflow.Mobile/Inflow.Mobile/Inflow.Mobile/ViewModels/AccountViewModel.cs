@@ -28,6 +28,8 @@ namespace Inflow.Mobile.ViewModels
 
         private void NavigationLoginPage()
         {
+            _loginService.DeleteUserData();
+
             Application.Current.MainPage = new LoginPage();
         }
 
