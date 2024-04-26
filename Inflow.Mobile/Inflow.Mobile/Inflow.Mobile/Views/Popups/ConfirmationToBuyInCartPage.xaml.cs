@@ -2,7 +2,6 @@
 using Inflow.Mobile.DataStores.Sales;
 using Inflow.Mobile.Services;
 using Inflow.Mobile.ViewModels;
-using Inflow.Mobile.ViewModels.Inflow.Mobile.ViewModels;
 using Rg.Plugins.Popup.Pages;
 using Xamarin.Forms.Xaml;
 

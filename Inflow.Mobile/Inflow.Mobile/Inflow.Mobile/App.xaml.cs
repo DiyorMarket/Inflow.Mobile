@@ -1,9 +1,6 @@
-﻿using Inflow.Mobile.Services;
-using Inflow.Mobile.ViewModels.Inflow.Mobile.ViewModels;
+﻿using Inflow.Mobile.ViewModels;
 using Inflow.Mobile.Views;
-using System;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace Inflow.Mobile
 {
@@ -14,7 +11,7 @@ namespace Inflow.Mobile
         {
             InitializeComponent();
 
-            MainPage = new AppShell();
+            MainPage = new LoginPage();
         }
 
         protected override void OnStart()

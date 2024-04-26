@@ -1,5 +1,4 @@
 ﻿using Inflow.Mobile.ViewModels;
-using Inflow.Mobile.ViewModels.Inflow.Mobile.ViewModels;
 using Rg.Plugins.Popup.Pages;
 using System;
 using Xamarin.Forms;

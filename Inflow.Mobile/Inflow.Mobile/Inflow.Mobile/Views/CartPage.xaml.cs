@@ -1,5 +1,5 @@
 ﻿using Inflow.Mobile.Models;
-using Inflow.Mobile.ViewModels.Inflow.Mobile.ViewModels;
+using Inflow.Mobile.ViewModels;
 using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
