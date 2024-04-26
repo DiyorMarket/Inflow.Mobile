@@ -31,9 +31,13 @@
 
         <Button
             Margin="0,0,20,0"
-            BackgroundColor="#9e9e9e"
+            BackgroundColor="#2A7BEF"
             Command="{Binding OKCommand}"
+            CornerRadius="100"
+            FontSize="18"
             HorizontalOptions="EndAndExpand"
-            Text="Ok" />
+            Text="Ok"
+            TextColor="WhiteSmoke"
+            WidthRequest="135" />
     </StackLayout>
 </pages:PopupPage>

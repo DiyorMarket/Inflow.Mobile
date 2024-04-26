@@ -14,25 +14,36 @@
         VerticalOptions="Center"
         WidthRequest="300">
         <Label
+            Margin="0,10,0,0"
             FontSize="22"
             HorizontalOptions="Center"
             HorizontalTextAlignment="Center"
             Text="Do you want to clean cart?"
             TextColor="Black" />
         <StackLayout
-            Margin="0,40,0,0"
+            Margin="0,50,0,0"
             HorizontalOptions="Center"
             Orientation="Horizontal">
             <Button
                 Margin="0,0,20,0"
-                BackgroundColor="PaleVioletRed"
+                BackgroundColor="#2A7BEF"
                 Command="{Binding ClearAllCartProductsCommand}"
-                Text="Yes" />
+                CornerRadius="100"
+                FontSize="18"
+                Text="Ok"
+                TextColor="WhiteSmoke"
+                WidthRequest="135" />
             <Button
-                Margin="20,0,0,0"
-                BackgroundColor="#9e9e9e"
+                Margin="10,0,0,0"
+                BackgroundColor="Transparent"
+                BorderColor="#2A7BEF"
+                BorderWidth="1"
                 Command="{Binding CancelCommand}"
-                Text="No" />
+                CornerRadius="100"
+                FontSize="18"
+                Text="Cancel"
+                TextColor="#2A7BEF"
+                WidthRequest="135" />
         </StackLayout>
     </StackLayout>
 </pages:PopupPage>

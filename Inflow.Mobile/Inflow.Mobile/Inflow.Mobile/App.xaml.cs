@@ -10,7 +10,7 @@ namespace Inflow.Mobile
         public App()
         {
             InitializeComponent();
-            MainPage = new LoginPage();
+            MainPage = new AppShell();
         }
 
         protected override void OnStart()
