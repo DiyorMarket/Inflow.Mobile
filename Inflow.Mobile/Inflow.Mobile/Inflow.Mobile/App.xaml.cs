@@ -10,7 +10,6 @@ namespace Inflow.Mobile
         public App()
         {
             InitializeComponent();
-
             MainPage = new LoginPage();
         }
 
