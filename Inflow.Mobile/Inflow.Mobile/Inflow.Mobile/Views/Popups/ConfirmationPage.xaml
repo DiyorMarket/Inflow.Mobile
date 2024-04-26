@@ -4,7 +4,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
-    BackgroundColor="Transparent"
+    BackgroundColor="#80000000"
     CloseWhenBackgroundIsClicked="False">
     <StackLayout
         Padding="20,20,20,20"
@@ -30,7 +30,7 @@
                 Text="Yes" />
             <Button
                 Margin="20,0,0,0"
-                BackgroundColor="DeepSkyBlue"
+                BackgroundColor="#9e9e9e"
                 Command="{Binding CancelCommand}"
                 Text="No" />
         </StackLayout>

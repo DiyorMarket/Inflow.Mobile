@@ -50,7 +50,7 @@ namespace Inflow.Mobile.ViewModels
         }
 
         public async void CreateSale()
-        s{
+        {
             var saleItems = new List<SaleItem>();
 
             var userId = _loginService.GetUserData().Result.UserId;
